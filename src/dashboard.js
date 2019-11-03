@@ -18,7 +18,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { mainListItems, secondaryListItems } from './listItems';
-
+import Chart from './Chart';
+// import Deposits from './Deposits';
+import Orders from './Orders';
 
 function Copyright() {
   return (
@@ -170,10 +172,10 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-
+            Chart
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
-
+                <Chart />
               </Paper>
             </Grid>
             {/* Recent Deposits */}
@@ -182,10 +184,10 @@ export default function Dashboard() {
                 {/* <Deposits /> */}
               </Paper>
             </Grid>
-
+            Recent Orders
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-
+                <Orders />
               </Paper>
             </Grid>
           </Grid>
