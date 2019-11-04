@@ -18,6 +18,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { mainListItems, secondaryListItems } from "../ListItems/listItems";
+import Map from '../Map/Map'
 
 function Copyright() {
     return (
@@ -185,12 +186,15 @@ export default function Dashboard() {
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={8} lg={9}>
-                            <Paper className={fixedHeightPaper}></Paper>
+                            <Paper className={fixedHeightPaper}>
+                            <Map width={400} height={400}/>
+                            </Paper>
                         </Grid>
                         {/* Recent Deposits */}
                         <Grid item xs={12} md={4} lg={3}>
                             <Paper className={fixedHeightPaper}>
                                 {/* <Deposits /> */}
+                               
                             </Paper>
                         </Grid>
 
@@ -198,6 +202,7 @@ export default function Dashboard() {
                             <Paper className={classes.paper}></Paper>
                         </Grid>
                     </Grid>
+                    
                 </Container>
                 <Copyright />
             </main>
