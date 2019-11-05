@@ -19,6 +19,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { mainListItems, secondaryListItems } from "../ListItems/listItems";
 import Map from '../Map/Map'
+import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
 
 function Copyright() {
     return (
@@ -194,6 +195,8 @@ export default function Dashboard() {
                         <Grid item xs={12} md={4} lg={3}>
                             <Paper className={fixedHeightPaper}>
                                 {/* <Deposits /> */}
+                                <VirtualizedList>
+                                </VirtualizedList>
                                
                             </Paper>
                         </Grid>
