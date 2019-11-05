@@ -13,12 +13,13 @@ import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Link from "@material-ui/core/Link";
+// import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { mainListItems, secondaryListItems } from "../ListItems/listItems";
-import Map from '../Map/Map'
+import Map from '../Map/Map';
+import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
 
 function Copyright() {
     return (
@@ -34,6 +35,14 @@ function Copyright() {
 }
 
 const drawerWidth = 240;
+
+const routes = [
+    {
+        path: '/map',
+        exact: true,
+        main: () => <Map width={400} height={400}/>
+    }
+]
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -126,6 +135,7 @@ export default function Dashboard() {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     return (
+        <Router>
         <div className={classes.root}>
             <CssBaseline />
             <AppBar
@@ -187,7 +197,7 @@ export default function Dashboard() {
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={8} lg={9}>
                             <Paper className={fixedHeightPaper}>
-                            <Map width={400} height={400}/>
+                            <Route path="/map" component={routes[0].main}></Route>
                             </Paper>
                         </Grid>
                         {/* Recent Deposits */}
@@ -207,5 +217,6 @@ export default function Dashboard() {
                 <Copyright />
             </main>
         </div>
+        </Router>
     );
 }
