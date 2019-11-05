@@ -6,10 +6,11 @@ import HomeIcon from "@material-ui/icons/Home";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import SettingsIcon from "@material-ui/icons/Settings";
+import { Link } from "react-router-dom";
 
 export const mainListItems = (
     <div>
-        <ListItem button>
+        <ListItem button component={Link} to="/map">
             <ListItemIcon>
                 <HomeIcon />
             </ListItemIcon>
