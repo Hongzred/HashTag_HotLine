@@ -18,7 +18,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { mainListItems, secondaryListItems } from "../ListItems/listItems";
-import Map from '../Map/Map';
+import Map from '../Map/Map'
+import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
 import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
 
 function Copyright() {
@@ -204,6 +205,8 @@ export default function Dashboard() {
                         <Grid item xs={12} md={4} lg={3}>
                             <Paper className={fixedHeightPaper}>
                                 {/* <Deposits /> */}
+                                <VirtualizedList>
+                                </VirtualizedList>
                                
                             </Paper>
                         </Grid>
