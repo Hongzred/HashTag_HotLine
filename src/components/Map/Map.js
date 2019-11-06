@@ -1,10 +1,7 @@
 import React from "react";
-import ReactMapGL from "react-map-gl";
+import ReactMapGL, { Marker } from "react-map-gl";
 
 class Map extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     state = {
         viewport: {
             width: this.props.width,
@@ -14,6 +11,19 @@ class Map extends React.Component {
             zoom: this.props.zoom
         }
     };
+
+    createMarkers(issues) {
+        if (issues) {
+            const markers = issues.map(
+                ({ latitude, longitude, description, id }) => (
+                    <Marker key={id} latitude={latitude} longitude={longitude}>
+                        {description}
+                    </Marker>
+                )
+            );
+            return markers;
+        }
+    }
 
     render() {
         return (
@@ -25,7 +35,9 @@ class Map extends React.Component {
                 }
                 {...this.state.viewport}
                 onViewportChange={viewport => this.setState({ viewport })}
-            />
+            >
+                {this.createMarkers(this.props.issues)}
+            </ReactMapGL>
         );
     }
 }
