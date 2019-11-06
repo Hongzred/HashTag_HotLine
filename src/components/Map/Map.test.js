@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Map from "./Map";
 
@@ -49,8 +49,19 @@ describe("Map Component", () => {
         const markers = getAllByTestId(`marker`);
         getByText(`${issue1.latitude}:${issue1.longitude}`)
         getByText(`${issue2.latitude}:${issue2.longitude}`)
-        getByText(`description1`)
-        getByText(`description2`)
         expect(markers.length).toBe(2)
+    });
+
+    it("renders the info when  marker is clicked", () => {
+        const issue = issues[0];
+        const { getByTestId } = render(
+            <Map {...props} issues={[issue]} />
+        );
+        const marker = getByTestId('pin');
+        fireEvent.click(marker)
+        const info = getByTestId("popup")
+        expect(info).toHaveTextContent(`${issue.latitude}-${issue.longitude}`)
+        expect(info).toHaveTextContent(`${issue.description}`)
+
     });
 });
