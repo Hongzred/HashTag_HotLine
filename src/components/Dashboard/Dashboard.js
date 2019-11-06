@@ -21,6 +21,9 @@ import { mainListItems, secondaryListItems } from "../ListItems/listItems";
 import Map from '../Map/Map'
 import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
 import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
+import fakeReports from "../../utils/fakeReports"
+
+
 
 function Copyright() {
     return (
@@ -41,7 +44,10 @@ const routes = [
     {
         path: '/map',
         exact: true,
-        main: () => <Map width={400} height={400}/>
+        main: () => <Map width={"100%"} height={"100%"} zoom={10}
+            latitude= {40.73061}
+            longitude={-73.93524} issues={fakeReports()}
+        />
     }
 ]
 

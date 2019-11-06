@@ -14,6 +14,7 @@ class Map extends React.Component {
         popupInfo: null
     };
 
+ 
     pinClickHandler(data) {
         const popupInfo = this.state.popupInfo ? null : data;
         this.setState({ popupInfo });
