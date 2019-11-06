@@ -1,23 +1,27 @@
-import React from 'react'
+import React from "react";
 
-const ReactMapGL = ({height, width, children}) => {
-
+const ReactMapGL = ({ height, width, children }) => {
     return (
-        <div data-testid="mapbox" style={{width, height}} >
+        <div data-testid="mapbox" style={{ width, height }}>
             {children}
         </div>
-    )
-}
+    );
+};
 
-const Marker = ({latitude, longitude, children}) => {
+const Marker = ({ latitude, longitude, children }) => {
     return (
         <div data-testid="marker">
-            <div>{latitude}:{longitude}</div>
+            <div>
+                {latitude}:{longitude}
+            </div>
             <div>{children}</div>
         </div>
-    )
-}
+    );
+};
 
-export default  ReactMapGL
-export {Marker}
+const Popup = ({ children }) => {
+    return <div data-testid="popup">{children}</div>;
+};
 
+export default ReactMapGL;
+export { Marker, Popup };
