@@ -54,12 +54,15 @@ describe("Map Component", () => {
 
     it("renders the info when  marker is clicked", () => {
         const issue = issues[0];
-        const { getByTestId } = render(
+        const { getByTestId, queryByTestId } = render(
             <Map {...props} issues={[issue]} />
         );
         const marker = getByTestId('pin');
+        
+        let info = queryByTestId("popup")
+        expect(info).not.toBeInTheDocument()
         fireEvent.click(marker)
-        const info = getByTestId("popup")
+        info = getByTestId("popup")
         expect(info).toHaveTextContent(`${issue.latitude}-${issue.longitude}`)
         expect(info).toHaveTextContent(`${issue.description}`)
 
