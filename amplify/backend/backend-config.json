@@ -5,5 +5,23 @@
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []
 		}
+	},
+	"api": {
+		"hashtagHotline": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "API_KEY",
+						"apiKeyConfig": {
+							"description": "fetch tweets",
+							"apiKeyExpirationDays": "100"
+						}
+					}
+				}
+			}
+		}
 	}
 }
