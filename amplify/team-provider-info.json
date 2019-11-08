@@ -1,0 +1,14 @@
+{
+    "develop": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-hashtag-hotline-develop-224135-authRole",
+            "UnauthRoleArn": "arn:aws:iam::608201085107:role/amplify-hashtag-hotline-develop-224135-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::608201085107:role/amplify-hashtag-hotline-develop-224135-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-hashtag-hotline-develop-224135-deployment",
+            "UnauthRoleName": "amplify-hashtag-hotline-develop-224135-unauthRole",
+            "StackName": "amplify-hashtag-hotline-develop-224135",
+            "StackId": "arn:aws:cloudformation:us-east-1:608201085107:stack/amplify-hashtag-hotline-develop-224135/aa3459b0-01d9-11ea-98b1-0a33c80c982c"
+        }
+    }
+}
