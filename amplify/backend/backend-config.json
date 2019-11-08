@@ -1,1 +1,9 @@
-{}
+{
+	"auth": {
+		"hashtaghotline55868a8a": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
+}
