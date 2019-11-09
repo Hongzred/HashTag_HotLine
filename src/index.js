@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
+require('dotenv').config() // Need DotEnv for the API Tokens. If you need the .env file, it should be pinned on slack. 
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
