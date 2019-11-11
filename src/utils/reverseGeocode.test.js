@@ -1,10 +1,9 @@
 import axios from "axios";
 import reverseGeocode from "./reverseGeocode";
 
-jest.mock("../__mocks__/axios");
 
 it("fetches address from mapbox places", async () => {
-    // setup
+
     axios.get.mockImplementationOnce(() =>
       Promise.resolve({
         data: { features: [{
