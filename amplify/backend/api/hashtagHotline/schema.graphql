@@ -1,0 +1,7 @@
+type tweet @model {
+  id: ID!
+  name: String!
+  description: String
+  latitude: String
+  lontitude: String
+}
