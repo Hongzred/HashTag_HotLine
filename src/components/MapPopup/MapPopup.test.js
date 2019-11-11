@@ -35,5 +35,38 @@ describe("MapPopup Component", () => {
         expect(props.popupCloseHandler).toHaveBeenCalledTimes(0);
     });
 
-    
+    it("closes popup on user close event.", () => {
+        const { getByTestId } = render(<MapPopup {...props} />);
+        const popup = getByTestId("popup");
+        const closeButton = getByTestId("close_map_popup");
+        expect(popup).toBeInTheDocument();
+        fireEvent.click(closeButton);
+        expect(popup).not.toBeInTheDocument();
+        expect(props.popupCloseHandler).toHaveBeenCalledTimes(1);
+    });
+
+    it("renders a finished loaded popup w/ address.", async () => {
+        axios.get.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: {
+                    features: [
+                        {
+                            place_name: "New York City"
+                        }
+                    ]
+                }
+            })
+        );
+
+        const { getByTestId } = render(<MapPopup {...props} />);
+
+        const domChanges = await waitForDomChange(() => {
+            getByTestId("location_popup");
+        });
+        const report = getByTestId("report_popup");
+        expect(report).toHaveTextContent(props.description);
+        expect(domChanges.length).toBe(1);
+        expect(domChanges[0].oldValue).toEqual("Loading...");
+        expect(getByTestId("location_popup")).toHaveTextContent("New York City");
+    });
 });
