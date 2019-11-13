@@ -1,6 +1,7 @@
 import React from "react";
-import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import ReactMapGL, { Marker } from "react-map-gl";
 import Pin from "../Pin/Pin";
+import MapPopup from "../MapPopup/MapPopup";
 
 class Map extends React.Component {
     state = {
@@ -14,7 +15,10 @@ class Map extends React.Component {
         popupInfo: null
     };
 
- 
+    popupCloseHandler = () => {
+        this.setState({ popupInfo: null });
+    }
+    
     pinClickHandler(data) {
         const popupInfo = this.state.popupInfo ? null : data;
         this.setState({ popupInfo });
@@ -49,19 +53,12 @@ class Map extends React.Component {
         const { popupInfo } = this.state;
         return (
             popupInfo && (
-                <Popup
-                    tipSize={5}
-                    anchor="top-right"
+                <MapPopup
                     longitude={popupInfo.longitude}
                     latitude={popupInfo.latitude}
-                    closeOnClick={true}
-                    onClose={() => this.setState({ popupInfo: null })}
-                >
-                    <div>
-                        <h6>Location:{popupInfo.latitude}-{popupInfo.longitude}</h6>
-                        <h6>Report:{popupInfo.description}</h6>
-                    </div>
-                </Popup>
+                    description={popupInfo.description}
+                    popupCloseHandler={this.popupCloseHandler}
+                />
             )
         );
     }
