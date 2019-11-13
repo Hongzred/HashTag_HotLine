@@ -20,7 +20,8 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { mainListItems, secondaryListItems } from "../ListItems/listItems";
 import Map from '../Map/Map'
 import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
-import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { Link } from '@material-ui/core';
 import fakeReports from "../../utils/fakeReports"
 
 
