@@ -1,4 +1,4 @@
-const jsonData={
+const fakeTweets={
   "statuses": [
     {
       "created_at": "Fri Nov 15 23:41:42 +0000 2019",
@@ -256,4 +256,4 @@ const jsonData={
   }
 }
 
-export default jsonData
+export default fakeTweets

@@ -1,6 +1,6 @@
 const Twit = require("twit");
-import fetchTwitter from "./fetchTweets";
-import fakeTwitter from "./fetchTweets";
+import fetchTweets from "./fetchTweets";
+import fakeTweets from "./fakeTweets";
 
 const expectedData = [
     {
@@ -30,7 +30,7 @@ const expectedData = [
 ];
 
 it("fetches nothing from twitter when receiving no hashtag", async () => {
-    let jsonData = await fetchTwitter();
+    let jsonData = await fetchTweets();
     expect(jsonData.length).toBe(0);
     expect(Twit.prototype.get).toHaveBeenCalledTimes(0);
 });
@@ -38,26 +38,26 @@ it("fetches nothing from twitter when receiving no hashtag", async () => {
 it("fetches reports from twitter by hashtag", async () => {
     Twit.prototype.get.mockImplementationOnce(() =>
         Promise.resolve({
-            data: { statuses: [fakeTwitter.statuses[0]] }
+            data: { statuses: [fakeTweets.statuses[0]] }
         })
     );
 
-    let jsonData = await fetchTwitter("testing_hth");
+    let jsonData = await fetchTweets("testing_hth");
     expect(jsonData.length).toBe(1);
     expect(Object.keys(jsonData[0]).length).toBe(7);
     expect(jsonData[0]).toMatchObject(expectedData[0]);
 
     Twit.prototype.get.mockImplementationOnce(() =>
         Promise.resolve({
-            data: { ...fakeTwitter }
+            data: { ...fakeTweets }
         })
     );
-    jsonData = await fetchTwitter("testing_hth");
+    jsonData = await fetchTweets("testing_hth");
     expect(jsonData.length).toBe(2);
     expect(jsonData).toMatchObject(expectedData);
     expect(Twit.prototype.get).toHaveBeenCalledTimes(2);
     expect(Twit.prototype.get).toHaveBeenCalledWith("search/tweets", {
-        q: "testing_hth",
+        q: "#testing_hth",
         result_type: "recent"
     });
 });
