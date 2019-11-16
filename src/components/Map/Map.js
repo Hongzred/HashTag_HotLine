@@ -66,7 +66,7 @@ class Map extends React.Component {
     render() {
         return (
             <ReactMapGL
-                mapboxApiAccessToken="pk.eyJ1IjoiaGFzaHRhZ2hvdGxpbmUiLCJhIjoiY2syNWZtb2dyMGY5ejNobnJ6Mzh6ZWd1NyJ9.Nba6zcSBIodM09hWORbhHA"
+                mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
                 mapStyle={
                     "mapbox://styles/hashtaghotline/ck267dj38ia161cowt67mt6lb" ||
                     "mapbox://styles/hashtaghotline/ck2672kf95t691cpknmnqqn2h"

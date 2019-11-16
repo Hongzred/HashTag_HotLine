@@ -22,7 +22,7 @@ import Map from '../Map/Map'
 import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { Link } from '@material-ui/core';
-import fakeReports from "../../utils/fakeReports"
+import fakeReports from "../../utils/fakeMapReports"
 
 
 

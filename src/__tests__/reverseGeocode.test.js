@@ -1,5 +1,5 @@
 import axios from "axios";
-import reverseGeocode from "./reverseGeocode";
+import reverseGeocode from "../utils/reverseGeocode";
 
 
 it("fetches address from mapbox places", async () => {
