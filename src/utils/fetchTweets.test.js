@@ -35,3 +35,29 @@ it("fetches nothing from twitter when receiving no hashtag", async () => {
     expect(Twit.prototype.get).toHaveBeenCalledTimes(0);
 });
 
+it("fetches reports from twitter by hashtag", async () => {
+    Twit.prototype.get.mockImplementationOnce(() =>
+        Promise.resolve({
+            data: { statuses: [fakeTwitter.statuses[0]] }
+        })
+    );
+
+    let jsonData = await fetchTwitter("testing_hth");
+    expect(jsonData.length).toBe(1);
+    expect(Object.keys(jsonData[0]).length).toBe(7);
+    expect(jsonData[0]).toMatchObject(expectedData[0]);
+
+    Twit.prototype.get.mockImplementationOnce(() =>
+        Promise.resolve({
+            data: { ...fakeTwitter }
+        })
+    );
+    jsonData = await fetchTwitter("testing_hth");
+    expect(jsonData.length).toBe(2);
+    expect(jsonData).toMatchObject(expectedData);
+    expect(Twit.prototype.get).toHaveBeenCalledTimes(2);
+    expect(Twit.prototype.get).toHaveBeenCalledWith("search/tweets", {
+        q: "testing_hth",
+        result_type: "recent"
+    });
+});
