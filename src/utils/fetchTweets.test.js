@@ -29,35 +29,38 @@ const expectedData = [
     }
 ];
 
-it("fetches nothing from twitter when receiving no hashtag", async () => {
-    let jsonData = await fetchTweets();
-    expect(jsonData.length).toBe(0);
-    expect(Twit.prototype.get).toHaveBeenCalledTimes(0);
-});
-
-it("fetches reports from twitter by hashtag", async () => {
-    Twit.prototype.get.mockImplementationOnce(() =>
-        Promise.resolve({
-            data: { statuses: [fakeTweets.statuses[0]] }
-        })
-    );
-
-    let jsonData = await fetchTweets("testing_hth");
-    expect(jsonData.length).toBe(1);
-    expect(Object.keys(jsonData[0]).length).toBe(7);
-    expect(jsonData[0]).toMatchObject(expectedData[0]);
-
-    Twit.prototype.get.mockImplementationOnce(() =>
-        Promise.resolve({
-            data: { ...fakeTweets }
-        })
-    );
-    jsonData = await fetchTweets("testing_hth");
-    expect(jsonData.length).toBe(2);
-    expect(jsonData).toMatchObject(expectedData);
-    expect(Twit.prototype.get).toHaveBeenCalledTimes(2);
-    expect(Twit.prototype.get).toHaveBeenCalledWith("search/tweets", {
-        q: "#testing_hth",
-        result_type: "recent"
+describe("Fetch twitters by hashtag", () => {
+    it("fetches nothing from twitter when receiving no hashtag", async () => {
+        let jsonData = await fetchTweets();
+        expect(jsonData.length).toBe(0);
+        expect(Twit.prototype.get).toHaveBeenCalledTimes(0);
     });
-});
+    
+    it("fetches reports from twitter by hashtag", async () => {
+        Twit.prototype.get.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: { statuses: [fakeTweets.statuses[0]] }
+            })
+        );
+    
+        let jsonData = await fetchTweets("testing_hth");
+        expect(jsonData.length).toBe(1);
+        expect(Object.keys(jsonData[0]).length).toBe(7);
+        expect(jsonData[0]).toMatchObject(expectedData[0]);
+    
+        Twit.prototype.get.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: { ...fakeTweets }
+            })
+        );
+        jsonData = await fetchTweets("testing_hth");
+        expect(jsonData.length).toBe(2);
+        expect(jsonData).toMatchObject(expectedData);
+        expect(Twit.prototype.get).toHaveBeenCalledTimes(2);
+        expect(Twit.prototype.get).toHaveBeenCalledWith("search/tweets", {
+            q: "#testing_hth",
+            result_type: "recent"
+        });
+    });
+})
+
