@@ -1,6 +1,6 @@
 const Twit = require("twit");
-import fetchTweets from "./fetchTweets";
-import fakeTweets from "./fakeTweets";
+import fetchTweets from "../utils/fetchTweets";
+import fakeTweets from "../utils/fakeTweets";
 
 const expectedData = [
     {

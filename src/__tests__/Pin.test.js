@@ -1,12 +1,12 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import Pin from "./Pin";
+import Pin from "../components/Pin/Pin";
 
 
 const props = { pinClickHandler:jest.fn() };
 
-jest.mock("../../__mocks__/@material-ui/icons");
+jest.mock("../__mocks__/@material-ui/icons");
 afterEach(cleanup);
 
 describe("Pin Component", () => {

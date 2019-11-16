@@ -8,9 +8,9 @@ import {
 } from "@testing-library/react";
 import axios from "axios";
 //import reverseGeocode from "./reverseGeocode";
-import MapPopup from "./MapPopup";
+import MapPopup from "../components/MapPopup/MapPopup";
 
-jest.mock("../../__mocks__/react-map-gl");
+jest.mock("../__mocks__/react-map-gl");
 
 const props = {
     latitude: 40.73061,

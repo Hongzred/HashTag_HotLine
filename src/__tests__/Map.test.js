@@ -1,7 +1,7 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import Map from "./Map";
+import Map from "../components/Map/Map";
 
 const props = {
     width: 400,
@@ -16,7 +16,7 @@ const issues = [
     { latitude: 40.74161, longitude: -73.946242, description: "description2", id:"321" }
 ];
 
-jest.mock("../../__mocks__/react-map-gl");
+jest.mock("../__mocks__/react-map-gl");
 afterEach(cleanup);
 
 describe("Map Component", () => {

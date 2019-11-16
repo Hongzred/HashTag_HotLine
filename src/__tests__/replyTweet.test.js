@@ -1,5 +1,5 @@
 const Twit = require("twit");
-import replyTweet from "./replyTweet";
+import replyTweet from "../utils/replyTweet";
 
 describe("Reply to tweet", () => {
     it("doesnt reply to tweet when receiving no screen name", async () => {
