@@ -5,8 +5,13 @@ import Typography from '@material-ui/core/Typography';
 
 function Title(props) {
   return (
-    <Typography>
-      {props.children}
+    <Typography
+    	component="h2" 
+    	variant="h6" 
+    	color="primary" 
+    	gutterBottom>
+    	
+      	{props.children}
     </Typography>
   );
 }
