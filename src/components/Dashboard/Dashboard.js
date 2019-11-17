@@ -19,6 +19,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { mainListItems, secondaryListItems } from "../ListItems/listItems";
 import Map from '../Map/Map'
+import TweetChart from '../TweetChart/TweetChart'
 import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { Link } from '@material-ui/core';
@@ -49,6 +50,11 @@ const routes = [
             latitude= {40.73061}
             longitude={-73.93524} issues={fakeReports()}
         />
+    },
+    {
+        path: '/chart',
+        exact: true,
+        main: () => <TweetChart />    
     }
 ]
 
@@ -206,6 +212,7 @@ export default function Dashboard() {
                         <Grid item xs={12} md={8} lg={9}>
                             <Paper className={fixedHeightPaper}>
                             <Route path="/map" component={routes[0].main}></Route>
+			<Route path="/chart" component={routes[1].main}></Route>
                             </Paper>
                         </Grid>
                         {/* Recent Deposits */}
