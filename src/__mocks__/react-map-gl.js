@@ -22,7 +22,7 @@ const Marker = ({ latitude, longitude, children }) => {
 
 class Popup extends Component {
     state = {
-        popup: false
+        hidden: false
     };
     render() {
         const popup = this.state.hidden || (
