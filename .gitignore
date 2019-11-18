@@ -4,7 +4,6 @@
 /node_modules
 /.pnp
 .pnp.js
-aws-exports.js
 # testing
 /coverage
 
