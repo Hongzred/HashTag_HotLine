@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer, CartesianGrid, Tooltip } from 'recharts';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
@@ -59,13 +59,15 @@ export default function TweetChart() {
 			  left: 24,
 			}}
 		  >
+		    <CartesianGrid strokeDasharray="3 3" />
 			<XAxis dataKey="time" />
 			<YAxis>
 			  <Label angle={270} position="left" style={{ textAnchor: 'middle' }}>
 				Tweets
 			  </Label>
 			</YAxis>
-			<Line type="monotone" dataKey="tweets" stroke="#556CD6" dot={false} />
+			<Tooltip />
+			<Line type="monotone" dataKey="tweets" stroke="#556CD6"  />
 		  </LineChart>
 		</ResponsiveContainer>
 	  </React.Fragment>
