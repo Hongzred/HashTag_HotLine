@@ -13,6 +13,7 @@ import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import Slider from '@material-ui/core/Slider';
 // import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -57,6 +58,52 @@ const routes = [
         main: () => <TweetChart />    
     }
 ]
+
+const distance_marks = [
+    {
+        value: 5,
+        label: '5mi'
+    },
+    {
+        value: 25,
+        label: '20mi'
+    },
+    {
+        value: 50,
+        label: '50mi'
+    },
+    {
+        value: 100,
+        label: '100mi'
+    }
+]
+
+const time_marks = [
+    {
+        value: 7,
+        label: '1 week'
+    },
+    {
+        value: 182,
+        label: '6 months'
+    },
+    {
+        value: 365,
+        label: '1 year'
+    },
+]
+
+function distanceValueLabelFormat(value) {
+    return distance_marks.findIndex(mark => mark.value === value) + 1;
+}
+
+function timeValueLabelFormat(value) {
+    return time_marks.findIndex(mark => mark.value === value) + 1;
+}
+
+function valuetext(value) {
+    return `${value}`;
+}
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -127,13 +174,13 @@ const useStyles = makeStyles(theme => ({
         paddingBottom: theme.spacing(4)
     },
     paper: {
-        padding: theme.spacing(2),
+        padding: theme.spacing(4),
         display: "flex",
-        overflow: "auto",
+        overflow: "hidden",
         flexDirection: "column"
     },
     fixedHeight: {
-        height: 240
+        height: 540
     }
 }));
 
@@ -219,9 +266,36 @@ export default function Dashboard() {
                         <Grid item xs={12} md={4} lg={3}>
                             <Paper className={fixedHeightPaper}>
                                 {/* <Deposits /> */}
+                                <Typography id="distance-slider" gutterBottom>
+                                    Distance
+                                </Typography>
+                                <Slider 
+                                    defaultValue={5}
+                                    valueLabelFormat={distanceValueLabelFormat}
+                                    getAriaValueText={valuetext}
+                                    aria-labelledby="distance-slider"
+                                    step={null}
+                                    valueLabelDisplay="auto"
+                                    marks={distance_marks}
+                                    min={5}
+                                    valueLabelDisplay="off"
+                                />
+                                <Typography id="time-slider" gutterBottom>
+                                    Time
+                                </Typography>
+                                <Slider 
+                                    defaultValue={7}
+                                    valueLabelFormat={timeValueLabelFormat}
+                                    getAriaValueText={valuetext}
+                                    aria-labelledby="time-slider"
+                                    step={null}
+                                    valueLabelDisplay="auto"
+                                    marks={time_marks}
+                                    max={365}
+                                    valueLabelDisplay="off"
+                                />
                                 <VirtualizedList>
                                 </VirtualizedList>
-                               
                             </Paper>
                         </Grid>
 
