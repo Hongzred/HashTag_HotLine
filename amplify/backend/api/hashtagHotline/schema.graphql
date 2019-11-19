@@ -5,3 +5,27 @@ type tweet @model {
   latitude: String
   lontitude: String
 }
+
+type report @model {
+  postId: ID!
+  userId: String
+  Date: String
+  longtitude: String
+  latitude: String
+  hashtag: [String]
+  status: String
+  content: String
+}
+
+type user @model {
+  userId: ID!
+  username: String
+  email: String
+  preferedHashtag: [String]
+}
+
+type message @model {
+  messageId: ID!
+  msgContent: [String]
+  userId: String
+}
