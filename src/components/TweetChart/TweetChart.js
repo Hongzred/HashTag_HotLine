@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer, CartesianGrid, Tooltip } from 'recharts';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
@@ -21,6 +21,13 @@ Title.propTypes = {
   children: PropTypes.node,
 };
 
+// Custom Label that appears on points
+class PointLabel extends PureComponent {
+	render(){
+		const {x,y,stroke,value} = this.props;
+		return <text x={x} y={y} dy={-4} fill={stroke} fontsize={12} textAnchor="middle">{value}</text>;
+	}
+}
 // TweetChart component
 export default function TweetChart() {
 
@@ -59,7 +66,7 @@ export default function TweetChart() {
 			  left: 24,
 			}}
 		  >
-		    <CartesianGrid strokeDasharray="3 3" />
+		    <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
 			<XAxis dataKey="time" />
 			<YAxis>
 			  <Label angle={270} position="left" style={{ textAnchor: 'middle' }}>
@@ -67,7 +74,7 @@ export default function TweetChart() {
 			  </Label>
 			</YAxis>
 			<Tooltip />
-			<Line type="monotone" dataKey="tweets" stroke="#556CD6"  />
+			<Line type="monotone" dataKey="tweets" stroke="#556CD6" label={<PointLabel  />} />
 		  </LineChart>
 		</ResponsiveContainer>
 	  </React.Fragment>
