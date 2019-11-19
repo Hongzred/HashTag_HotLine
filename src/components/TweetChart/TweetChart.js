@@ -68,13 +68,13 @@ export default function TweetChart() {
 		  >
 		    <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
 			<XAxis dataKey="time" />
-			<YAxis>
-			  <Label angle={270} position="left" style={{ textAnchor: 'middle' }}>
+			<YAxis allowDecimals={false}>
+			  <Label angle={270} position="left" style={{ textAnchor: 'top' }}>
 				Tweets
 			  </Label>
 			</YAxis>
 			<Tooltip />
-			<Line type="monotone" dataKey="tweets" stroke="#556CD6" label={<PointLabel  />} />
+			<Line type="monotone" dataKey="tweets" stroke="#556CD6" strokeWidth={3} label={<PointLabel  />} />
 		  </LineChart>
 		</ResponsiveContainer>
 	  </React.Fragment>
