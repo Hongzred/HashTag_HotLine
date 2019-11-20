@@ -20,7 +20,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { mainListItems, secondaryListItems } from "../ListItems/listItems";
 import Map from '../Map/Map'
-import TweetChart from '../TweetChart/TweetChart'
+import TweetChart from '../TweetCharts/TweetChart'
 import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { Link } from '@material-ui/core';
@@ -42,22 +42,6 @@ function Copyright() {
 }
 
 const drawerWidth = 240;
-
-const routes = [
-    {
-        path: '/map',
-        exact: true,
-        main: () => <Map width={"100%"} height={"100%"} zoom={10}
-            latitude= {40.73061}
-            longitude={-73.93524} issues={fakeReports()}
-        />
-    },
-    {
-        path: '/chart',
-        exact: true,
-        main: () => <TweetChart />    
-    }
-]
 
 const distance_marks = [
     {
@@ -185,8 +169,25 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Dashboard() {
+    const routes = [
+        {
+            path: '/map',
+            exact: true,
+            main: () => <Map width={"100%"} height={"100%"} zoom={10}
+                latitude= {40.73061}
+                longitude={-73.93524} issues={fakeReports()}
+            />
+        },
+        {
+            path: '/chart',
+            exact: true,
+            main: () => <TweetChart chartType={chartType}/>    
+        }
+    ]
+
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
+    const [chartType, setChartType] = React.useState("Day")
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -194,6 +195,7 @@ export default function Dashboard() {
         setOpen(false);
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
 
     return (
         <Router>
@@ -258,8 +260,8 @@ export default function Dashboard() {
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={8} lg={9}>
                             <Paper className={fixedHeightPaper}>
-                            <Route path="/map" component={routes[0].main}></Route>
-			<Route path="/chart" component={routes[1].main}></Route>
+                                <Route path="/map" component={routes[0].main}></Route>
+                                <Route path="/chart" component={routes[1].main}></Route>
                             </Paper>
                         </Grid>
                         {/* Recent Deposits */}
