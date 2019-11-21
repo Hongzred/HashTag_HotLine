@@ -79,7 +79,7 @@ export default function Dashboard() {
             exact: true,
             main: () => <MainConsole classes={classes}>
                             <TweetChart chartType={chartType}/>
-                            <TweetChartsControls classes={classes}/>
+                            <TweetChartsControls click={setChartType} classes={classes}/>
                         </MainConsole>    
         }
     ]
