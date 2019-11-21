@@ -32,8 +32,8 @@ export default function MainConsole(props) {
                 {/* Primary Information Paper (Maps, Graphs, etc.) */}
                 <Grid item xs={12} md={8} lg={9}>
                     <Paper className={fixedHeightPaper}>
-                        {/**/}
-                        <TweetChart chartType={props.chartType}/>
+                        {/*<TweetChart chartType={props.chartType}/>*/}
+                        {props.children[0]}
                         {/**/}
                     </Paper>
                 </Grid>
@@ -41,13 +41,15 @@ export default function MainConsole(props) {
                 {/* Secondary Information (Twitter Feed, Controls) */}
                 <Grid item xs={12} md={4} lg={3}>
                     <Paper className={fixedHeightPaper}>
-
+                        {props.children[1]}
                     </Paper>
                 </Grid>
 
                 {/*Footer Controls*/}
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}></Paper>
+                    <Paper className={classes.paper}>
+                        {props.children[2]}
+                    </Paper>
                 </Grid>
             </Grid>
         </Container>

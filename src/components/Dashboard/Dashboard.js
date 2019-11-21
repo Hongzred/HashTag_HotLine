@@ -1,5 +1,10 @@
 import React from "react";
+
 import clsx from "clsx";
+
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+
+// Material UI Imports
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
@@ -18,15 +23,16 @@ import Slider from '@material-ui/core/Slider';
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { mainListItems, secondaryListItems } from "../ListItems/listItems";
+import { Link } from '@material-ui/core';
+
+// HashtagHotline  Imports
+import MainConsole from "../MainConsole/MainConsole"
 import Map from '../Map/Map'
+import MapControls from '../MapControls/MapControls'
 import TweetChart from '../TweetCharts/TweetChart'
 import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
-import { Link } from '@material-ui/core';
 import fakeReports from "../../utils/fakeMapReports"
-
-import MainConsole from "../MainConsole/MainConsole"
+import { mainListItems, secondaryListItems } from "../ListItems/listItems";
 import {dashboardTheme} from './DashboardTheme'
 
 function Copyright() {
@@ -44,35 +50,47 @@ function Copyright() {
 
 export default function Dashboard() {
 
+    // Set the Theme
     const drawerWidth = 240;
     const useStyles = makeStyles(dashboardTheme);
     const classes = useStyles();
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-    const routes = [
-        {
-            path: '/map',
-            exact: true,
-            main: () => <Map width={"100%"} height={"100%"} zoom={10}
-                latitude= {40.73061}
-                longitude={-73.93524} issues={fakeReports()}
-            />
-        },
-        {
-            path: '/chart',
-            exact: true,
-            main: () => <MainConsole chartType={chartType} classes={classes}/>    
-        }
-    ]
 
+    // Initialize State
     const [open, setOpen] = React.useState(true);
     const [chartType, setChartType] = React.useState("Day")
+
+    // Handlers
     const handleDrawerOpen = () => {
         setOpen(true);
     };
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+    // Establish Routes
+    const routes = [
+        {
+            path: '/map',
+            exact: true,
+            main: () => <MainConsole classes={classes}>
+                            <Map width={"100%"} height={"100%"} zoom={10}
+                                latitude= {40.73061} longitude={-73.93524} 
+                                issues={fakeReports()}
+                            />
+                            <MapControls/>
+                        </MainConsole>
+        },
+        {
+            path: '/chart',
+            exact: true,
+            main: () => <MainConsole classes={classes}>
+                            <TweetChart chartType={chartType}/>
+                            <h1>test</h1>
+                        </MainConsole>    
+        }
+    ]
 
 
     return (
@@ -134,6 +152,8 @@ export default function Dashboard() {
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
+
+                    <Route path="/map" component={routes[0].main}></Route>
                     <Route path="/chart" component={routes[1].main}></Route>
 
                     <Copyright />
