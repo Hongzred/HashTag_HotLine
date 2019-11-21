@@ -27,6 +27,7 @@ import { Link } from '@material-ui/core';
 import fakeReports from "../../utils/fakeMapReports"
 
 import MainConsole from "../MainConsole/MainConsole"
+import {dashboardTheme} from './DashboardTheme'
 
 function Copyright() {
     return (
@@ -41,134 +42,12 @@ function Copyright() {
     );
 }
 
-const drawerWidth = 240;
-
-const distance_marks = [
-    {
-        value: 5,
-        label: '5mi'
-    },
-    {
-        value: 25,
-        label: '20mi'
-    },
-    {
-        value: 50,
-        label: '50mi'
-    },
-    {
-        value: 100,
-        label: '100mi'
-    }
-]
-
-const time_marks = [
-    {
-        value: 7,
-        label: '1 week'
-    },
-    {
-        value: 182,
-        label: '6 months'
-    },
-    {
-        value: 365,
-        label: '1 year'
-    },
-]
-
-function distanceValueLabelFormat(value) {
-    return distance_marks.findIndex(mark => mark.value === value) + 1;
-}
-
-function timeValueLabelFormat(value) {
-    return time_marks.findIndex(mark => mark.value === value) + 1;
-}
-
-function valuetext(value) {
-    return `${value}`;
-}
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        display: "flex"
-    },
-    toolbar: {
-        paddingRight: 24 // keep right padding when drawer closed
-    },
-    toolbarIcon: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-end",
-        padding: "0 8px",
-        ...theme.mixins.toolbar
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(["width", "margin"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
-        })
-    },
-    appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(["width", "margin"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen
-        })
-    },
-    menuButton: {
-        marginRight: 36
-    },
-    menuButtonHidden: {
-        display: "none"
-    },
-    title: {
-        flexGrow: 1
-    },
-    drawerPaper: {
-        position: "relative",
-        whiteSpace: "nowrap",
-        width: drawerWidth,
-        transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen
-        })
-    },
-    drawerPaperClose: {
-        overflowX: "hidden",
-        transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up("sm")]: {
-            width: theme.spacing(9)
-        }
-    },
-    appBarSpacer: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        height: "100vh",
-        overflow: "auto"
-    },
-    container: {
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4)
-    },
-    paper: {
-        padding: theme.spacing(4),
-        display: "flex",
-        overflow: "hidden",
-        flexDirection: "column"
-    },
-    fixedHeight: {
-        height: 540
-    }
-}));
-
 export default function Dashboard() {
+
+    const drawerWidth = 240;
+    const useStyles = makeStyles(dashboardTheme);
+    const classes = useStyles();
+
     const routes = [
         {
             path: '/map',
@@ -181,11 +60,10 @@ export default function Dashboard() {
         {
             path: '/chart',
             exact: true,
-            main: () => <MainConsole chartType={chartType}/>    
+            main: () => <MainConsole chartType={chartType} classes={classes}/>    
         }
     ]
 
-    const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const [chartType, setChartType] = React.useState("Day")
     const handleDrawerOpen = () => {

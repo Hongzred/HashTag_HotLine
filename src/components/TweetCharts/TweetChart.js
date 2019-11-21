@@ -9,16 +9,16 @@ import React from 'react';
 export default function TweetChart(props) {
 
 	const chartType = props.chartType;
-	if(chartType == 'Day'){
+	if(chartType === 'Day'){
 		return(<DayTweetChart/>);
 	}
-	else if(chartType == 'Week'){
+	else if(chartType === 'Week'){
 		return(<WeekTweetChart/>);
 	}
-	else if(chartType == 'Month'){
+	else if(chartType === 'Month'){
 		return(<MonthTweetChart/>);
 	}
-	else if(chartType == 'Year'){
+	else if(chartType === 'Year'){
 		return(<YearTweetChart/>);
 	}
   }
