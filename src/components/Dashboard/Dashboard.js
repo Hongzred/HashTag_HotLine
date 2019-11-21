@@ -25,7 +25,7 @@ import MainConsole from "../MainConsole/MainConsole"
 import Map from '../Map/Map'
 import MapControls from '../MapControls/MapControls'
 import TweetChart from '../TweetCharts/TweetChart'
-// import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
+import TweetChartsControls from '../TweetChartsControls/TweetChartsControls'
 import fakeReports from "../../utils/fakeMapReports"
 import { mainListItems, secondaryListItems } from "../ListItems/listItems";
 import {dashboardTheme} from './DashboardTheme'
@@ -79,7 +79,7 @@ export default function Dashboard() {
             exact: true,
             main: () => <MainConsole classes={classes}>
                             <TweetChart chartType={chartType}/>
-                            <h1>test</h1>
+                            <TweetChartsControls classes={classes}/>
                         </MainConsole>    
         }
     ]
