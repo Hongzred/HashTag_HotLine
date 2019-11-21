@@ -26,7 +26,7 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { Link } from '@material-ui/core';
 import fakeReports from "../../utils/fakeMapReports"
 
-
+import MainConsole from "../MainConsole/MainConsole"
 
 function Copyright() {
     return (
@@ -181,7 +181,7 @@ export default function Dashboard() {
         {
             path: '/chart',
             exact: true,
-            main: () => <TweetChart chartType={chartType}/>    
+            main: () => <MainConsole chartType={chartType}/>    
         }
     ]
 
@@ -199,117 +199,68 @@ export default function Dashboard() {
 
     return (
         <Router>
-        <div className={classes.root}>
-            <CssBaseline />
-            <AppBar
-                position="absolute"
-                className={clsx(classes.appBar, open && classes.appBarShift)}
-            >
-                <Toolbar className={classes.toolbar}>
-                    <IconButton
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        className={clsx(
-                            classes.menuButton,
-                            open && classes.menuButtonHidden
-                        )}
-                    >
+            <div className={classes.root}>
+                <CssBaseline />
+                <AppBar
+                    position="absolute"
+                    className={clsx(classes.appBar, open && classes.appBarShift)}
+                >
+                    <Toolbar className={classes.toolbar}>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            className={clsx(
+                                classes.menuButton,
+                                open && classes.menuButtonHidden
+                            )}
+                        >
                         <MenuIcon />
-                    </IconButton>
-                    <Typography
-                        component="h1"
-                        variant="h6"
-                        color="inherit"
-                        noWrap
-                        className={classes.title}
-                    >
-                        Dashboard
-                    </Typography>
-                    <IconButton color="inherit">
-                        <Badge badgeContent={0} color="secondary">
-                            <AccountCircleIcon />
-                        </Badge>
-                    </IconButton>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                variant="permanent"
-                classes={{
-                    paper: clsx(
-                        classes.drawerPaper,
-                        !open && classes.drawerPaperClose
-                    )
-                }}
-                open={open}
-            >
-                <div className={classes.toolbarIcon}>
-                    <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon />
-                    </IconButton>
-                </div>
-                <Divider />
-                <List>{mainListItems}</List>
-                <Divider />
-                <List>{secondaryListItems}</List>
-            </Drawer>
-            <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" className={classes.container}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} md={8} lg={9}>
-                            <Paper className={fixedHeightPaper}>
-                                <Route path="/map" component={routes[0].main}></Route>
-                                <Route path="/chart" component={routes[1].main}></Route>
-                            </Paper>
-                        </Grid>
-                        {/* Recent Deposits */}
-                        <Grid item xs={12} md={4} lg={3}>
-                            <Paper className={fixedHeightPaper}>
-                                {/* <Deposits /> */}
-                                <Typography id="distance-slider" gutterBottom>
-                                    Distance
-                                </Typography>
-                                <Slider 
-                                    defaultValue={5}
-                                    valueLabelFormat={distanceValueLabelFormat}
-                                    getAriaValueText={valuetext}
-                                    aria-labelledby="distance-slider"
-                                    step={null}
-                                    valueLabelDisplay="auto"
-                                    marks={distance_marks}
-                                    min={5}
-                                    valueLabelDisplay="off"
-                                />
-                                <Typography id="time-slider" gutterBottom>
-                                    Time
-                                </Typography>
-                                <Slider 
-                                    defaultValue={7}
-                                    valueLabelFormat={timeValueLabelFormat}
-                                    getAriaValueText={valuetext}
-                                    aria-labelledby="time-slider"
-                                    step={null}
-                                    valueLabelDisplay="auto"
-                                    marks={time_marks}
-                                    max={365}
-                                    valueLabelDisplay="off"
-                                />
-                                <VirtualizedList>
-                                </VirtualizedList>
-                            </Paper>
-                        </Grid>
+                        </IconButton>
+                        <Typography
+                            component="h1"
+                            variant="h6"
+                            color="inherit"
+                            noWrap
+                            className={classes.title}
+                        >
+                            Dashboard
+                        </Typography>
+                        <IconButton color="inherit">
+                            <Badge badgeContent={0} color="secondary">
+                                <AccountCircleIcon />
+                            </Badge>
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    classes={{
+                        paper: clsx(
+                            classes.drawerPaper,
+                            !open && classes.drawerPaperClose
+                        )
+                    }}
+                    open={open}
+                >
+                    <div className={classes.toolbarIcon}>
+                        <IconButton onClick={handleDrawerClose}>
+                            <ChevronLeftIcon />
+                        </IconButton>
+                    </div>
+                    <Divider />
+                    <List>{mainListItems}</List>
+                    <Divider />
+                    <List>{secondaryListItems}</List>
+                </Drawer>
+                <main className={classes.content}>
+                    <div className={classes.appBarSpacer} />
+                    <Route path="/chart" component={routes[1].main}></Route>
 
-                        <Grid item xs={12}>
-                            <Paper className={classes.paper}></Paper>
-                        </Grid>
-                    </Grid>
-                    
-                </Container>
-                <Copyright />
-            </main>
-        </div>
+                    <Copyright />
+                </main>
+            </div>
         </Router>
     );
 }
