@@ -2,7 +2,7 @@ import React from "react";
 
 import clsx from "clsx";
 
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { Route, BrowserRouter as Router } from 'react-router-dom'
 
 // Material UI Imports
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,11 +15,6 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Slider from '@material-ui/core/Slider';
-// import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -30,7 +25,7 @@ import MainConsole from "../MainConsole/MainConsole"
 import Map from '../Map/Map'
 import MapControls from '../MapControls/MapControls'
 import TweetChart from '../TweetCharts/TweetChart'
-import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
+// import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
 import fakeReports from "../../utils/fakeMapReports"
 import { mainListItems, secondaryListItems } from "../ListItems/listItems";
 import {dashboardTheme} from './DashboardTheme'
@@ -51,11 +46,8 @@ function Copyright() {
 export default function Dashboard() {
 
     // Set the Theme
-    const drawerWidth = 240;
     const useStyles = makeStyles(dashboardTheme);
     const classes = useStyles();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
 
     // Initialize State
     const [open, setOpen] = React.useState(true);

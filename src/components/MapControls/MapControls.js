@@ -43,7 +43,6 @@ export default function MapControls(props) {
                 valueLabelDisplay="auto"
                 marks={distance_marks}
                 min={5}
-                valueLabelDisplay="off"
             />
             <Typography id="time-slider" gutterBottom>
                 Time
@@ -57,7 +56,6 @@ export default function MapControls(props) {
                 valueLabelDisplay="auto"
                 marks={time_marks}
                 max={365}
-                valueLabelDisplay="off"
             />
             <VirtualizedList>
             </VirtualizedList>

@@ -5,19 +5,10 @@ import React from 'react';
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Slider from '@material-ui/core/Slider';
-import { makeStyles } from "@material-ui/core/styles";
-
-// React-Router Includes
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 
 // Other Includes
 import clsx from "clsx";
 
-// HashtagHotline Includes
-import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
-import TweetChart from '../TweetCharts/TweetChart'
 
 export default function MainConsole(props) {
 
