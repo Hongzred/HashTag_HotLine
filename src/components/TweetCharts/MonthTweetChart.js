@@ -28,8 +28,8 @@ class PointLabel extends PureComponent {
 		return <text x={x} y={y} dy={-4} fill={stroke} fontsize={12} textAnchor="middle">{value}</text>;
 	}
 }
-// TweetChart component
-export default function TweetChart() {
+// MonthTweetChart component
+export default function MonthTweetChart() {
 
 	// Generate Tweet Data 
 	let data = [];
@@ -54,7 +54,7 @@ export default function TweetChart() {
 	return (
 	  <React.Fragment> 
 		{/*need React.Fragments because two components are returned here: 
-		the title and responsive container that contains TweetChart*/}
+		the title and responsive container that contains MonthTweetChart*/}
 		<Title>Tweets over Time</Title>
 		<ResponsiveContainer>
 		  <LineChart
