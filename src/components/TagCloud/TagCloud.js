@@ -24,6 +24,14 @@ export default function ChipsArray() {
     { key: 2, active: true, label: '#help' }
   ]);
 
+  const handleDelete = chipToDelete => () => {
+    setChipData(chips => chips.map(chip => 
+    	{
+    		chip.active = false;
+    		return chip;
+    	}));
+  };
+
   return (
     <div className={classes.root}>
       {chipData.map(data => {
