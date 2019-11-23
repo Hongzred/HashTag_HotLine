@@ -8,7 +8,7 @@ export default function Analytics(props) {
 
     return (
         <>
-            <MainConsole>
+            <MainConsole horizontal_controls='bottom'>
                 <TweetChart chartType={chartType} />
                 <TweetChartsControls click={setChartType}/>
             </MainConsole>
