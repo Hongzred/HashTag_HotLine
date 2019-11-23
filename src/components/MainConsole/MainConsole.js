@@ -6,16 +6,16 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
+import useStyles from "./styles";
+
+
 // Other Includes
 import clsx from "clsx";
 
 
 export default function MainConsole(props) {
-
-    const classes = props.classes;
+    const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-
     return(
         <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
