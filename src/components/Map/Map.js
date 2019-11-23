@@ -27,15 +27,16 @@ class Map extends React.Component {
     createMarkers(issues) {
         if (issues) {
             const markers = issues.map(
-                ({ latitude, longitude, description, id }) => (
+                ({ latitude, longitude, description, _id }) => (
                     <Marker
-                        key={id}
+                        key={_id}
                         latitude={latitude}
                         longitude={longitude}
                         offsetLeft={-10}
                         offsetTop={-25}
                     >
                         <Pin
+                            key={_id}
                             pinClickHandler={this.pinClickHandler.bind(this, {
                                 latitude,
                                 longitude,

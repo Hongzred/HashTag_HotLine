@@ -15,7 +15,9 @@
     "react-scripts": "3.2.0",
     "react-window": "^1.8.5",
     "recharts": "^1.8.5",
-    "twit": "^2.2.11"
+    "twit": "^2.2.11",
+    "classnames": "^2.2.6",
+    "tinycolor2": "^1.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
