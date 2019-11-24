@@ -1,6 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,13 +18,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function setDeleteIcon(chip){
+    if(chip.active === true){
+        return(<DeleteIcon />);
+    }
+    else{
+        return(<AddCircleIcon />);
+    }
+}
+
 
 export default function ChipsArray() {
   const classes = useStyles();
   const [chipData, setChipData] = React.useState([
-    { key: 0, disabled: false, color: "primary", label: '#gasleak' },
-    { key: 1, disabled: false, color: "primary", label: '@coned' },
-    { key: 2, disabled: false, color: "primary", label: '#help' }
+    { key: 0, active: true, color: "primary", label: '#gasleak' },
+    { key: 1, active: true, color: "primary", label: '@coned' },
+    { key: 2, active: true, color: "primary", label: '#help' }
   ]);
 
     //this arrow function returns ANOTHER arrow function
@@ -31,7 +44,13 @@ export default function ChipsArray() {
     const handleDelete = chipToDelete => () => {
         setChipData(chips => chips.map(chip =>{
                 if(chip.key === chipToDelete.key){
-                    return {...chip, disabled:true, color:"secondary"}
+
+                    if(chip.active === true){
+                        return {...chip, active:false, color: '#b3b3b3'};
+                    }
+                    else{
+                        return {...chip, active:true, color: 'primary'};                        
+                    }
                 }
                 else {
                     return chip
@@ -41,6 +60,9 @@ export default function ChipsArray() {
         ));
       };
 
+
+    // not using the disabled prop because that makes it impossible to click the tag
+    // to reactivate it. 
     return (
         <div className={classes.root}>
           {chipData.map(chip => {
@@ -52,7 +74,7 @@ export default function ChipsArray() {
                 onDelete={handleDelete(chip)}
                 className={classes.chip}
                 color={chip.color}
-                disabled={chip.disabled}
+                deleteIcon={setDeleteIcon(chip)}
               />
             );
 
