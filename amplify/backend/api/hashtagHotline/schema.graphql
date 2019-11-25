@@ -1,31 +1,54 @@
-type tweet @model {
-  id: ID!
-  name: String!
-  description: String
-  latitude: String
-  lontitude: String
+#Relationships:
+# Settings & Hashtag => M:1
+# Reports & Hashtag => M:N
+
+# A hashtag has an unique id and a name
+# Our frontend will ensure no duplicate hashtag names
+# Users CRUD their own hashtag
+type Hashtag @model @auth(rules: [{ allow: owner }]) {
+    id: ID!
+    name: String!
+    setting: Setting! @connection(name: "SettingHashtags")
+    reports: [ReportHashtags] @connection(name: "HashtagReports") # API only allow added this to ReportHashtags due to M:N relationship
 }
 
-type report @model {
-  postId: ID!
-  userId: String
-  Date: String
-  longtitude: String
-  latitude: String
-  hashtag: [String]
-  status: String
-  content: String
+# A report has 2 status Pending and Resolved
+# A report can be marked as spam
+# A report has an unique id, twitter post/user id, twitter post, twitter username, twitter post date, location of the tweet, post hashtags
+# Users CRUD their own reports
+# Reports will be automatically created on new tweets from  twitter using our configured hashtags in settings & lambda function
+type Report @model @auth(rules: [{ allow: owner }]) {
+    id: ID!
+    postId: String!
+    post: String!
+    userId: String!
+    username: String!
+    date: String!
+    longtitude: Float!
+    latitude: Float!
+    hashtags: [ReportHashtags] @connection(name: "ReportHashtags") # API only allow added this to ReportHashtags due to M:N relationship
+    status: Status!
+    spam: Boolean!
 }
 
-type user @model {
-  userId: ID!
-  username: String
-  email: String
-  preferedHashtag: [String]
+# There is a M:N relationship between Reports & Hashtags
+# So to create a report we need to create and entry in  ReportHashtags for each hashtag
+type ReportHashtags @model(queries: null) @auth(rules: [{ allow: owner }]) {
+    id: ID!
+    report: Report @connection(name: "ReportHashtags")
+    hashtag: Hashtag @connection(name: "HashtagReports")
 }
 
-type message @model {
-  messageId: ID!
-  msgContent: [String]
-  userId: String
+# Settings have an unique id and their botMessage & hashtags
+# Our frontend will ensure only each user has only one settings
+# Users CRUD their own settings
+type Setting @model @auth(rules: [{ allow: owner }]) {
+    id: ID!
+    botMessage: String!
+    hashtags: [Hashtag] @connection(name: "SettingHashtags")
+}
+
+enum Status {
+    PENDING
+    RESOLVED
 }
