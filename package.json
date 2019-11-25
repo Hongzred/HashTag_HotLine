@@ -8,6 +8,8 @@
     "aws-amplify": "^1.2.4",
     "aws-amplify-react": "^2.5.4",
     "axios": "^0.19.0",
+    "classnames": "^2.2.6",
+    "material-ui-chip-input": "^1.0.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-map-gl": "^5.1.1",
@@ -15,9 +17,8 @@
     "react-scripts": "3.2.0",
     "react-window": "^1.8.5",
     "recharts": "^1.8.5",
-    "twit": "^2.2.11",
-    "classnames": "^2.2.6",
-    "tinycolor2": "^1.4.1"
+    "tinycolor2": "^1.4.1",
+    "twit": "^2.2.11"
   },
   "scripts": {
     "start": "react-scripts start",
