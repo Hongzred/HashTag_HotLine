@@ -13,14 +13,3 @@ export const listSettings = `query listSettings {
     }
   }`
 
-  export const listReports = `query listReports {
-    listReports { 
-      items {
-        id
-        username 
-        longtitude 
-        latitude
-        post
-      }
-    }
-  }`
