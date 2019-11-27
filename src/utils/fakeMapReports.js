@@ -1,3 +1,6 @@
+import { listReports } from "../custom_graphql/queries"; 
+import { API, graphqlOperation } from "aws-amplify";
+
 const jsonData=[
   {
     "_id": "5dc2f75ea5c32bb3c49a667f",
@@ -218,9 +221,30 @@ const jsonData=[
   }
 ]
 
+const realData = [
+  {
+    "_id": "5dc2f75ebf50e4e634d72e42",
+    "report": "nostrud",
+    "description": "non ad aliqua voluptate consectetur",
+    "latitude": "40.82",
+    "longitude": "-73.9654"
+  }
+]
+
+const getReports = async () => {
+  const {
+      data: {
+          listReports: { items } //We use destructoring to get reports (items)
+      }
+  } = await API.graphql(graphqlOperation(listReports)); 
+  const reports = items; 
+  console.log(items);
+  return reports; 
+}
 
 const fakeReports =  () => { 
-    return jsonData.map((data)=> ({...data, longitude:parseFloat(data.longitude),latitude:parseFloat(data.latitude)}))
+  this.realData = this.getReports()
+  return jsonData.map((data) => ({ ...data, longitude: parseFloat(data.longitude), latitude: parseFloat(data.latitude) }))
 }
 
 export default fakeReports
