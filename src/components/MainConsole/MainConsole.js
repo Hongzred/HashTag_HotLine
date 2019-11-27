@@ -61,7 +61,7 @@ export default function MainConsole(props) {
                     </Grid>
 
                     {/* Primary Information Paper (Maps, Graphs, etc.) */}
-                    <Grid item xs={12} md={8} lg={9}>
+                    <Grid item xs={12} md={8} lg={8}>
                         <Paper className={fixedHeightPaper}>
                             {/*<TweetChart chartType={props.chartType}/>*/}
                             {props.children[0]}
@@ -70,7 +70,7 @@ export default function MainConsole(props) {
                     </Grid>
 
                     {/* Secondary Information (Twitter Feed, Controls) */}
-                    <Grid item xs={12} md={4} lg={3}>
+                    <Grid item xs={12} md={4} lg={4}>
                         <Paper className={fixedHeightPaper}>
                             {props.children[1]}
                         </Paper>
