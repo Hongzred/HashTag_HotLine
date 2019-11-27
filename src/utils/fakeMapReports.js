@@ -242,8 +242,24 @@ const getReports = async () => {
   return reports; 
 }
 
-const fakeReports =  () => { 
-  this.realData = this.getReports()
+const fakeReports =  async () => { 
+  const realData = [
+    {
+      "_id": "5dc2f75ebf50e4e634d72e42",
+      "report": "nostrud",
+      "description": "non ad aliqua voluptate consectetur",
+      "latitude": "40.82",
+      "longitude": "-73.9654"
+    }
+  ]
+  const {
+      data: {
+          listReports: { items } //We use destructoring to get reports (items)
+      }
+  } = await API.graphql(graphqlOperation(listReports)); 
+  const reports = items; 
+  console.log(items);
+  realData.push(reports) 
   return jsonData.map((data) => ({ ...data, longitude: parseFloat(data.longitude), latitude: parseFloat(data.latitude) }))
 }
 

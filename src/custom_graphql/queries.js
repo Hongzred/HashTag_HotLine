@@ -17,10 +17,10 @@ export const listSettings = `query listSettings {
     listReports { 
       items {
         id
-        post
+        username 
+        longtitude 
         latitude
-        longtitude
-        username  
+        post
       }
     }
   }`
