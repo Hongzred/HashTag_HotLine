@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Slider from '@material-ui/core/Slider';
-import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
+// import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
+import TwitterFeed from "../TwitterFeed/TwitterFeed2"
 import Typography from "@material-ui/core/Typography";
 
 export default function MapControls(props) {
@@ -57,8 +58,8 @@ export default function MapControls(props) {
                 marks={time_marks}
                 max={365}
             />
-            <VirtualizedList>
-            </VirtualizedList>
+            <TwitterFeed>
+            </TwitterFeed>
         </React.Fragment>
     );
 }
