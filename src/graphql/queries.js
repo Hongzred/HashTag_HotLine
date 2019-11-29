@@ -1,6 +1,21 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const fetchRecentReports = `query FetchRecentReports($hashtag: String) {
+  fetchRecentReports(hashtag: $hashtag) {
+    post_date_creation
+    post_id
+    post
+    hashtags
+    user_id
+    username
+    location {
+      longitude
+      latitude
+    }
+  }
+}
+`;
 export const getHashtag = `query GetHashtag($id: ID!) {
   getHashtag(id: $id) {
     id
