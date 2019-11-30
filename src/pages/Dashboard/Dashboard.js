@@ -13,7 +13,13 @@ export default class Dashboard extends Component {
   };
 
   async componentDidMount () {
-     const reportData = await API.graphql(graphqlOperation(listReports));
+     const reportsData = await this.getReportData();
+     console.log(reportsData);
+     this.setState({reports: reportsData});
+  }
+
+  async getReportData () {
+    const reportData = await API.graphql(graphqlOperation(listReports));
      console.log(reportData);
      const reports = [];
 
@@ -23,16 +29,11 @@ export default class Dashboard extends Component {
             "report": data.username,
             "description": data.post,
             "latitude": data.latitude,
-            "longitude": data.longitude
+            "longitude": data.longtitude
          };
          reports.push(report);
      })
-     console.log(reports);
-    
-  }
-
-  getReportData () {
-
+     return reports;
   }
 
   render() {
