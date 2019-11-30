@@ -14,10 +14,10 @@ export default class Dashboard extends Component {
 
   async componentDidMount () {
      const reportData = await API.graphql(graphqlOperation(listReports));
-     console.log("data" + reportData);
+     console.log(reportData);
      const reports = [];
-     if (reportData) {
-     reportData.forEach(data => {
+
+     reportData.data.listReports.items.forEach(data => {
          const report = {
             "_id": data.id,
             "report": data.username,
@@ -28,7 +28,7 @@ export default class Dashboard extends Component {
          reports.push(report);
      })
      console.log(reports);
-    }
+    
   }
 
   getReportData () {
