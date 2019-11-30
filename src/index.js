@@ -7,10 +7,10 @@ import Themes from "./themes";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 import { LayoutProvider } from "./context/LayoutContext";
-import Amplify from 'aws-amplify';
-import config from './aws-exports';
+
+import Amplify from "aws-amplify";
+import config from "./aws-exports";
 Amplify.configure(config);
-require('dotenv').config()
 
 ReactDOM.render(
     <LayoutProvider>

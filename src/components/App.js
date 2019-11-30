@@ -15,13 +15,30 @@ import Error from "../pages/Error/Error";
 import Amplify from "aws-amplify";
 import awsconfig from "../aws-exports";
 import { withAuthenticator } from "aws-amplify-react";
+import { UserProvider } from "../context/UserContext";
 Amplify.configure(awsconfig);
 
 const routes = [
-    { path: "/", title: "Overview", page: Dashboard },
-    { path: "/analytics", title: "Analytics", page: Analytics },
-    { path: "/feed", title: "Feed", page: Feed },
-    { path: "/settings", title: "Settings", page: Settings }
+    {
+        path: "/",
+        title: "Overview",
+        page: Dashboard
+    },
+    {
+        path: "/analytics",
+        title: "Analytics",
+        page: Analytics
+    },
+    {
+        path: "/feed",
+        title: "Feed",
+        page: Feed
+    },
+    {
+        path: "/settings",
+        title: "Settings",
+        page: Settings
+    }
 ];
 
 const App = () => {
@@ -30,25 +47,27 @@ const App = () => {
         label: title
     }));
     return (
-        <Router>
-            <Switch>
-                {routes.map(({ path, page, title }, index) => (
-                    <Route
-                        key={index}
-                        exact
-                        path={path}
-                        component={() => (
-                            <Layout
-                                page={page}
-                                title={title}
-                                navigation={navigation}
-                            />
-                        )}
-                    />
-                ))}
-                <Route component={Error} />
-            </Switch>
-        </Router>
+        <UserProvider>
+            <Router>
+                <Switch>
+                    {routes.map(({ path, page, title }, index) => (
+                        <Route
+                            key={index}
+                            exact
+                            path={path}
+                            component={() => (
+                                <Layout
+                                    page={page}
+                                    title={title}
+                                    navigation={navigation}
+                                />
+                            )}
+                        />
+                    ))}
+                    <Route component={Error} />
+                </Switch>
+            </Router>
+        </UserProvider>
     );
 };
 

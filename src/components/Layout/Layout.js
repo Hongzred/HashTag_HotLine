@@ -17,7 +17,7 @@ function Layout(props) {
 
     // global
     const layoutState = useLayoutState();
-
+    const Page = props.page;
     return (
         <div className={classes.root}>
             <>
@@ -30,7 +30,7 @@ function Layout(props) {
                 >
                     <div className={classes.fakeToolbar} />
                     <PageTitle title={props.title} />
-                    {React.createElement(props.page)}
+                    <Page />
                     <Copyright />
                 </div>
             </>
