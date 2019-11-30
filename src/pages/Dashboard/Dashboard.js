@@ -6,7 +6,7 @@ import TagCloud from "../../components/TagCloud/TagCloud"
 import fakeReports from "../../utils/fakeMapReports";
 
 
-export class Dashboard extends Component {
+export default class Dashboard extends Component {
 
     state = {
         reports: []
