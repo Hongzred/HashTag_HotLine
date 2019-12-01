@@ -9,18 +9,77 @@ import { useTheme, makeStyles } from "@material-ui/styles";
 import classnames from "classnames";
 
 // styles
-var useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     badge: {
         fontWeight: 600,
         height: 16,
         minWidth: 16
     }
 }));
+ 
+const getColor = (color, theme, brigtness = "main") => {
+    if (color && theme.palette[color] && theme.palette[color][brigtness]) {
+        return theme.palette[color][brigtness];
+    }
+    return undefined
+}
 
-function Badge({ children, colorBrightness, color, ...props }) {
-    var classes = useStyles();
-    var theme = useTheme();
-    var Styled = createStyled({
+const getFontWeight = (style) => {
+    switch (style) {
+        case "light":
+            return 300;
+        case "medium":
+            return 500;
+        case "bold":
+            return 600;
+        default:
+            return 400;
+    }
+}
+
+const getFontSize = (size, variant = "", theme) => {
+    let multiplier;
+
+    switch (size) {
+        case "sm":
+            multiplier = 0.8;
+            break;
+        case "md":
+            multiplier = 1.5;
+            break;
+        case "xl":
+            multiplier = 2;
+            break;
+        case "xxl":
+            multiplier = 3;
+            break;
+        default:
+            multiplier = 1;
+            break;
+    }
+
+    const defaultSize =
+        variant && theme.typography[variant]
+            ? theme.typography[variant].fontSize
+            : `${theme.typography.fontSize  }px`;
+
+    return `calc(${defaultSize} * ${multiplier})`;
+}
+
+const createStyled = (styles, options) => {
+    const Styled = (props) => {
+        const { children, ...other } = props;
+        return children(other);
+    };
+
+    return withStyles(styles, options)(Styled);
+}
+
+
+const Badge = ({ children, colorBrightness, color, ...props }) => {
+    const classes = useStyles();
+    const theme = useTheme();
+    const Styled = createStyled({
         badge: {
             backgroundColor: getColor(color, theme, colorBrightness)
         }
@@ -45,14 +104,14 @@ function Badge({ children, colorBrightness, color, ...props }) {
     );
 }
 
-function Typography({
+const Typography = ({
     children,
     weight,
     size,
     colorBrightness,
     color,
     ...props
-}) {
+}) => {
     const theme = useTheme();
 
     return (
@@ -69,7 +128,7 @@ function Typography({
     );
 }
 
-function Button({ children, color, className, ...props }) {
+const Button = ({ children, color, className, ...props }) => {
     const theme = useTheme();
 
     const Styled = createStyled({
@@ -124,59 +183,3 @@ function Button({ children, color, className, ...props }) {
 
 export { Badge, Typography, Button };
 
-function getColor(color, theme, brigtness = "main") {
-    if (color && theme.palette[color] && theme.palette[color][brigtness]) {
-        return theme.palette[color][brigtness];
-    }
-}
-
-function getFontWeight(style) {
-    switch (style) {
-        case "light":
-            return 300;
-        case "medium":
-            return 500;
-        case "bold":
-            return 600;
-        default:
-            return 400;
-    }
-}
-
-function getFontSize(size, variant = "", theme) {
-    let multiplier;
-
-    switch (size) {
-        case "sm":
-            multiplier = 0.8;
-            break;
-        case "md":
-            multiplier = 1.5;
-            break;
-        case "xl":
-            multiplier = 2;
-            break;
-        case "xxl":
-            multiplier = 3;
-            break;
-        default:
-            multiplier = 1;
-            break;
-    }
-
-    const defaultSize =
-        variant && theme.typography[variant]
-            ? theme.typography[variant].fontSize
-            : theme.typography.fontSize + "px";
-
-    return `calc(${defaultSize} * ${multiplier})`;
-}
-
-function createStyled(styles, options) {
-    const Styled = function(props) {
-        const { children, ...other } = props;
-        return children(other);
-    };
-
-    return withStyles(styles, options)(Styled);
-}

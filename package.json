@@ -5,11 +5,14 @@
   "dependencies": {
     "@material-ui/core": "^4.5.2",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/styles": "^4.6.0",
     "aws-amplify": "^1.2.4",
     "aws-amplify-react": "^2.5.4",
     "axios": "^0.19.0",
     "classnames": "^2.2.6",
+    "clsx": "^1.0.4",
     "material-ui-chip-input": "^1.0.0",
+    "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-map-gl": "^5.1.1",
@@ -17,6 +20,7 @@
     "react-scripts": "3.2.0",
     "react-window": "^1.8.5",
     "recharts": "^1.8.5",
+    "shortid": "^2.2.15",
     "tinycolor2": "^1.4.1",
     "twit": "^2.2.11"
   },
@@ -25,10 +29,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test --verbose",
     "coverage": "react-scripts test --env=jsdom --coverage",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src",
+    "test:staged": "cross-env CI=true react-scripts test --env=jsdom --findRelatedTests",
+    "precommit": "lint-staged",
+    "format": "prettier --write \"src/**/*.+(js|md|ts|css|sass|less|graphql|yml|yaml|scss|json|vue)\"",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -45,6 +51,23 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.3",
     "@testing-library/react": "^9.3.1",
-    "dotenv": "^8.2.0"
+    "cross-env": "^6.0.3",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.7.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-jest": "^23.1.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1"
+  },
+  "lint-staged": {
+    "*.+(js|jsx)": [
+      "eslint src/ --fix",
+      "prettier --write",
+      "cross-env CI=true react-scripts test --env=jsdom --findRelatedTests"
+    ]
   }
 }

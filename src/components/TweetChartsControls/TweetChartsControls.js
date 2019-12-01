@@ -10,18 +10,18 @@ export default function TweetChartsControls(props) {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                {/*Chart Swap Menu*/}
+                {/* Chart Swap Menu */}
                 <MenuList>
-                    <MenuItem onClick={event => props.click("Day")}>
+                    <MenuItem onClick={() => props.click("Day")}>
                         Day
                     </MenuItem>
-                    <MenuItem onClick={event => props.click("Week")}>
+                    <MenuItem onClick={() => props.click("Week")}>
                         Week
                     </MenuItem>
-                    <MenuItem onClick={event => props.click("Month")}>
+                    <MenuItem onClick={() => props.click("Month")}>
                         Month
                     </MenuItem>
-                    <MenuItem onClick={event => props.click("Year")}>
+                    <MenuItem onClick={() => props.click("Year")}>
                         Year
                     </MenuItem>
                 </MenuList>

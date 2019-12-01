@@ -1,16 +1,16 @@
 // React Includes
 import React from 'react';
 
-//Material UI Includes
+// Material UI Includes
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
+import clsx from "clsx";
 import useStyles from "./styles";
 
 
 // Other Includes
-import clsx from "clsx";
 
 
 export default function MainConsole(props) {
@@ -25,7 +25,7 @@ export default function MainConsole(props) {
                     {/* Primary Information Paper (Maps, Graphs, etc.) */}
                     <Grid item xs={12} md={8} lg={9}>
                         <Paper className={fixedHeightPaper}>
-                            {/*<TweetChart chartType={props.chartType}/>*/}
+                            {/* <TweetChart chartType={props.chartType}/> */}
                             {props.children[0]}
                             {/**/}
                         </Paper>
@@ -38,7 +38,7 @@ export default function MainConsole(props) {
                         </Paper>
                     </Grid>
 
-                    {/*Footer Controls*/}
+                    {/* Footer Controls */}
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
                             {props.children[2]}
@@ -48,12 +48,12 @@ export default function MainConsole(props) {
             </Container>
         )        
     }
-    else if(props.horizontal_controls === 'top'){
+    if(props.horizontal_controls === 'top'){
         return(
             <Container maxWidth="lg" className={classes.container}>
                 <Grid container spacing={3}>
 
-                    {/*Header Controls*/}
+                    {/* Header Controls */}
                     <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 {props.children[2]}
@@ -63,7 +63,7 @@ export default function MainConsole(props) {
                     {/* Primary Information Paper (Maps, Graphs, etc.) */}
                     <Grid item xs={12} md={8} lg={8}>
                         <Paper className={fixedHeightPaper}>
-                            {/*<TweetChart chartType={props.chartType}/>*/}
+                            {/* <TweetChart chartType={props.chartType}/> */}
                             {props.children[0]}
                             {/**/}
                         </Paper>

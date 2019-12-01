@@ -3,8 +3,6 @@
 // import "@testing-library/jest-dom/extend-expect";
 // import VirtualizedList from '../TwitterFeed/TwitterFeed';
 
-describe("TwitterFeed Component", () => {
-    it("renders the listItem", () => {
-        
-    });
-});
+describe('TwitterFeed Component', () => {
+  it('renders the listItem', () => {})
+})
