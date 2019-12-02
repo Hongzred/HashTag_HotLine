@@ -1,11 +1,21 @@
 import React, {Component} from 'react'
-
+import {API, graphqlOperation} from 'aws-amplify'
 // crud operations
 import {
   updateUserSettings,
   getUserSettings,
   createUserSettings,
 } from '../crud/settings'
+
+import {
+  createUserReport,
+  getUserReports,
+  getRecentUserReports,
+  updateUserReports
+
+} from '../crud/reports'
+
+
 
 const UserStateContext = React.createContext()
 
@@ -16,40 +26,74 @@ class UserProvider extends Component {
       hashtags: [],
       settingsId: null,
     },
+    reports:[]
   }
 
+  pollID = null
+
+  interval = 15000000
+
   async componentDidMount() {
-    // console.log(this.routes()[0])
-    await createUserSettings() // When the page mounts we create user settings if we need to
+    await this.initializeSettings()
+    await this.initializeReports()
+    this.pollID = await this.pollTwitter()
+    
+    
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.pollID)
+}
+
+  pollTwitter = async() => {
+    const id = setInterval(async () => {
+      const newReports = await updateUserReports(this.state.reports,this.state.settings.hashtags)
+      const reports = await getUserReports()    
+   
+    console.log("Current Reports", this.state.reports);
+    console.log("New Reports", newReports);
+      this.setState({reports})
+  }, this.interval);
+  return id
+  }
+
+
+
+  initializeSettings = async () => {
+    await createUserSettings() 
     const {
       botMessage,
       hashtags: {items: hashtags},
       id,
-    } = await getUserSettings() // We get the user settings for initial display
+    } = await getUserSettings()
     const hashtagNames = hashtags.map(({name}) => name)
-    // const test = await API.graphql(graphqlOperation(fetchRecentReports,  { hashtag: "testing_hth" }))
     this.setState({
       settings: {settingsId: id, botMessage, hashtags: hashtagNames},
-    }) // We need to initialize w/ real settings from DB
+    }) 
+  }
+
+  initializeReports = async () => {
+    const reports = await getUserReports()
+    this.setState({
+      reports
+    }) 
   }
 
   onMessageChange = e => {
     const input = e.target.value
-    // Controlling User input for the botMessage input field
+    
     this.setState(prevState => ({
       settings: {...prevState.settings, botMessage: input},
     }))
-  }
+ }
 
   onHashtagsChange = e => {
-    // Controlling User input for the hashtag input field
     this.setState(prevState => ({
       settings: {...prevState.settings, hashtags: e},
     }))
   }
 
   onSave = async e => {
-    // We CRUD the database when user save changes.
     e.preventDefault()
     await updateUserSettings(this.state.settings)
   }
@@ -71,4 +115,12 @@ class UserProvider extends Component {
   }
 }
 
-export {UserStateContext, UserProvider}
+const useUserState = () => {
+  const context = React.useContext(UserStateContext)
+  if (context === undefined) {
+    throw new Error('useLayoutState must be used within a LayoutProvider')
+  }
+  return context
+}
+
+export {UserStateContext, UserProvider, useUserState}
