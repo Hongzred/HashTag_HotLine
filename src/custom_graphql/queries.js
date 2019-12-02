@@ -13,7 +13,7 @@ export const listSettings = `query listSettings {
     }
   }`
 
-  export const listReports = `query listReports {
+export const listReports = `query listReports {
     listReports {
       items {
         id
@@ -37,4 +37,4 @@ export const listSettings = `query listSettings {
       }
     }
   }
-  `;
+  `

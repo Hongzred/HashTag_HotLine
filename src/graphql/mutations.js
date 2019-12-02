@@ -23,7 +23,7 @@ export const createHashtag = `mutation CreateHashtag($input: CreateHashtagInput!
     owner
   }
 }
-`;
+`
 export const updateHashtag = `mutation UpdateHashtag($input: UpdateHashtagInput!) {
   updateHashtag(input: $input) {
     id
@@ -46,7 +46,7 @@ export const updateHashtag = `mutation UpdateHashtag($input: UpdateHashtagInput!
     owner
   }
 }
-`;
+`
 export const deleteHashtag = `mutation DeleteHashtag($input: DeleteHashtagInput!) {
   deleteHashtag(input: $input) {
     id
@@ -69,7 +69,7 @@ export const deleteHashtag = `mutation DeleteHashtag($input: DeleteHashtagInput!
     owner
   }
 }
-`;
+`
 export const createReport = `mutation CreateReport($input: CreateReportInput!) {
   createReport(input: $input) {
     id
@@ -92,7 +92,7 @@ export const createReport = `mutation CreateReport($input: CreateReportInput!) {
     owner
   }
 }
-`;
+`
 export const updateReport = `mutation UpdateReport($input: UpdateReportInput!) {
   updateReport(input: $input) {
     id
@@ -115,7 +115,7 @@ export const updateReport = `mutation UpdateReport($input: UpdateReportInput!) {
     owner
   }
 }
-`;
+`
 export const deleteReport = `mutation DeleteReport($input: DeleteReportInput!) {
   deleteReport(input: $input) {
     id
@@ -138,7 +138,7 @@ export const deleteReport = `mutation DeleteReport($input: DeleteReportInput!) {
     owner
   }
 }
-`;
+`
 export const createReportHashtags = `mutation CreateReportHashtags($input: CreateReportHashtagsInput!) {
   createReportHashtags(input: $input) {
     id
@@ -174,7 +174,7 @@ export const createReportHashtags = `mutation CreateReportHashtags($input: Creat
     owner
   }
 }
-`;
+`
 export const updateReportHashtags = `mutation UpdateReportHashtags($input: UpdateReportHashtagsInput!) {
   updateReportHashtags(input: $input) {
     id
@@ -210,7 +210,7 @@ export const updateReportHashtags = `mutation UpdateReportHashtags($input: Updat
     owner
   }
 }
-`;
+`
 export const deleteReportHashtags = `mutation DeleteReportHashtags($input: DeleteReportHashtagsInput!) {
   deleteReportHashtags(input: $input) {
     id
@@ -246,7 +246,7 @@ export const deleteReportHashtags = `mutation DeleteReportHashtags($input: Delet
     owner
   }
 }
-`;
+`
 export const createSetting = `mutation CreateSetting($input: CreateSettingInput!) {
   createSetting(input: $input) {
     id
@@ -262,7 +262,7 @@ export const createSetting = `mutation CreateSetting($input: CreateSettingInput!
     owner
   }
 }
-`;
+`
 export const updateSetting = `mutation UpdateSetting($input: UpdateSettingInput!) {
   updateSetting(input: $input) {
     id
@@ -278,7 +278,7 @@ export const updateSetting = `mutation UpdateSetting($input: UpdateSettingInput!
     owner
   }
 }
-`;
+`
 export const deleteSetting = `mutation DeleteSetting($input: DeleteSettingInput!) {
   deleteSetting(input: $input) {
     id
@@ -294,4 +294,4 @@ export const deleteSetting = `mutation DeleteSetting($input: DeleteSettingInput!
     owner
   }
 }
-`;
+`

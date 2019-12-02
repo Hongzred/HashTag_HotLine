@@ -16,6 +16,7 @@
       "react/require-default-props": 0, //WE WILL FIX LATER
       "react/forbid-prop-types":0, //WE WILL FIX LATER
       "import/prefer-default-export":0, //WE WILL FIX LATER
+      "camelcase":0, 
       "react/state-in-constructor": 0,
       "react/destructuring-assignment":0,
       "react/jsx-no-bind":0,
