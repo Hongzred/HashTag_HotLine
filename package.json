@@ -67,7 +67,8 @@
     "*.+(js|jsx)": [
       "eslint src/ --fix",
       "prettier --write",
-      "cross-env CI=true react-scripts test --env=jsdom --findRelatedTests"
+      "cross-env CI=true react-scripts test --env=jsdom --findRelatedTests",
+      "git add"
     ]
   }
 }

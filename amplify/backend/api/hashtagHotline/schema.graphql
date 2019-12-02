@@ -6,7 +6,7 @@
 # Our frontend will ensure no duplicate hashtag names
 # Users CRUD their own hashtag
 type Query {
-    fetchRecentReports(hashtag: String): [ReportConnection!]! @function(name: "fetchReportsByHashtag-${env}")
+    fetchRecentReports(hashtag: String!): [ReportConnection!]! @function(name: "fetchReportsByHashtag-${env}")
 }
 
 type ReportConnection {
