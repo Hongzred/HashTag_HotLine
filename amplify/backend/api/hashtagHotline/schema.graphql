@@ -5,6 +5,25 @@
 # A hashtag has an unique id and a name
 # Our frontend will ensure no duplicate hashtag names
 # Users CRUD their own hashtag
+type Query {
+    fetchRecentReports(hashtag: String!): [ReportConnection!]! @function(name: "fetchReportsByHashtag-${env}")
+}
+
+type ReportConnection {
+    post_date_creation: String!
+    post_id: String!
+    post: String!
+    hashtags: [String!]!
+    user_id:  String!
+    username:  String!
+    location: Location!
+}
+type Location {
+    longitude: Float!
+    latitude: Float!
+}
+
+
 type Hashtag @model @auth(rules: [{ allow: owner }]) {
     id: ID!
     name: String!

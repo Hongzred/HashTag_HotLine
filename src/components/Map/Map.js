@@ -1,85 +1,89 @@
-import React from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
-import Pin from "../Pin/Pin";
-import MapPopup from "../MapPopup/MapPopup";
+import React from 'react'
+import ReactMapGL, { Marker } from 'react-map-gl'
+import Pin from '../Pin/Pin'
+import MapPopup from '../MapPopup/MapPopup'
 
 class Map extends React.Component {
-    state = {
-        viewport: {
-            width: this.props.width,
-            height: this.props.height,
-            latitude: this.props.latitude,
-            longitude: this.props.longitude,
-            zoom: this.props.zoom
-        },
-        popupInfo: null
-    };
+	state = {
+		viewport: {
+			width: this.props.width,
+			height: this.props.height,
+			latitude: this.props.latitude,
+			longitude: this.props.longitude,
+			zoom: this.props.zoom,
+		},
+		popupInfo: null,
+	}
 
-    popupCloseHandler = () => {
-        this.setState({ popupInfo: null });
-    }
-    
-    pinClickHandler(data) {
-        const popupInfo = this.state.popupInfo ? null : data;
-        this.setState({ popupInfo });
-    }
+	popupCloseHandler = () => {
+		this.setState({ popupInfo: null })
+	}
 
-    createMarkers(issues) {
-        if (issues) {
-            const markers = issues.map(
-                ({ latitude, longitude, description, _id }) => (
-                    <Marker
-                        key={_id}
-                        latitude={latitude}
-                        longitude={longitude}
-                        offsetLeft={-10}
-                        offsetTop={-25}
-                    >
-                        <Pin
-                            key={_id}
-                            pinClickHandler={this.pinClickHandler.bind(this, {
-                                latitude,
-                                longitude,
-                                description
-                            })}
-                        />
-                    </Marker>
-                )
-            );
-            return markers;
-        }
-    }
+	pinClickHandler(data) {
+		this.setState(prevState => {
+			return prevState.popupInfo
+				? { popupInfo: null }
+				: { popupInfo: data }
+		})
+	}
 
-    showPopUp() {
-        const { popupInfo } = this.state;
-        return (
-            popupInfo && (
-                <MapPopup
-                    longitude={popupInfo.longitude}
-                    latitude={popupInfo.latitude}
-                    description={popupInfo.description}
-                    popupCloseHandler={this.popupCloseHandler}
-                />
-            )
-        );
-    }
+	createMarkers(issues) {
+		if (issues) {
+			const markers = issues.map(
+				({ latitude, longitude, description, _id }) => (
+					<Marker
+						key={_id}
+						latitude={latitude}
+						longitude={longitude}
+						offsetLeft={-10}
+						offsetTop={-25}
+					>
+						<Pin
+							key={_id}
+							pinClickHandler={this.pinClickHandler.bind(this, {
+								latitude,
+								longitude,
+								description,
+							})}
+						/>
+					</Marker>
+				),
+			)
+			return markers
+		}
+		return null
+	}
 
-    render() {
-        return (
-            <ReactMapGL
-                mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-                mapStyle={
-                    "mapbox://styles/hashtaghotline/ck267dj38ia161cowt67mt6lb" ||
-                    "mapbox://styles/hashtaghotline/ck2672kf95t691cpknmnqqn2h"
-                }
-                {...this.state.viewport}
-                onViewportChange={viewport => this.setState({ viewport })}
-            >
-                {this.createMarkers(this.props.issues)}
-                {this.showPopUp()}
-            </ReactMapGL>
-        );
-    }
+	showPopUp() {
+		const { popupInfo } = this.state
+		return (
+			popupInfo && (
+				<MapPopup
+					longitude={popupInfo.longitude}
+					latitude={popupInfo.latitude}
+					description={popupInfo.description}
+					popupCloseHandler={this.popupCloseHandler}
+				/>
+			)
+		)
+	}
+
+	render() {
+		return (
+			<ReactMapGL
+				mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+				mapStyle={
+					'mapbox://styles/hashtaghotline/ck267dj38ia161cowt67mt6lb' ||
+					'mapbox://styles/hashtaghotline/ck2672kf95t691cpknmnqqn2h'
+				}
+				{...this.state.viewport}
+				onViewportChange={viewport => this.setState({ viewport })}
+			>
+				{this.createMarkers(this.props.issues)}
+				{this.showPopUp()}
+			</ReactMapGL>
+		)
+	}
 }
 
-export default Map;
+export default Map

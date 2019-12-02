@@ -1,6 +1,6 @@
 projects:
   hashtagHotline:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/hashtagHotline/build/schema.graphql
     includes:
       - src/graphql/query.js
     excludes:

@@ -1,6 +1,21 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const fetchRecentReports = `query FetchRecentReports($hashtag: String!) {
+  fetchRecentReports(hashtag: $hashtag) {
+    post_date_creation
+    post_id
+    post
+    hashtags
+    user_id
+    username
+    location {
+      longitude
+      latitude
+    }
+  }
+}
+`
 export const getHashtag = `query GetHashtag($id: ID!) {
   getHashtag(id: $id) {
     id
@@ -23,7 +38,7 @@ export const getHashtag = `query GetHashtag($id: ID!) {
     owner
   }
 }
-`;
+`
 export const listHashtags = `query ListHashtags(
   $filter: ModelHashtagFilterInput
   $limit: Int
@@ -46,7 +61,7 @@ export const listHashtags = `query ListHashtags(
     nextToken
   }
 }
-`;
+`
 export const getReport = `query GetReport($id: ID!) {
   getReport(id: $id) {
     id
@@ -69,7 +84,7 @@ export const getReport = `query GetReport($id: ID!) {
     owner
   }
 }
-`;
+`
 export const listReports = `query ListReports(
   $filter: ModelReportFilterInput
   $limit: Int
@@ -95,7 +110,7 @@ export const listReports = `query ListReports(
     nextToken
   }
 }
-`;
+`
 export const getSetting = `query GetSetting($id: ID!) {
   getSetting(id: $id) {
     id
@@ -111,7 +126,7 @@ export const getSetting = `query GetSetting($id: ID!) {
     owner
   }
 }
-`;
+`
 export const listSettings = `query ListSettings(
   $filter: ModelSettingFilterInput
   $limit: Int
@@ -129,4 +144,4 @@ export const listSettings = `query ListSettings(
     nextToken
   }
 }
-`;
+`
