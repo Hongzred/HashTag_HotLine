@@ -58,10 +58,28 @@ const createUserReport = async ({
           return reports
     }
 
-   
+    const getRecentUserReports = async (oldReports,hashtags) => {
+        const oldReportPosts = oldReports.map((report) => report.postId)
+
+        let reports = await hashtags.map(async (hashtag) => {
+            const {data:{fetchRecentReports: reports}} = await API.graphql(graphqlOperation(fetchRecentReports,{hashtag}));
+            return reports            
+        })
+        reports = await Promise.all(reports)
+        return reports.flat().filter((report) => !oldReportPosts.includes(report.post_id)) 
+        
+    }
+
+   const updateUserReports = async (oldReports, hashtags) => {
+        const reports = await getRecentUserReports(oldReports,hashtags)
+        await reports.forEach(async (report) => {
+            await createUserReport(report)
+        })
+        return reports
+    }
 
     export {
-        createUserReport,getUserReports
+        createUserReport,getUserReports,getRecentUserReports,updateUserReports
     }
 
 
