@@ -4,6 +4,7 @@ var environment = process.env.ENV
 var region = process.env.REGION
 
 Amplify Params - DO NOT EDIT */
+
 const AWS = require("aws-sdk");
 const fetchTweets = require("./fetchTweets.js");
 
