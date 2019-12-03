@@ -30,7 +30,7 @@ class UserProvider extends Component {
 
 	async componentDidMount() {
 		await this.initializeSettings()
-		await this.initializeReports()
+		// await this.initializeReports()
 		this.pollID = await this.pollTwitter()
 		const reportData = await this.getReportData()
 		console.log(reportData)
