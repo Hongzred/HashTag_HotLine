@@ -1,11 +1,14 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react'
+import { API, graphqlOperation } from 'aws-amplify'
 // crud operations
 import {
 	updateUserSettings,
 	getUserSettings,
 	createUserSettings,
 } from '../crud/settings'
+
+import { listReports } from '../graphql/queries'
 
 import { getUserReports, updateUserReports } from '../crud/reports'
 
@@ -29,10 +32,35 @@ class UserProvider extends Component {
 		await this.initializeSettings()
 		await this.initializeReports()
 		this.pollID = await this.pollTwitter()
+		const reportData = await this.getReportData()
+		console.log(reportData)
+		this.setState({ reports: reportData })
 	}
 
 	componentWillUnmount() {
 		clearInterval(this.pollID)
+	}
+	/**
+		//    * call listReports query and extract useful information for the use of map component
+		//    * @returns reports[]
+		//    */
+
+	getReportData = async () => {
+		const reportData = await API.graphql(graphqlOperation(listReports))
+		console.log(reportData)
+		const reports = []
+
+		reportData.data.listReports.items.forEach(data => {
+			const report = {
+				_id: data.id,
+				report: data.username,
+				description: data.post,
+				latitude: data.latitude,
+				longitude: data.longtitude,
+			}
+			reports.push(report)
+		})
+		return reports
 	}
 
 	pollTwitter = async () => {
