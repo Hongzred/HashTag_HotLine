@@ -3,7 +3,7 @@ import React from 'react'
 import Slider from '@material-ui/core/Slider'
 // import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
 import Typography from '@material-ui/core/Typography'
-import TwitterFeed from '../TwitterFeed/TwitterFeed2'
+import TwitterFeed from '../TwitterFeed/TwitterFeed'
 
 export default function MapControls() {
 	const distanceMarks = [

@@ -1,127 +1,51 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import { FixedSizeList } from 'react-window'
+import Tweet from './Tweet'
+import { UserStateContext } from '../../context/UserContext'
 
-const useStyles = makeStyles(theme => ({
-	root: {
-		width: '100%',
-		height: 400,
-		maxWidth: 360,
-		backgroundColor: theme.palette.background.paper,
-	},
-}))
+export default function TwitterFeed() {
+	// const dummyData = [
+	// 	{
+	// 		full_name: 'Remy Sharp',
+	// 		twitter_handle: '@r_sharp',
+	// 		profile_pic: 'https://material-ui.com/static/images/avatar/1.jpg',
+	// 		tweet_body:
+	// 			'Help! @ConEd #gasleak on at Rector St Station in Manhattan!',
+	// 	},
 
-function renderRow(props) {
-	const { index, style } = props
+	// 	{
+	// 		full_name: 'Travis Howard',
+	// 		twitter_handle: '@travie_howie',
+	// 		profile_pic: 'https://material-ui.com/static/images/avatar/2.jpg',
+	// 		tweet_body: 'Rotten egg smell near E 23rd st. @ConEd #gasleak',
+	// 	},
 
-	return (
-		<ListItem button style={style} key={index}>
-			<ListItemText primary={`Item ${index + 1}`} />
-		</ListItem>
+	// 	{
+	// 		full_name: 'Cindy Baker',
+	// 		twitter_handle: '@bake_a_cake',
+	// 		profile_pic: 'https://material-ui.com/static/images/avatar/3.jpg',
+	// 		tweet_body:
+	// 			"There's a down power line at 232nd st and Tibett st in the Bronx @ConEc #electrical",
+	// 	},
+	// ]
+
+	// dummyData.map if need to  demo
+
+	const list = (
+		<UserStateContext.Consumer>
+			{context =>
+				context.reports.map(tweet => (
+					<>
+						<Tweet
+							full_name={tweet.username}
+							twitter_handle="@Placholder"
+							profile_pic="Placeholder"
+							tweet_body={tweet.post}
+						/>
+					</>
+				))
+			}
+		</UserStateContext.Consumer>
 	)
+
+	return <>{list}</>
 }
-
-renderRow.propTypes = {
-	index: PropTypes.number.isRequired,
-	style: PropTypes.object.isRequired,
-}
-
-export default function VirtualizedList() {
-	const classes = useStyles()
-
-	return (
-		<div className={classes.root}>
-			<FixedSizeList
-				height={400}
-				width={360}
-				itemSize={46}
-				itemCount={200}
-			>
-				{renderRow}
-			</FixedSizeList>
-		</div>
-	)
-}
-
-// class Map extends React.Component {
-//     constructor(props) {
-//         super(props);
-//     }
-//     state = {
-//         viewport: {
-//             width: this.props.width,
-//             height: this.props.height,
-//             latitude: this.props.latitude,
-//             longitude: this.props.longitude,
-//             zoom: this.props.zoom
-//         }
-//     };
-
-//     render() {
-
-//         var T = new Twit({
-//             consumer_key: process.env.TWIT_CONSUMER_KEY,
-//             consumer_secret: process.env.TWIT_CONSUMER_SECRET,
-//             access_token: process.env.TWIT_ACCESS_TOKEN,
-//             access_token_secret:  process.env.TWIT_ACCESS_TOKEN_SECRET
-//           });
-
-//         var stream = T.stream('statuses/filter', { track: 'mango' })
-
-//         stream.on('tweet', function (tweet) {
-//             console.log(tweet)
-//             // arr.push(tweet);
-//             // console.log("tweet added to list")
-//           })
-
-//         return (
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import { makeStyles } from '@material-ui/core/styles';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import { FixedSizeList } from 'react-window';
-
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     width: '100%',
-//     height: 400,
-//     maxWidth: 360,
-//     backgroundColor: theme.palette.background.paper,
-//   },
-// }));
-
-// function renderRow(props) {
-//   const { index, style } = props;
-
-//   return (
-//     <ListItem button style={style} key={index}>
-//       <ListItemText primary={`Item ${index + 1}`} />
-//     </ListItem>
-//   );
-// }
-
-// renderRow.propTypes = {
-//   index: PropTypes.number.isRequired,
-//   style: PropTypes.object.isRequired,
-// };
-
-// export default function VirtualizedList() {
-//   const classes = useStyles();
-
-//   return (
-//     <div className={classes.root}>
-//       <FixedSizeList height={400} width={360} itemSize={46} itemCount={200}>
-//         {renderRow}
-//       </FixedSizeList>
-//     </div>
-//   );
-// }
-//         );
-//     }
-// }
-
-// export default Map;

@@ -63,18 +63,19 @@ const getUserReports = async () => {
 }
 
 const getRecentUserReports = async (oldReports, hashtags) => {
-	const oldReportPosts = oldReports.map(report => report.postId)
+	const oldReportPostIds = oldReports.map(report => report.postId)
 	let nonfilteredReports = await hashtags.map(async hashtag => {
 		const {
 			data: { fetchRecentReports: reports },
 		} = await API.graphql(graphqlOperation(fetchRecentReports, { hashtag }))
 		return reports
 	})
+
 	nonfilteredReports = await Promise.all(nonfilteredReports)
 	return nonfilteredReports
 		.flat()
 		.filter(report => !!report)
-		.filter(report => !oldReportPosts.includes(report.postId))
+		.filter(report => !oldReportPostIds.includes(report.postId))
 }
 
 const updateUserReports = async (oldReports, hashtags) => {

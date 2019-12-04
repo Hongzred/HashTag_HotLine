@@ -1,6 +1,11 @@
+/* eslint-disable no-console */
 import React, { Component } from 'react'
 // crud operations
-import { updateUserSettings, createUserSettings } from '../crud/settings'
+import {
+	updateUserSettings,
+	createUserSettings,
+	getUserHashtags,
+} from '../crud/settings'
 
 import { updateUserReports, getUserReports } from '../crud/reports'
 
@@ -32,13 +37,17 @@ class UserProvider extends Component {
 
 	pollTwitter = async () => {
 		const id = setInterval(async () => {
-			// const dbReports = await getUserReports()
+			const dbReports = await getUserReports()
+			const hashtags = await getUserHashtags()
+			const settingsHashtags = hashtags
+				.filter(({ setting }) => !!setting)
+				.map(({ name }) => name)
 			const newReports = await updateUserReports(
-				this.state.reports,
-				this.state.settings.hashtags,
+				dbReports,
+				settingsHashtags,
 			)
 			const reports = await getUserReports()
-			console.log('Current Reports', this.state.reports)
+			console.log('Current Reports', dbReports)
 			console.log('New Reports', newReports)
 			this.setState({ reports })
 		}, this.interval)
@@ -84,6 +93,7 @@ class UserProvider extends Component {
 				value={{
 					state: this.state,
 					settings: this.state.settings,
+					reports: this.state.reports,
 					onMessageChange: this.onMessageChange,
 					onHashtagsChange: this.onHashtagsChange,
 					onSave: this.onSave,
