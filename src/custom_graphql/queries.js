@@ -14,27 +14,29 @@ export const listSettings = `query listSettings {
   }`
 
 export const listReports = `query listReports {
-    listReports {
-      items {
-        id
-        postId
-        post
-        userId
-        username
-        date
-        longtitude
-        latitude
-        hashtags {
-          items {
-            hashtag {
-              id
-              name
-            }
+  listReports {
+    items {
+      date
+      hashtags {
+        items {
+          hashtag {
+            id
+            name
           }
         }
-        status
-        spam        
       }
+      id
+      location {
+        latitude
+        longitude
+      }
+      post
+      postId
+      spam
+      status
+      userId
+      username
     }
-  }
-  `
+  }    
+
+}`

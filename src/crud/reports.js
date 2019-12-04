@@ -4,18 +4,15 @@ import { createReport, createReportHashtags } from '../graphql/mutations'
 import { createUserHashtag, getHashtagByName } from './settings'
 import { fetchRecentReports } from '../graphql/queries'
 
-const createUserReport = async (
-	{
-		hashtags,
-		location,
-		post,
-		post_date_creation,
-		post_id,
-		user_id,
-		username,
-	},
-	settingsId,
-) => {
+const createUserReport = async ({
+	hashtags,
+	location,
+	post,
+	postDate,
+	postId,
+	userId,
+	username,
+}) => {
 	const {
 		data: {
 			createReport: { id: reportId },
@@ -23,12 +20,11 @@ const createUserReport = async (
 	} = await API.graphql(
 		graphqlOperation(createReport, {
 			input: {
-				longtitude: location.longitude, // Need to fix DB field name
-				latitude: location.latitude,
+				location,
 				post,
-				date: post_date_creation,
-				postId: post_id,
-				userId: user_id,
+				date: postDate,
+				postId,
+				userId,
 				username,
 				status: 'PENDING',
 				spam: false,
@@ -36,16 +32,17 @@ const createUserReport = async (
 		}),
 	)
 	hashtags.forEach(async hashtag => {
-		const hashtagId = await getHashtagByName(hashtag)
+		let hashtagId = await getHashtagByName(hashtag)
 		if (!hashtagId) {
-			await createUserHashtag(hashtag, settingsId)
+			await createUserHashtag(hashtag, null)
+			hashtagId = await getHashtagByName(hashtag)
 		}
 
 		await API.graphql(
 			graphqlOperation(createReportHashtags, {
 				input: {
 					reportHashtagsReportId: reportId,
-					reportHashtagsHashtagId: settingsId,
+					reportHashtagsHashtagId: hashtagId,
 				},
 			}),
 		)
@@ -58,7 +55,6 @@ const getUserReports = async () => {
 			listReports: { items },
 		},
 	} = await API.graphql(graphqlOperation(listReports))
-
 	const reports = items.map(report => ({
 		...report,
 		hashtags: report.hashtags.items.map(hashtag => hashtag.name),
@@ -68,7 +64,6 @@ const getUserReports = async () => {
 
 const getRecentUserReports = async (oldReports, hashtags) => {
 	const oldReportPosts = oldReports.map(report => report.postId)
-
 	let nonfilteredReports = await hashtags.map(async hashtag => {
 		const {
 			data: { fetchRecentReports: reports },
@@ -78,7 +73,8 @@ const getRecentUserReports = async (oldReports, hashtags) => {
 	nonfilteredReports = await Promise.all(nonfilteredReports)
 	return nonfilteredReports
 		.flat()
-		.filter(report => !oldReportPosts.includes(report.post_id))
+		.filter(report => !!report)
+		.filter(report => !oldReportPosts.includes(report.postId))
 }
 
 const updateUserReports = async (oldReports, hashtags) => {
