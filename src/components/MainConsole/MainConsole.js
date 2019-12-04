@@ -67,7 +67,10 @@ export default function MainConsole(props) {
 
 					{/* Secondary Information (Twitter Feed, Controls) */}
 					<Grid item xs={12} md={4} lg={4}>
-						<Paper className={fixedHeightPaper}>
+						<Paper
+							className={fixedHeightPaper}
+							style={{ overflow: 'auto' }}
+						>
 							{props.children[1]}
 						</Paper>
 					</Grid>
