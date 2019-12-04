@@ -30,7 +30,11 @@ class Map extends React.Component {
 	createMarkers(issues) {
 		if (issues) {
 			const markers = issues.map(
-				({ latitude, longitude, description, _id }) => (
+				({
+					location: { longitude, latitude },
+					post: description,
+					id: _id,
+				}) => (
 					<Marker
 						key={_id}
 						latitude={latitude}

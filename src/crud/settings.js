@@ -1,12 +1,12 @@
 import { API, graphqlOperation } from 'aws-amplify'
 import symmetricDifference from '../utils/symmetricDifference'
-import { listSettings } from '../custom_graphql/queries' // My custum query to be for get all item without pagination.
 import { listHashtags } from '../graphql/queries' // GraphQL queries that is auto genarate from the DB scheme (read function)
+import { listSettings } from '../custom_graphql/queries' // GraphQL queries that is auto genarate from the DB scheme (read function)
 import {
 	createSetting,
 	updateSetting,
 	createHashtag,
-	deleteHashtag,
+	updateHashtag,
 } from '../graphql/mutations' // GraphQL mutations that is auto genarate from the DB scheme (write functions)
 
 const getUserSettings = async () => {
@@ -14,21 +14,35 @@ const getUserSettings = async () => {
 		data: {
 			listSettings: { items }, // We use destructoring to get user settings (items)
 		},
-	} = await API.graphql(graphqlOperation(listSettings))
+	} = await API.graphql(
+		graphqlOperation(listSettings, {
+			limit: 1,
+		}),
+	)
 	const settings = items[0] // Since each user have only one settings we get the first element in items
-	return settings
+
+	return settings // If empty dont transform
 }
 
 const createUserSettings = async () => {
 	// This creates a settings entry in the setting table if a user don't already have one.
 	// This should be a lambda function that is triggers when an user login.
 	let settings = await getUserSettings()
+
 	if (!settings) {
-		settings = await API.graphql(
-			graphqlOperation(createSetting, {
-				input: { botMessage: ' ' },
-			}), // We will set hashtags with its corresponding settingsId in hashtag table
+		const {
+			data: {
+				createSetting: userSettings, // We use destructoring to get user settings (items)
+			},
+		} = await API.graphql(
+			graphqlOperation(createSetting, { input: {} }), // We will set hashtags with its corresponding settingsId in hashtag table
 		)
+		settings = userSettings
+	}
+	return {
+		hashtags: settings.hashtags.items.map(({ name }) => name),
+		botMessage: settings.botMessage,
+		settingsId: settings.id,
 	}
 }
 
@@ -44,23 +58,32 @@ const createUserHashtag = async (hashtagName, settingsId) => {
 	)
 }
 
-const getHashtagByName = async hashtag => {
+const getUserHashtags = async () => {
 	const {
 		data: {
 			listHashtags: { items }, // We use destructoring to get hashtag by it name (items)
 		},
 	} = await API.graphql(graphqlOperation(listHashtags))
-	const filteredHashtags = items.filter(({ name }) => name === hashtag) // We filter the users list of hashtags to get the one we need
+	return items
+}
+
+const getHashtagByName = async hashtag => {
+	const hashtags = await getUserHashtags()
+	const filteredHashtags = hashtags.filter(({ name }) => name === hashtag) // We filter the users list of hashtags to get the one we need
 	if (filteredHashtags[0]) return filteredHashtags[0].id // Since a user  will not have duplicate hashtags we get the first element in array if it exist
 	return undefined
 }
 
-const removeUserHashtag = async hashtagName => {
+const updateUserHashtag = async (hashtagId, update) => {
 	// We remove a hashtag by it Name since there is only one specific hashtag name per user.
-	const removeId = await getHashtagByName(hashtagName)
-	await API.graphql(
-		graphqlOperation(deleteHashtag, { input: { id: removeId } }), // We remove the hashtag by its id
-	)
+
+	if (hashtagId) {
+		await API.graphql(
+			graphqlOperation(updateHashtag, {
+				input: { id: hashtagId, ...update },
+			}), // We remove the hashtag by its id
+		)
+	}
 }
 
 const updateUserMessage = async (settingsId, botMessage) => {
@@ -76,29 +99,44 @@ const updateUserMessage = async (settingsId, botMessage) => {
 }
 
 const updateUserSettings = async ({ botMessage, hashtags, settingsId }) => {
-	const {
-		hashtags: { items: hashtagSettings },
-	} = await getUserSettings() // We destructure to get hashtag setting
-	const oldHashtags = hashtagSettings.map(({ name }) => name) // oldHashtags represents the hashtag (names) that we have in the DB
+	let oldHashtags = await getUserHashtags() // We destructure to get hashtag setting
+	oldHashtags = oldHashtags
+		.filter(({ setting }) => !!setting)
+		.map(({ name }) => name) // oldHashtags represents the hashtag (names) that we have in the DB
 	const arrayDifferences = symmetricDifference(hashtags, oldHashtags) // We get the differences between the user changes & oldHashtags
 	arrayDifferences.forEach(async hashtag => {
 		// If the difference between them is in the user input we need to add it to the DB, otherwise delete it
+		const hashtagId = await getHashtagByName(hashtag)
+
 		if (hashtags.includes(hashtag)) {
-			await createUserHashtag(hashtag, settingsId)
+			if (hashtagId) {
+				await updateUserHashtag(hashtagId, {
+					hashtagSettingId: settingsId,
+				})
+			} else {
+				await createUserHashtag(hashtag, settingsId)
+			}
 		} else {
-			await removeUserHashtag(hashtag)
+			await updateUserHashtag(hashtagId, {
+				hashtagSettingId: null,
+			})
 		}
 	})
-	if (botMessage === '') await updateUserMessage(settingsId, ' ') // Empty string produces error in DB
-	await updateUserMessage(settingsId, botMessage) // We finally add the botMessage to the DB
+	if (!botMessage) {
+		await updateUserMessage(settingsId, null)
+	} else {
+		// Empty string produces error in DB
+		await updateUserMessage(settingsId, botMessage)
+	} // We finally add the botMessage to the DB
 }
 
 export {
 	getUserSettings,
 	updateUserSettings,
 	updateUserMessage,
-	removeUserHashtag,
+	updateUserHashtag,
 	getHashtagByName,
+	getUserHashtags,
 	createUserHashtag,
 	createUserSettings,
 }

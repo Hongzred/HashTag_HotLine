@@ -1,16 +1,13 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react'
-import { API, graphqlOperation } from 'aws-amplify'
 // crud operations
 import {
 	updateUserSettings,
-	getUserSettings,
 	createUserSettings,
+	getUserHashtags,
 } from '../crud/settings'
 
-import { listReports } from '../graphql/queries'
-
-import { getUserReports, updateUserReports } from '../crud/reports'
+import { updateUserReports, getUserReports } from '../crud/reports'
 
 const UserStateContext = React.createContext()
 
@@ -26,52 +23,31 @@ class UserProvider extends Component {
 
 	pollID = null
 
-	interval = 1800000 // 30 mins
+	interval = process.env.REACT_APP_INTERVAL
 
 	async componentDidMount() {
 		await this.initializeSettings()
-		// await this.initializeReports()
+		await this.initializeReports()
 		this.pollID = await this.pollTwitter()
-		const reportData = await this.getReportData()
-		console.log(reportData)
-		this.setState({ reports: reportData })
 	}
 
 	componentWillUnmount() {
 		clearInterval(this.pollID)
 	}
-	/**
-		//    * call listReports query and extract useful information for the use of map component
-		//    * @returns reports[]
-		//    */
-
-	getReportData = async () => {
-		const reportData = await API.graphql(graphqlOperation(listReports))
-		console.log(reportData)
-		const reports = []
-
-		reportData.data.listReports.items.forEach(data => {
-			const report = {
-				_id: data.id,
-				report: data.username,
-				description: data.post,
-				latitude: data.latitude,
-				longitude: data.longtitude,
-			}
-			reports.push(report)
-		})
-		return reports
-	}
 
 	pollTwitter = async () => {
 		const id = setInterval(async () => {
+			const dbReports = await getUserReports()
+			const hashtags = await getUserHashtags()
+			const settingsHashtags = hashtags
+				.filter(({ setting }) => !!setting)
+				.map(({ name }) => name)
 			const newReports = await updateUserReports(
-				this.state.reports,
-				this.state.settings.hashtags,
+				dbReports,
+				settingsHashtags,
 			)
 			const reports = await getUserReports()
-
-			console.log('Current Reports', this.state.reports)
+			console.log('Current Reports', dbReports)
 			console.log('New Reports', newReports)
 			this.setState({ reports })
 		}, this.interval)
@@ -79,19 +55,9 @@ class UserProvider extends Component {
 	}
 
 	initializeSettings = async () => {
-		await createUserSettings()
-		const {
-			botMessage,
-			hashtags: { items: hashtags },
-			id,
-		} = await getUserSettings()
-		const hashtagNames = hashtags.map(({ name }) => name)
+		const settings = await createUserSettings()
 		this.setState({
-			settings: {
-				settingsId: id,
-				botMessage,
-				hashtags: hashtagNames,
-			},
+			settings,
 		})
 	}
 
@@ -127,6 +93,7 @@ class UserProvider extends Component {
 				value={{
 					state: this.state,
 					settings: this.state.settings,
+					reports: this.state.reports,
 					onMessageChange: this.onMessageChange,
 					onHashtagsChange: this.onHashtagsChange,
 					onSave: this.onSave,

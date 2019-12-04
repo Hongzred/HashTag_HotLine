@@ -4035,10 +4035,7 @@
 				{
 					"name": "aws_oidc",
 					"description": "Tells the service this field/object has access authorized by an OIDC token.",
-					"locations": [
-						"OBJECT",
-						"FIELD_DEFINITION"
-					],
+					"locations": ["OBJECT", "FIELD_DEFINITION"],
 					"args": [],
 					"onOperation": false,
 					"onFragment": false,
@@ -4047,10 +4044,7 @@
 				{
 					"name": "aws_iam",
 					"description": "Tells the service this field/object has access authorized by sigv4 signing.",
-					"locations": [
-						"OBJECT",
-						"FIELD_DEFINITION"
-					],
+					"locations": ["OBJECT", "FIELD_DEFINITION"],
 					"args": [],
 					"onOperation": false,
 					"onFragment": false,
@@ -4083,10 +4077,7 @@
 				{
 					"name": "aws_cognito_user_pools",
 					"description": "Tells the service this field/object has access authorized by a Cognito User Pools token.",
-					"locations": [
-						"OBJECT",
-						"FIELD_DEFINITION"
-					],
+					"locations": ["OBJECT", "FIELD_DEFINITION"],
 					"args": [
 						{
 							"name": "cognito_groups",
@@ -4110,10 +4101,7 @@
 				{
 					"name": "aws_api_key",
 					"description": "Tells the service this field/object has access authorized by an API key.",
-					"locations": [
-						"OBJECT",
-						"FIELD_DEFINITION"
-					],
+					"locations": ["OBJECT", "FIELD_DEFINITION"],
 					"args": [],
 					"onOperation": false,
 					"onFragment": false,
@@ -4122,10 +4110,7 @@
 				{
 					"name": "deprecated",
 					"description": null,
-					"locations": [
-						"FIELD_DEFINITION",
-						"ENUM_VALUE"
-					],
+					"locations": ["FIELD_DEFINITION", "ENUM_VALUE"],
 					"args": [
 						{
 							"name": "reason",

@@ -78,8 +78,10 @@ export const createReport = `mutation CreateReport($input: CreateReportInput!) {
     userId
     username
     date
-    longtitude
-    latitude
+    location {
+      longitude
+      latitude
+    }
     hashtags {
       items {
         id
@@ -101,8 +103,10 @@ export const updateReport = `mutation UpdateReport($input: UpdateReportInput!) {
     userId
     username
     date
-    longtitude
-    latitude
+    location {
+      longitude
+      latitude
+    }
     hashtags {
       items {
         id
@@ -124,8 +128,10 @@ export const deleteReport = `mutation DeleteReport($input: DeleteReportInput!) {
     userId
     username
     date
-    longtitude
-    latitude
+    location {
+      longitude
+      latitude
+    }
     hashtags {
       items {
         id
@@ -149,8 +155,10 @@ export const createReportHashtags = `mutation CreateReportHashtags($input: Creat
       userId
       username
       date
-      longtitude
-      latitude
+      location {
+        longitude
+        latitude
+      }
       hashtags {
         nextToken
       }
@@ -185,8 +193,10 @@ export const updateReportHashtags = `mutation UpdateReportHashtags($input: Updat
       userId
       username
       date
-      longtitude
-      latitude
+      location {
+        longitude
+        latitude
+      }
       hashtags {
         nextToken
       }
@@ -221,8 +231,10 @@ export const deleteReportHashtags = `mutation DeleteReportHashtags($input: Delet
       userId
       username
       date
-      longtitude
-      latitude
+      location {
+        longitude
+        latitude
+      }
       hashtags {
         nextToken
       }

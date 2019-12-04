@@ -78,8 +78,10 @@ export const onCreateReport = `subscription OnCreateReport($owner: String!) {
     userId
     username
     date
-    longtitude
-    latitude
+    location {
+      longitude
+      latitude
+    }
     hashtags {
       items {
         id
@@ -101,8 +103,10 @@ export const onUpdateReport = `subscription OnUpdateReport($owner: String!) {
     userId
     username
     date
-    longtitude
-    latitude
+    location {
+      longitude
+      latitude
+    }
     hashtags {
       items {
         id
@@ -124,8 +128,10 @@ export const onDeleteReport = `subscription OnDeleteReport($owner: String!) {
     userId
     username
     date
-    longtitude
-    latitude
+    location {
+      longitude
+      latitude
+    }
     hashtags {
       items {
         id
@@ -149,8 +155,10 @@ export const onCreateReportHashtags = `subscription OnCreateReportHashtags($owne
       userId
       username
       date
-      longtitude
-      latitude
+      location {
+        longitude
+        latitude
+      }
       hashtags {
         nextToken
       }
@@ -185,8 +193,10 @@ export const onUpdateReportHashtags = `subscription OnUpdateReportHashtags($owne
       userId
       username
       date
-      longtitude
-      latitude
+      location {
+        longitude
+        latitude
+      }
       hashtags {
         nextToken
       }
@@ -221,8 +231,10 @@ export const onDeleteReportHashtags = `subscription OnDeleteReportHashtags($owne
       userId
       username
       date
-      longtitude
-      latitude
+      location {
+        longitude
+        latitude
+      }
       hashtags {
         nextToken
       }

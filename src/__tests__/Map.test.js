@@ -13,14 +13,12 @@ const props = {
 
 const issues = [
 	{
-		latitude: 40.73061,
-		longitude: -73.935242,
+		location: { latitude: 40.73061, longitude: -73.935242 },
 		description: 'description1',
 		_id: '123',
 	},
 	{
-		latitude: 40.74161,
-		longitude: -73.946242,
+		location: { latitude: 40.74161, longitude: -73.946242 },
 		description: 'description2',
 		_id: '321',
 	},
@@ -45,7 +43,7 @@ describe('Map Component', () => {
 		const { getAllByTestId } = render(<Map {...props} issues={[issue]} />)
 		const markers = getAllByTestId('marker')
 		expect(markers[0]).toHaveTextContent(
-			`${issue.latitude}:${issue.longitude}`,
+			`${issue.location.latitude}:${issue.location.longitude}`,
 		)
 		expect(markers.length).toBe(1)
 	})
@@ -56,8 +54,8 @@ describe('Map Component', () => {
 			<Map {...props} issues={issues} />,
 		)
 		const markers = getAllByTestId(`marker`)
-		getByText(`${issue1.latitude}:${issue1.longitude}`)
-		getByText(`${issue2.latitude}:${issue2.longitude}`)
+		getByText(`${issue1.location.latitude}:${issue1.location.longitude}`)
+		getByText(`${issue2.location.latitude}:${issue2.location.longitude}`)
 		expect(markers.length).toBe(2)
 	})
 

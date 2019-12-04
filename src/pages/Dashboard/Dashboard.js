@@ -14,10 +14,10 @@ export default function Dashboard() {
 					<Map
 						width="100%"
 						height="100%"
-						zoom={10}
+						zoom={8}
 						latitude={40.73061}
 						longitude={-73.93524}
-						issues={context.state.reports}
+						issues={context.reports}
 					/>
 					<MapControls />
 					<TagCloud />
