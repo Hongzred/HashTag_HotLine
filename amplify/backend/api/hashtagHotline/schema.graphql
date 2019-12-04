@@ -4,19 +4,19 @@
 
 # A hashtag has an unique id and a name
 # Our frontend will ensure no duplicate hashtag names
-# Users CRUD their own hashtag
+# Users CRUD their own hashtag.
 type Query {
-    fetchRecentReports(hashtag: String!): [ReportConnection!]! @function(name: "fetchReportsByHashtag-${env}")
+    fetchRecentReports(hashtag: String): [ReportConnection] @function(name: "fetchReportsByHashtag-${env}")
 }
 
 type ReportConnection {
-    post_date_creation: String!
-    post_id: String!
-    post: String!
-    hashtags: [String!]!
-    user_id:  String!
-    username:  String!
-    location: Location!
+    postDate: String
+    postId: String
+    post: String
+    hashtags: [String]
+    userId:  String
+    username:  String
+    location: Location
 }
 type Location {
     longitude: Float!
@@ -27,7 +27,7 @@ type Location {
 type Hashtag @model @auth(rules: [{ allow: owner }]) {
     id: ID!
     name: String!
-    setting: Setting! @connection(name: "SettingHashtags")
+    setting: Setting @connection(name: "SettingHashtags")
     reports: [ReportHashtags] @connection(name: "HashtagReports") # API only allow added this to ReportHashtags due to M:N relationship
 }
 
@@ -38,16 +38,15 @@ type Hashtag @model @auth(rules: [{ allow: owner }]) {
 # Reports will be automatically created on new tweets from  twitter using our configured hashtags in settings & lambda function
 type Report @model @auth(rules: [{ allow: owner }]) {
     id: ID!
-    postId: String!
-    post: String!
-    userId: String!
-    username: String!
-    date: String!
-    longtitude: Float!
-    latitude: Float!
+    postId: String
+    post: String
+    userId: String
+    username: String
+    date: String
+    location: Location 
     hashtags: [ReportHashtags] @connection(name: "ReportHashtags") # API only allow added this to ReportHashtags due to M:N relationship
-    status: Status!
-    spam: Boolean!
+    status: Status
+    spam: Boolean
 }
 
 # There is a M:N relationship between Reports & Hashtags
@@ -63,7 +62,7 @@ type ReportHashtags @model(queries: null) @auth(rules: [{ allow: owner }]) {
 # Users CRUD their own settings
 type Setting @model @auth(rules: [{ allow: owner }]) {
     id: ID!
-    botMessage: String!
+    botMessage: String
     hashtags: [Hashtag] @connection(name: "SettingHashtags")
 }
 

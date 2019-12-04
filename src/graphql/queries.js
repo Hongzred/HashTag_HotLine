@@ -1,13 +1,13 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const fetchRecentReports = `query FetchRecentReports($hashtag: String!) {
+export const fetchRecentReports = `query FetchRecentReports($hashtag: String) {
   fetchRecentReports(hashtag: $hashtag) {
-    post_date_creation
-    post_id
+    postDate
+    postId
     post
     hashtags
-    user_id
+    userId
     username
     location {
       longitude
@@ -70,8 +70,10 @@ export const getReport = `query GetReport($id: ID!) {
     userId
     username
     date
-    longtitude
-    latitude
+    location {
+      longitude
+      latitude
+    }
     hashtags {
       items {
         id
@@ -98,8 +100,10 @@ export const listReports = `query ListReports(
       userId
       username
       date
-      longtitude
-      latitude
+      location {
+        longitude
+        latitude
+      }
       hashtags {
         nextToken
       }
