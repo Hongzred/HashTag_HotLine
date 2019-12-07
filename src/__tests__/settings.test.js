@@ -23,6 +23,20 @@ describe('getUserSettings function', () => {
 	})
 
 
-   
+    it('Return only one user setting', async () => {
+        const settingsData = dbSettings.data.listSettings.items[0]
+        API.graphql.mockImplementationOnce(() =>
+        Promise.resolve({
+            data: {
+                listSettings: { items: [settingsData,settingsData]  },
+            },
+        }),
+    )
+    const settings = await getUserSettings()
+    expect(API.graphql).toHaveBeenCalledTimes(1)
+    expect(settings).toEqual(settingsData)
+
+    })
+    
     
 })
