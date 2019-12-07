@@ -106,3 +106,22 @@ describe('getHashtagIdByName function', () => {
     }) 
    
 })
+
+describe('updateUserHashtag function', () => {
+	it('Dont update hashtag if there is no update provided', async () => {
+		const updatedHashtag = await updateUserHashtag("749b2b0c-6f78-4592-b427-e222e1e9855c")
+        expect(API.graphql).toHaveBeenCalledTimes(0)   
+        expect(updatedHashtag).toBe(undefined)     
+    }) 
+    it('Dont update hashtag if there is no update id provided', async () => {
+		const updatedHashtag = await updateUserHashtag({"name": "New"})
+        expect(API.graphql).toHaveBeenCalledTimes(0) 
+        expect(updatedHashtag).toBe(undefined)          
+    }) 
+    it('Create hashtag given an name & no settingsId', async () => {
+		const updatedHashtag = await updateUserHashtag("749b2b0c-6f78-4592-b427-e222e1e9855c", {"name": "New"})
+        expect(API.graphql).toHaveBeenCalledTimes(1) 
+        expect(updatedHashtag).toEqual({id: "749b2b0c-6f78-4592-b427-e222e1e9855c", "name": "New"})         
+    })
+    
+})
