@@ -44,5 +44,30 @@ describe('getHashtag function', () => {
 		expect(API.graphql).toHaveBeenCalledTimes(1)
 		expect(hashtags).toEqual([])
     })
-
+    
+    it('Returns created hashtags formatted', async () => {
+        const hashtagsData = dbHashtags.data.listHashtags.items
+		API.graphql.mockImplementationOnce(() =>
+			Promise.resolve({
+				data: {
+					listHashtags: { items: hashtagsData },
+				},
+			}),
+		)
+		const hashtags = await getUserHashtags()
+		expect(API.graphql).toHaveBeenCalledTimes(1)
+		expect(hashtags).toEqual([{  
+            "id": "cb6302da-d528-491f-852c-6e082f528e9b",
+            "hashtag": "mta_hth_test",
+            isInSettings: false,
+        },{
+            "id": "8b673219-9e47-44f0-9e6b-9d857096785a",
+            "hashtag": "accident_hth_test",
+            isInSettings: true
+        }, {
+            "id": "4170a407-7a03-4029-899d-f40d948e3905",
+            "hashtag": "mta_hth",
+            "isInSettings": true
+        }])
+	})
 })
