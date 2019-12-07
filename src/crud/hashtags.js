@@ -22,10 +22,22 @@ const createUserHashtag = async (hashtagName, settingsId) => {
 
 }
 
+const getUserHashtags = async () => {
+	const {
+		data: {
+			listHashtags: { items }, // We use destructoring to get hashtag by it name (items)
+		},
+	} = await API.graphql(graphqlOperation(listHashtags))
+	return items.map((hashtagInfo) => {
+        const hashtag = hashtagInfo.name
+        const isInSettings = !!hashtagInfo.setting
+        const {id} = hashtagInfo
+        return {id, hashtag, isInSettings}
+    })
+}
+
 
 export {
-	updateUserHashtag,
-	getHashtagIdByName,
 	getUserHashtags,
 	createUserHashtag
 }
