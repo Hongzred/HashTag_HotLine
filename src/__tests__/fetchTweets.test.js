@@ -66,5 +66,24 @@ describe('Fetch twitters by hashtag', () => {
 		expect(jsonData).toEqual([null])
 	})
 
-	
+	it('fetches a tweet from twitter by hashtag', async () => {
+		Twit.prototype.get.mockImplementationOnce(() =>
+			Promise.resolve({
+				data: { statuses: [fakeTweets.statuses[0]] },
+			}),
+		)
+
+		const jsonData = await fetchTweets('testing_hth')
+		expect(jsonData.length).toBe(1)
+		expect(Object.keys(jsonData[0]).length).toBe(7)
+		expect(jsonData[0]).toMatchObject(expectedData[0])
+		expect(Twit.prototype.get).toHaveBeenCalledTimes(1)
+		expect(Twit.prototype.get).toHaveBeenCalledWith('search/tweets', {
+			q: '#testing_hth',
+			result_type: 'recent',
+			count:100
+		})
+	})
+
+
 })
