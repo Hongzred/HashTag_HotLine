@@ -52,5 +52,19 @@ describe('Fetch twitters by hashtag', () => {
 		expect(jsonData).toEqual([])
 	})
 
+	it('Returns nothing if a tweet dont have a location', async () => {
+		const tweet = {...fakeTweets.statuses[1]}
+		tweet.place = null
+
+		Twit.prototype.get.mockImplementationOnce(() =>
+		Promise.resolve({
+			data: { statuses: [tweet] },
+		}),
+	)
+		const jsonData = await fetchTweets('testing_hth')
+		expect(Twit.prototype.get).toHaveBeenCalledTimes(1)
+		expect(jsonData).toEqual([null])
+	})
+
 	
 })
