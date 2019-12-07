@@ -29,17 +29,26 @@ export default function TwitterFeed() {
 	// ]
 
 	// dummyData.map if need to  demo
+	const imageArr = [
+		'https://material-ui.com/static/images/avatar/1.jpg',
+		'https://material-ui.com/static/images/avatar/2.jpg',
+		'https://material-ui.com/static/images/avatar/3.jpg',
+		'https://material-ui.com/static/images/avatar/4.jpg',
+		'https://material-ui.com/static/images/avatar/5.jpg',
+		'https://material-ui.com/static/images/avatar/6.jpg',
+		'https://material-ui.com/static/images/avatar/7.jpg',
+	]
 
 	const list = (
 		<UserStateContext.Consumer>
 			{context =>
-				context.reports.map(tweet => (
+				context.reports.map((tweet, index) => (
 					<>
 						<Tweet
 							key={tweet.id}
 							full_name={tweet.username}
 							twitter_handle="@Placholder"
-							profile_pic="Placeholder"
+							profile_pic={imageArr[index % 7]}
 							tweet_body={tweet.post}
 						/>
 					</>
