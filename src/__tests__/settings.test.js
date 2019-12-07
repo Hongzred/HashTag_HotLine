@@ -71,3 +71,22 @@ describe('createUserSettings function', () => {
 	})   
     
 })
+
+describe('updateUserMessage function', () => {
+	it('Dont update the bot message if there is not settings id provided', async () => {
+		const updatedMessage = await updateUserMessage(undefined, "New Message")
+        expect(API.graphql).toHaveBeenCalledTimes(0)   
+        expect(updatedMessage).toBe(undefined)     
+    }) 
+    it('Update the bot message if there is not settings id provided', async () => {
+		const updatedMessage = await updateUserMessage("749b2b0c-6f78-4592-b427-e222e1e9855c", "New Message")
+        expect(API.graphql).toHaveBeenCalledTimes(1) 
+        expect(updatedMessage).toBe("New Message")          
+    }) 
+    it('Update the bot message to empty', async () => {
+		const updatedMessage = await updateUserMessage("749b2b0c-6f78-4592-b427-e222e1e9855c", "")
+        expect(API.graphql).toHaveBeenCalledTimes(1) 
+        expect(updatedMessage).toBe(null)          
+    }) 
+    
+})
