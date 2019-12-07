@@ -91,6 +91,18 @@ describe('getHashtagIdByName function', () => {
         expect(API.graphql).toHaveBeenCalledTimes(1)   
         expect(hashtagId).toBe(undefined)     
     }) 
-     
+    it('Returns found hashtagId', async () => {
+        const hashtagsData = dbHashtags.data.listHashtags.items
+		API.graphql.mockImplementationOnce(() =>
+			Promise.resolve({
+				data: {
+					listHashtags: { items: hashtagsData },
+				},
+			}),
+		)
+		const hashtagId = await getHashtagIdByName("accident_hth_test")
+        expect(API.graphql).toHaveBeenCalledTimes(1) 
+        expect(hashtagId).toBe("8b673219-9e47-44f0-9e6b-9d857096785a")          
+    }) 
    
 })
