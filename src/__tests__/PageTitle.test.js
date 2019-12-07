@@ -12,4 +12,16 @@ describe('PageTitle Component', () => {
         const title = getByTestId('pageTitle')
         expect(title).toBeInTheDocument()
 	})
+
+	it('shows the page title when provided', () => {
+		const { getByText } = render(<PageTitle title="Test"/>)
+		const title = getByText('Test')
+		expect(title).toHaveTextContent('Test')
+    })
+    
+    it('shows no title when nothing is provided', () => {
+		const { getByTestId } = render(<PageTitle />)
+		const title = getByTestId('pageTitle')
+		expect(title.textContent).toBe("")
+	})
 })
