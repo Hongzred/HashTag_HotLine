@@ -1,8 +1,11 @@
 import React from 'react'
+import Divider from '@material-ui/core/Divider'
 import MainConsole from '../../components/MainConsole/MainConsole'
 import Map from '../../components/Map/Map'
 import MapControls from '../../components/MapControls/MapControls'
 import TagCloud from '../../components/TagCloud/TagCloud'
+import SessionTagCloud from '../../components/TagCloud/SessionTagCloud'
+
 // import fakeReports from '../../utils/fakeMapReports'
 import { UserStateContext } from '../../context/UserContext'
 
@@ -20,7 +23,11 @@ export default function Dashboard() {
 						issues={context.reports}
 					/>
 					<MapControls />
-					<TagCloud />
+					<>
+						<SessionTagCloud />
+						<Divider />
+						<TagCloud />
+					</>
 				</MainConsole>
 			)}
 		</UserStateContext.Consumer>

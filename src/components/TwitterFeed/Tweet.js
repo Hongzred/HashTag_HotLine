@@ -24,7 +24,6 @@ export default function Tweet(props) {
 				</Grid>
 
 				<Grid item width="auto">
-					{/* place the ResponseDialog Here */}
 					<ResponseDialog />
 				</Grid>
 			</Grid>
