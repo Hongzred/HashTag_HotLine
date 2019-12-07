@@ -12,16 +12,16 @@ export default function SimpleBreadcrumbs() {
 	return (
 		<Breadcrumbs aria-label="breadcrumb">
 			<Link color="inherit" href="/" onClick={handleClick}>
-				Material-UI
+				Summary
 			</Link>
 			<Link
 				color="inherit"
 				href="/getting-started/installation/"
 				onClick={handleClick}
 			>
-				Core
+				Getting Started
 			</Link>
-			<Typography color="textPrimary">Breadcrumb</Typography>
+			<Typography color="textPrimary">Q&A</Typography>
 		</Breadcrumbs>
 	)
 }
