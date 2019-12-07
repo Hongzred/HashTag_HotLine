@@ -23,7 +23,7 @@ export const onCreateHashtag = `subscription OnCreateHashtag($owner: String!) {
     owner
   }
 }
-`
+`;
 export const onUpdateHashtag = `subscription OnUpdateHashtag($owner: String!) {
   onUpdateHashtag(owner: $owner) {
     id
@@ -46,7 +46,7 @@ export const onUpdateHashtag = `subscription OnUpdateHashtag($owner: String!) {
     owner
   }
 }
-`
+`;
 export const onDeleteHashtag = `subscription OnDeleteHashtag($owner: String!) {
   onDeleteHashtag(owner: $owner) {
     id
@@ -69,7 +69,7 @@ export const onDeleteHashtag = `subscription OnDeleteHashtag($owner: String!) {
     owner
   }
 }
-`
+`;
 export const onCreateReport = `subscription OnCreateReport($owner: String!) {
   onCreateReport(owner: $owner) {
     id
@@ -94,7 +94,7 @@ export const onCreateReport = `subscription OnCreateReport($owner: String!) {
     owner
   }
 }
-`
+`;
 export const onUpdateReport = `subscription OnUpdateReport($owner: String!) {
   onUpdateReport(owner: $owner) {
     id
@@ -119,7 +119,7 @@ export const onUpdateReport = `subscription OnUpdateReport($owner: String!) {
     owner
   }
 }
-`
+`;
 export const onDeleteReport = `subscription OnDeleteReport($owner: String!) {
   onDeleteReport(owner: $owner) {
     id
@@ -144,7 +144,7 @@ export const onDeleteReport = `subscription OnDeleteReport($owner: String!) {
     owner
   }
 }
-`
+`;
 export const onCreateReportHashtags = `subscription OnCreateReportHashtags($owner: String!) {
   onCreateReportHashtags(owner: $owner) {
     id
@@ -182,7 +182,7 @@ export const onCreateReportHashtags = `subscription OnCreateReportHashtags($owne
     owner
   }
 }
-`
+`;
 export const onUpdateReportHashtags = `subscription OnUpdateReportHashtags($owner: String!) {
   onUpdateReportHashtags(owner: $owner) {
     id
@@ -220,7 +220,7 @@ export const onUpdateReportHashtags = `subscription OnUpdateReportHashtags($owne
     owner
   }
 }
-`
+`;
 export const onDeleteReportHashtags = `subscription OnDeleteReportHashtags($owner: String!) {
   onDeleteReportHashtags(owner: $owner) {
     id
@@ -258,7 +258,7 @@ export const onDeleteReportHashtags = `subscription OnDeleteReportHashtags($owne
     owner
   }
 }
-`
+`;
 export const onCreateSetting = `subscription OnCreateSetting($owner: String!) {
   onCreateSetting(owner: $owner) {
     id
@@ -274,7 +274,7 @@ export const onCreateSetting = `subscription OnCreateSetting($owner: String!) {
     owner
   }
 }
-`
+`;
 export const onUpdateSetting = `subscription OnUpdateSetting($owner: String!) {
   onUpdateSetting(owner: $owner) {
     id
@@ -290,7 +290,7 @@ export const onUpdateSetting = `subscription OnUpdateSetting($owner: String!) {
     owner
   }
 }
-`
+`;
 export const onDeleteSetting = `subscription OnDeleteSetting($owner: String!) {
   onDeleteSetting(owner: $owner) {
     id
@@ -306,4 +306,4 @@ export const onDeleteSetting = `subscription OnDeleteSetting($owner: String!) {
     owner
   }
 }
-`
+`;
