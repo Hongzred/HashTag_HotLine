@@ -8,15 +8,15 @@ Amplify Params - DO NOT EDIT */
 const AWS = require("aws-sdk");
 const replyTweet = require("./replyTweet.js");
 
-exports.handler = async (event, context) => {
+exports.handler = async (event, context) => { 
     try {
         const isSuccessful = await replyTweet(
-            "TagHotline",
-            "Reply test 1",
-            "1195487067985371136"
+            event.arguments.userScreenName,
+            event.arguments.tweet,
+            event.arguments.tweetId
         );
-        console.log(isSuccessful);
+        context.done(null, isSuccessful)
     } catch (err) {
-        console.log(err);
+        context.done(err);
     }
 };
