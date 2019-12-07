@@ -4,8 +4,10 @@ import React, { Component } from 'react'
 import {
 	updateUserSettings,
 	createUserSettings,
-	getUserHashtags,
+	getUserSettings,
 } from '../crud/settings'
+
+import { getUserHashtags } from '../crud/hashtags'
 
 import { updateUserReports, getUserReports } from '../crud/reports'
 
@@ -40,8 +42,8 @@ class UserProvider extends Component {
 			const dbReports = await getUserReports()
 			const hashtags = await getUserHashtags()
 			const settingsHashtags = hashtags
-				.filter(({ setting }) => !!setting)
-				.map(({ name }) => name)
+				.filter(({ isInSettings }) => isInSettings)
+				.map(({ hashtag }) => hashtag)
 			const newReports = await updateUserReports(
 				dbReports,
 				settingsHashtags,
@@ -55,7 +57,7 @@ class UserProvider extends Component {
 	}
 
 	initializeSettings = async () => {
-		const settings = await createUserSettings()
+		const settings = await createUserSettings(await getUserSettings())
 		this.setState({
 			settings,
 		})

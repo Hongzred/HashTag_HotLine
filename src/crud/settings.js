@@ -1,14 +1,13 @@
 import { API, graphqlOperation } from 'aws-amplify'
 import symmetricDifference from '../utils/symmetricDifference'
 import { listSettings } from '../custom_graphql/queries' // GraphQL queries that is auto genarate from the DB scheme (read function)
+import { createSetting, updateSetting } from '../graphql/mutations' // GraphQL mutations that is auto genarate from the DB scheme (write functions)
 import {
-	createSetting,
-	updateSetting
-} from '../graphql/mutations' // GraphQL mutations that is auto genarate from the DB scheme (write functions)
-import { updateUserHashtag,
+	updateUserHashtag,
 	getHashtagIdByName,
-    getUserHashtags,
-	createUserHashtag} from "./hashtags"
+	getUserHashtags,
+	createUserHashtag,
+} from './hashtags'
 
 const getUserSettings = async () => {
 	const {
@@ -25,13 +24,13 @@ const getUserSettings = async () => {
 	return settings // If empty dont transform
 }
 
-const createUserSettings = async (settings) => {
+const createUserSettings = async settings => {
 	// This creates a settings entry in the setting table if a user don't already have one.
 	// This should be a lambda function that is triggers when an user login.
-	
-	// let settings = await getUserSettings()
 
-	if (!settings) {
+	// let settings = await getUserSettings()
+	let data = settings
+	if (!data) {
 		const {
 			data: {
 				createSetting: userSettings, // We use destructoring to get user settings (items)
@@ -39,29 +38,29 @@ const createUserSettings = async (settings) => {
 		} = await API.graphql(
 			graphqlOperation(createSetting, { input: {} }), // We will set hashtags with its corresponding settingsId in hashtag table
 		)
-		settings = userSettings
+		data = userSettings
 	}
 	return {
-		hashtags: settings.hashtags.items.map(({ name }) => name),
-		botMessage: settings.botMessage,
-		settingsId: settings.id,
+		hashtags: data.hashtags.items.map(({ name }) => name),
+		botMessage: data.botMessage,
+		settingsId: data.id,
 	}
 }
 
-
 const updateUserMessage = async (settingsId, botMessage) => {
 	// We update a botMessage with it settingsId.
-	if(settingsId) {
-		if(!botMessage) botMessage = null
+	let data = botMessage
+	if (settingsId) {
+		if (!data) data = null
 		await API.graphql(
 			graphqlOperation(updateSetting, {
 				input: {
 					id: settingsId,
-					botMessage,
+					data,
 				},
 			}),
 		)
-		return botMessage
+		return data
 	}
 	return undefined
 }
@@ -91,7 +90,6 @@ const updateUserSettings = async ({ botMessage, hashtags, settingsId }) => {
 		}
 	})
 	await updateUserMessage(settingsId, botMessage)
-	
 }
 
 export {
