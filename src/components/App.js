@@ -2,8 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import shortid from 'shortid'
 // Layout
-import Amplify from 'aws-amplify'
 import { withAuthenticator } from 'aws-amplify-react'
+import Amplify from 'aws-amplify'
 import Layout from './Layout/Layout'
 
 // pages
@@ -16,8 +16,11 @@ import Error from '../pages/Error/Error'
 // aws
 import awsconfig from '../aws-exports'
 import { UserProvider } from '../context/UserContext'
+import { LayoutProvider } from '../context/LayoutContext'
+
 
 Amplify.configure(awsconfig)
+
 
 const routes = [
 	{
@@ -49,6 +52,7 @@ const App = () => {
 		label: title,
 	}))
 	return (
+<LayoutProvider>
 		<UserProvider>
 			<Router>
 				<Switch>
@@ -70,6 +74,8 @@ const App = () => {
 				</Switch>
 			</Router>
 		</UserProvider>
+</LayoutProvider>
+
 	)
 }
 

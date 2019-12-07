@@ -36,6 +36,7 @@ export default function TwitterFeed() {
 				context.reports.map(tweet => (
 					<>
 						<Tweet
+							key={tweet.id}
 							full_name={tweet.username}
 							twitter_handle="@Placholder"
 							profile_pic="Placeholder"
