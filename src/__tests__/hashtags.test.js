@@ -31,7 +31,7 @@ describe('createUserHashtag function', () => {
     
 })
 
-describe('getHashtag function', () => {
+describe('getUserHashtags function', () => {
 	it('Return no hashtags if none are created', async () => {
 		API.graphql.mockImplementationOnce(() =>
 			Promise.resolve({
@@ -70,4 +70,27 @@ describe('getHashtag function', () => {
             "isInSettings": true
         }])
 	})
+})
+
+describe('getHashtagIdByName function', () => {
+    it('Returns no hashtagId if its name is not provided', async () => {
+		const hashtagId = await getHashtagIdByName()
+        expect(API.graphql).toHaveBeenCalledTimes(0)   
+        expect(hashtagId).toBe(undefined)     
+    }) 
+	it('Returns no hashtagId if it cant find it', async () => {
+        const hashtagsData = dbHashtags.data.listHashtags.items
+		API.graphql.mockImplementationOnce(() =>
+			Promise.resolve({
+				data: {
+					listHashtags: { items: hashtagsData },
+				},
+			}),
+		)
+		const hashtagId = await getHashtagIdByName("accident_hth")
+        expect(API.graphql).toHaveBeenCalledTimes(1)   
+        expect(hashtagId).toBe(undefined)     
+    }) 
+     
+   
 })
