@@ -31,3 +31,18 @@ describe('createUserHashtag function', () => {
     
 })
 
+describe('getHashtag function', () => {
+	it('Return no hashtags if none are created', async () => {
+		API.graphql.mockImplementationOnce(() =>
+			Promise.resolve({
+				data: {
+					listHashtags: { items: [] },
+				},
+			}),
+		)
+		const hashtags = await getUserHashtags()
+		expect(API.graphql).toHaveBeenCalledTimes(1)
+		expect(hashtags).toEqual([])
+    })
+
+})
