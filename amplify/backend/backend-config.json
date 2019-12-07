@@ -29,7 +29,7 @@
 			"providerPlugin": "awscloudformation",
 			"build": true
 		},
-		"replyBot": {
+		"replyReport": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true

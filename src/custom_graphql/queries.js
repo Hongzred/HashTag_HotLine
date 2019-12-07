@@ -13,8 +13,8 @@ export const listSettings = `query listSettings {
     }
   }`
 
-export const listReports = `query listReports {
-  listReports {
+export const listReports = `query ListReports {
+  listReports(limit: 100) {
     items {
       date
       hashtags {

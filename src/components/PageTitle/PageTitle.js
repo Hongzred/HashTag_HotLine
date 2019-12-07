@@ -6,13 +6,13 @@ import useStyles from './styles'
 // components
 import { Typography } from '../Wrappers/Wrappers'
 
-export default function PageTitle(props) {
+export default function PageTitle({title}) {
 	const classes = useStyles()
 
 	return (
-		<div className={classes.pageTitleContainer}>
+		<div className={classes.pageTitleContainer} data-testid="pageTitle">
 			<Typography className={classes.typo} variant="h1" size="sm">
-				{props.title}
+				{title}
 			</Typography>
 		</div>
 	)

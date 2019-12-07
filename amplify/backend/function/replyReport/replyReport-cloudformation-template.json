@@ -28,12 +28,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"replyBot",
+						"replyReport",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"replyBot",
+									"replyReport",
 									"-",
 									{
 										"Ref": "env"
@@ -63,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-hashtag-hotline-develop-224135-deployment",
-					"S3Key": "amplify-builds/replyBot-386f764756696d774968-build.zip"
+					"S3Key": "amplify-builds/replyReport-4e31434f45512f30614e-build.zip"
 				}
 			}
 		},
@@ -73,12 +73,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"hashtaghotlineLambdaRole9353a226",
+						"hashtaghotlineLambdaRole0a4fca08",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"hashtaghotlineLambdaRole9353a226",
+									"hashtaghotlineLambdaRole0a4fca08",
 									"-",
 									{
 										"Ref": "env"

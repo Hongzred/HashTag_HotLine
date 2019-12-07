@@ -15,7 +15,11 @@ export const fetchRecentReports = `query FetchRecentReports($hashtag: String) {
     }
   }
 }
-`
+`;
+export const replyToUser = `query ReplyToUser($userScreenName: String, $tweet: String, $tweetId: String) {
+  replyToUser(userScreenName: $userScreenName, tweet: $tweet, tweetId: $tweetId)
+}
+`;
 export const getHashtag = `query GetHashtag($id: ID!) {
   getHashtag(id: $id) {
     id
@@ -38,7 +42,7 @@ export const getHashtag = `query GetHashtag($id: ID!) {
     owner
   }
 }
-`
+`;
 export const listHashtags = `query ListHashtags(
   $filter: ModelHashtagFilterInput
   $limit: Int
@@ -61,7 +65,7 @@ export const listHashtags = `query ListHashtags(
     nextToken
   }
 }
-`
+`;
 export const getReport = `query GetReport($id: ID!) {
   getReport(id: $id) {
     id
@@ -86,7 +90,7 @@ export const getReport = `query GetReport($id: ID!) {
     owner
   }
 }
-`
+`;
 export const listReports = `query ListReports(
   $filter: ModelReportFilterInput
   $limit: Int
@@ -114,7 +118,7 @@ export const listReports = `query ListReports(
     nextToken
   }
 }
-`
+`;
 export const getSetting = `query GetSetting($id: ID!) {
   getSetting(id: $id) {
     id
@@ -130,7 +134,7 @@ export const getSetting = `query GetSetting($id: ID!) {
     owner
   }
 }
-`
+`;
 export const listSettings = `query ListSettings(
   $filter: ModelSettingFilterInput
   $limit: Int
@@ -148,4 +152,4 @@ export const listSettings = `query ListSettings(
     nextToken
   }
 }
-`
+`;

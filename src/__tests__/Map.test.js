@@ -15,12 +15,12 @@ const issues = [
 	{
 		location: { latitude: 40.73061, longitude: -73.935242 },
 		description: 'description1',
-		_id: '123',
+		id: '123',
 	},
 	{
 		location: { latitude: 40.74161, longitude: -73.946242 },
 		description: 'description2',
-		_id: '321',
+		id: '321',
 	},
 ]
 

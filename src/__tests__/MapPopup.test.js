@@ -7,7 +7,6 @@ import {
 	waitForDomChange,
 } from '@testing-library/react'
 import axios from 'axios'
-// import reverseGeocode from "./reverseGeocode";
 import MapPopup from '../components/MapPopup/MapPopup'
 
 jest.mock('../__mocks__/react-map-gl')

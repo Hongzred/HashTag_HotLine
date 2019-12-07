@@ -63,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-hashtag-hotline-develop-224135-deployment",
-					"S3Key": "amplify-builds/fetchReportsByHashtag-58366458335937594457-build.zip"
+					"S3Key": "amplify-builds/fetchReportsByHashtag-45326d6e526259573676-build.zip"
 				}
 			}
 		},

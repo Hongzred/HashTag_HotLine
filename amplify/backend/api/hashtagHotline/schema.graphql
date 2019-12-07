@@ -2,11 +2,20 @@
 # Settings & Hashtag => M:1
 # Reports & Hashtag => M:N
 
-# A hashtag has an unique id and a name
-# Our frontend will ensure no duplicate hashtag names
-# Users CRUD their own hashtag.
+
 type Query {
     fetchRecentReports(hashtag: String): [ReportConnection] @function(name: "fetchReportsByHashtag-${env}")
+    replyToUser(userScreenName: String tweet: String tweetId: String): Boolean @function(name: "replyReport-${env}")
+}
+
+type ReportConnection {
+    postDate: String
+    postId: String
+    post: String
+    hashtags: [String]
+    userId:  String
+    username:  String
+    location: Location
 }
 
 type ReportConnection {
@@ -28,7 +37,7 @@ type Hashtag @model @auth(rules: [{ allow: owner }]) {
     id: ID!
     name: String!
     setting: Setting @connection(name: "SettingHashtags")
-    reports: [ReportHashtags] @connection(name: "HashtagReports") # API only allow added this to ReportHashtags due to M:N relationship
+    reports: [ReportHashtags] @connection(name: "HashtagReports") 
 }
 
 # A report has 2 status Pending and Resolved

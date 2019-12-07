@@ -45,6 +45,7 @@ export default function TwitterFeed() {
 				context.reports.map((tweet, index) => (
 					<>
 						<Tweet
+							key={tweet.id}
 							full_name={tweet.username}
 							twitter_handle="@Placholder"
 							profile_pic={imageArr[index % 7]}
