@@ -36,8 +36,23 @@ const getUserHashtags = async () => {
     })
 }
 
+const getHashtagIdByName = async hashtagName => {
+	if(hashtagName){
+			const hashtags = await getUserHashtags()
+	const filteredHashtags = hashtags.filter(({ hashtag }) => hashtag === hashtagName) // We filter the users list of hashtags to get the one we need
+	if (filteredHashtags[0]) return filteredHashtags[0].id // Since a user  will not have duplicate hashtags we get the first element in array if it exist
+	return undefined
+	}
+	return undefined
+
+}
+
+
+
 
 export {
 	getUserHashtags,
-	createUserHashtag
+	createUserHashtag,
+	getHashtagIdByName
+
 }
