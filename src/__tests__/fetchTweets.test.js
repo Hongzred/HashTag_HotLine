@@ -85,5 +85,21 @@ describe('Fetch twitters by hashtag', () => {
 		})
 	})
 
+	it('fetches multiple tweets from twitter by hashtag', async () => {
+		Twit.prototype.get.mockImplementationOnce(() =>
+			Promise.resolve({
+				data: {...fakeTweets} ,
+			}),
+		)
+		const jsonData = await fetchTweets('testing_hth')
 
+		expect(jsonData.length).toBe(2)
+		expect(jsonData).toMatchObject(expectedData)
+		expect(Twit.prototype.get).toHaveBeenCalledTimes(1)
+		expect(Twit.prototype.get).toHaveBeenCalledWith('search/tweets', {
+			q: '#testing_hth',
+			result_type: 'recent',
+			count:100
+		})
+	})
 })
