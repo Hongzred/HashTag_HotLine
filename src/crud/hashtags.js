@@ -47,12 +47,25 @@ const getHashtagIdByName = async hashtagName => {
 
 }
 
+const updateUserHashtag = async (hashtagId, update) => {
+	// We remove a hashtag by it Name since there is only one specific hashtag name per user.
 
+	if (hashtagId && update) {
+		await API.graphql(
+			graphqlOperation(updateHashtag, {
+				input: { id: hashtagId, ...update },
+			}), // We remove the hashtag by its id
+		)
+		return { id: hashtagId, ...update }
+	}
+	return undefined
+}
 
 
 export {
 	getUserHashtags,
 	createUserHashtag,
-	getHashtagIdByName
+	getHashtagIdByName,
+	updateUserHashtag
 
 }
