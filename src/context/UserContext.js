@@ -7,7 +7,8 @@ import {
 	getUserSettings,
 } from '../crud/settings'
 
-import { getUserHashtags } from '../crud/hashtags'
+import symmetricDifference from '../utils/symmetricDifference'
+
 
 import { updateUserReports, getUserReports } from '../crud/reports'
 
@@ -21,43 +22,79 @@ class UserProvider extends Component {
 			settingsId: null,
 		},
 		reports: [],
+		session:[]
 	}
 
 	pollID = null
 
-	interval = process.env.REACT_APP_INTERVAL
+	interval = 15000||process.env.REACT_APP_INTERVAL
+
+	testHandlerByBoardKeys= async ()=> {
+		document.addEventListener('keydown',async(event)=>{
+			switch (event.code) {
+				case 'KeyQ':
+					console.log('This similates disabling mta_hth tag')
+					this.onTagDisable('mta_hth')
+					console.log('All Settings Hashtags',this.state.settings.hashtags.map(({name}) => name))
+					console.log('All  enabled settings Hashtags',this.state.settings.hashtags.filter(({isSearchable, isInSettings}) => (isSearchable && isInSettings)).map(({name}) => name))
+					break;
+				case 'KeyW':
+					console.log('This similates enabling mta_hth tag')
+					this.onTagEnable('mta_hth')					
+					console.log('All Settings Hashtags',this.state.settings.hashtags.map(({id, name}) => ({id, name})))
+					console.log('All  enabled settings Hashtags',this.state.settings.hashtags.filter(({isSearchable, isInSettings}) => (isSearchable && isInSettings)).map(({name}) => name))
+					break;
+				case 'KeyE':
+					this.onSessionHashtagsChange(["test_hth"])
+					console.log('This similates adding session test_hth tag')
+					console.log('Session Hashtags',this.state.session)
+					break;
+				case 'KeyR':
+					this.onSessionHashtagsChange([])
+					console.log('This similates removing session test_hth tag')
+					console.log('Session Hashtags',this.state.session)
+					break;
+			
+				default:
+					break;
+			}
+		})
+	}
 
 	async componentDidMount() {
 		await this.initializeSettings()
 		await this.initializeReports()
+		this.testHandlerByBoardKeys()
 		this.pollID = await this.pollTwitter()
 	}
 
 	componentWillUnmount() {
+		
 		clearInterval(this.pollID)
 	}
 
 	pollTwitter = async () => {
 		const id = setInterval(async () => {
-			const dbReports = await getUserReports()
-			const hashtags = await getUserHashtags()
-			const settingsHashtags = hashtags
-				.filter(({ isInSettings }) => isInSettings)
-				.map(({ hashtag }) => hashtag)
+			const reports = this.state.reports
+			const settingsHashtags = this.state.settings.hashtags
+			const sessionHashtags = this.state.session
 			const newReports = await updateUserReports(
-				dbReports,
+				reports,
 				settingsHashtags,
+				sessionHashtags
 			)
-			const reports = await getUserReports()
-			console.log('Current Reports', dbReports)
-			console.log('New Reports', newReports)
-			this.setState({ reports })
+			//const reports = await getUserReports()
+			console.log('Current Reports State w/ isDisplayable field', reports)
+			console.log('New Reports from Twitter based on displayable hashtags', newReports)
+			console.log('Displayable Reports', reports.filter(({isDisplayable}) => (isDisplayable)))
+			this.setState({ reports:[...newReports,...reports] })
 		}, this.interval)
 		return id
 	}
 
 	initializeSettings = async () => {
-		const settings = await createUserSettings(await getUserSettings())
+		const settings = await createUserSettings(await getUserSettings())		
+		console.log("Hashtag State",settings)
 		this.setState({
 			settings,
 		})
@@ -78,27 +115,137 @@ class UserProvider extends Component {
 		}))
 	}
 
-	onHashtagsChange = e => {
+	onHashtagsChange = (e) => {
+		const hashtags = e.map((hashtagName) => {
+			const name = hashtagName
+			const isInSettings = true
+			const isSearchable =  true
+			const id = this.state.settings.settingsId
+			return {id, name, isInSettings, isSearchable}
+		})
+
 		this.setState(prevState => ({
-			settings: { ...prevState.settings, hashtags: e },
+			settings: { ...prevState.settings, hashtags }
 		}))
 	}
 
 	onSave = async e => {
-		e.preventDefault()
-		await updateUserSettings(this.state.settings)
+		e.preventDefault()		
+		await updateUserSettings(this.state.settings, this.onTagDelete, this.onTagAdd)
 	}
+
+	onTagDisable = (hashtagName) => {
+		const {
+			settings: {
+				hashtags
+			},
+			reports
+		} = this.state
+		const updatedHashtags = hashtags.map(hashtag => {
+			if(hashtag.name === hashtagName){
+				return {...hashtag, isSearchable: false}
+			} return hashtag
+		})
+		const updatedReports = reports.map(report => {
+			if(report.hashtags.includes(hashtagName) ){
+				return {...report, isDisplayable: false}
+			} return report
+		})
+		this.setState(prevState => ({
+			settings: { ...prevState.settings, hashtags: updatedHashtags},
+			reports: updatedReports,
+		}))		
+	}
+
+	onTagDelete = (hashtagName) => {
+		const {
+			reports
+		} = this.state
+		const updatedReports = reports.map(report => {
+			if(report.hashtags.includes(hashtagName) ){
+				return {...report, isDisplayable: false}
+			} return report
+		})
+		this.setState(prevState => ({
+			reports: updatedReports,
+		}))		
+	}
+
+	onTagAdd = (hashtagName) => {
+		const {
+			reports
+		} = this.state
+		const updatedReports = reports.map(report => {
+			if(report.hashtags.includes(hashtagName) ){
+				return {...report, isDisplayable: true}
+			} return report
+		})
+		this.setState(prevState => ({
+			reports: updatedReports,
+		}))		
+	}
+
+	onTagEnable = (hashtagName) => {
+		const {
+			settings: {
+				hashtags
+			},
+			reports
+		} = this.state
+		const updatedHashtags = hashtags.map(hashtag => {
+			if(hashtag.name === hashtagName){
+				return {...hashtag, isSearchable: true}
+			} return hashtag
+		})
+		const updatedReports = reports.map(report => {
+			if(report.hashtags.includes(hashtagName) ){
+				return {...report, isDisplayable: true}
+			} return report
+		})
+		this.setState(prevState => ({
+			settings: { ...prevState.settings, hashtags: updatedHashtags},
+			reports: updatedReports,
+		}))		
+	}
+
+	onSessionHashtagsChange = (e)=>{
+		const hashtags = this.state.settings.hashtags
+		const settingsHashtags = hashtags.filter(({isSearchable, isInSettings}) => (isSearchable && isInSettings)).map(({name}) => name)
+		const filteredHashtags = e.filter((hashtag)=> !settingsHashtags.includes(hashtag))
+		const arrayDifferences = symmetricDifference(filteredHashtags, this.state.session) // We get the differences between the user changes & oldHashtags
+		arrayDifferences.forEach(hashtag => {
+			if (filteredHashtags.includes(hashtag)) {
+				this.setState({session:filteredHashtags})
+			} else {
+				const updatedReports = this.state.reports.filter(report => (!report.hashtags.includes(hashtag)))
+				this.setState({
+					session:filteredHashtags,
+					reports: updatedReports
+				})
+			}
+		})
+	}
+
 
 	render() {
 		return (
 			<UserStateContext.Provider
 				value={{
 					state: this.state,
-					settings: this.state.settings,
-					reports: this.state.reports,
+					settings: this.state.settings, 
+					reports: this.state.reports, 
 					onMessageChange: this.onMessageChange,
 					onHashtagsChange: this.onHashtagsChange,
 					onSave: this.onSave,
+					//For David
+					sessionHashtags:this.state.session,
+					onSessionHashtagsChange: this.onSessionHashtagsChange,
+					
+					defaultHashtags: this.state.settings.hashtags.map(({id, name}) => ({id, name})), //You can use settings direct if needed as there are more fields
+					onHashtagDisable: this.onTagDisable, //You need to pass a hashtag name
+					onHashtagEnable: this.onTagEnable //You need to pass a hashtag name
+
+
 				}}
 			>
 				{this.props.children}
@@ -106,6 +253,7 @@ class UserProvider extends Component {
 		)
 	}
 }
+
 
 const useUserState = () => {
 	const context = React.useContext(UserStateContext)

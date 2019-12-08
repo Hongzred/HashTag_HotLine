@@ -17,7 +17,7 @@ const Settings = () => {
 				>
 					<form style={{ width: '80%' }} onSubmit={context.onSave}>
 						<ChipInput
-							defaultValue={context.state.settings.hashtags}
+							defaultValue={context.state.settings.hashtags.map(({name}) => name)}
 							fullWidth
 							label="Hashtags"
 							placeholder="Type and press enter to add hashtags"

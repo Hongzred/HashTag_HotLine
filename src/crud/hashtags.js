@@ -29,17 +29,18 @@ const getUserHashtags = async () => {
 		},
 	} = await API.graphql(graphqlOperation(listHashtags))
 	return items.map((hashtagInfo) => {
-        const hashtag = hashtagInfo.name
-        const isInSettings = !!hashtagInfo.setting
+		const name = hashtagInfo.name
+		const isInSettings = !!hashtagInfo.setting
+		const isSearchable =  true
         const {id} = hashtagInfo
-        return {id, hashtag, isInSettings}
+        return {id, name, isInSettings, isSearchable}
     })
 }
 
 const getHashtagIdByName = async hashtagName => {
 	if(hashtagName){
 			const hashtags = await getUserHashtags()
-	const filteredHashtags = hashtags.filter(({ hashtag }) => hashtag === hashtagName) // We filter the users list of hashtags to get the one we need
+	const filteredHashtags = hashtags.filter(({ name }) => name === hashtagName) // We filter the users list of hashtags to get the one we need
 	if (filteredHashtags[0]) return filteredHashtags[0].id // Since a user  will not have duplicate hashtags we get the first element in array if it exist
 	return undefined
 	}
