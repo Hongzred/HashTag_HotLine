@@ -11,17 +11,19 @@ function handleClick(event) {
 export default function SimpleBreadcrumbs() {
 	return (
 		<Breadcrumbs aria-label="breadcrumb">
-			<Link color="inherit" href="/" onClick={handleClick}>
-				Summary
-			</Link>
-			<Link
+			<Typography
 				color="inherit"
-				href="/getting-started/installation/"
+				href="/gettingStarted"
 				onClick={handleClick}
 			>
 				Getting Started
+			</Typography>
+			<Typography color="inherit" href="/summary/" onClick={handleClick}>
+				Summary
+			</Typography>
+			<Link color="textPrimary" href="mailto:hashTagHotLine@gmail.com">
+				Contact Us
 			</Link>
-			<Typography color="textPrimary">Q&A</Typography>
 		</Breadcrumbs>
 	)
 }
