@@ -5,9 +5,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 
-import ResponseDialog from '../ResponseDialog/ResponseDialog'
-
-export default function Tweet(props) {
+export default function ButtonlessTweet(props) {
 	const primary = `${props.full_name}  (${props.twitter_handle})`
 
 	return (
@@ -21,17 +19,6 @@ export default function Tweet(props) {
 					<ListItemText
 						primary={primary}
 						secondary={<>{props.tweet_body}</>}
-					/>
-				</Grid>
-
-				{/* The Buttons Along the Bottome of the Tweet */}
-				<Grid item width="auto">
-					<ResponseDialog
-						key={props.key}
-						full_name={props.full_name}
-						twitter_handle={props.twitter_handle}
-						profile_pic={props.profile_pic}
-						tweet_body={props.tweet_body}
 					/>
 				</Grid>
 			</Grid>

@@ -13,6 +13,10 @@
         "categories": {
             "auth": {
                 "hashtaghotline55868a8a": {}
+            },
+            "function": {
+                "fetchReportsByHashtag": {},
+                "replyReport": {}
             }
         }
     }

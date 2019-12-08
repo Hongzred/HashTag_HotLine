@@ -2,12 +2,11 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Chip from '@material-ui/core/Chip'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
-import DeleteIcon from '@material-ui/icons/Delete'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 
 const useStyles = makeStyles(theme => ({
 	root: {
 		display: 'flex',
-		justifyContent: 'center',
 		flexWrap: 'wrap',
 		padding: theme.spacing(0.5),
 	},
@@ -18,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 
 function setDeleteIcon(chip) {
 	if (chip.active === true) {
-		return <DeleteIcon />
+		return <HighlightOffIcon />
 	}
 
 	return <AddCircleIcon />
