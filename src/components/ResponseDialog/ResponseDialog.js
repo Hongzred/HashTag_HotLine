@@ -10,6 +10,11 @@ import Slide from '@material-ui/core/Slide'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import clsx from 'clsx'
+import Container from '@material-ui/core/Container'
+import ButtonlessTweet from '../TwitterFeed/ButtonlessTweet'
 
 const useStyles = makeStyles(theme => ({
 	appBar: {
@@ -25,8 +30,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />
 })
 
-export default function ResponseDialog() {
+export default function ResponseDialog(props) {
 	const classes = useStyles()
+	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
+
 	const [open, setOpen] = React.useState(false)
 
 	const handleClickOpen = () => {
@@ -80,15 +87,40 @@ export default function ResponseDialog() {
 					</Toolbar>
 				</AppBar>
 
-				<TextField
-					multiline
-					margin="normal"
-					style={{ margin: 30 }}
-					rows={10}
-					rowsMax={10}
-					variant="outlined"
-					label="Your Response"
-				/>
+				<Container maxWidth="lg" className={classes.container}>
+					<Grid container spacing={3}>
+						{/* Tweet */}
+						<Grid item xs={12} md={4} lg={4}>
+							<Paper
+								className={fixedHeightPaper}
+								style={{ overflow: 'auto' }}
+							>
+								<ButtonlessTweet
+									key={props.key}
+									full_name={props.full_name}
+									twitter_handle={props.twitter_handle}
+									profile_pic={props.profile_pic}
+									tweet_body={props.tweet_body}
+								/>
+							</Paper>
+						</Grid>
+
+						{/* TextBox */}
+						<Grid item xs={12} md={8} lg={8}>
+							<Paper className={fixedHeightPaper}>
+								<TextField
+									multiline
+									margin="normal"
+									style={{ margin: 30 }}
+									rows={10}
+									rowsMax={10}
+									variant="outlined"
+									label="Your Response"
+								/>
+							</Paper>
+						</Grid>
+					</Grid>
+				</Container>
 			</Dialog>
 		</div>
 	)
