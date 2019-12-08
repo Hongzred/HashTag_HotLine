@@ -11,7 +11,7 @@ export default function SessionTagCloud() {
 			{context => (
 				<ChipInput
 					defaultValue={context.state.settings.hashtags}
-					label="Temporary Session Hashtags"
+					label="Hashtags and Filters"
 					placeholder="Type temporary filters here."
 					onChange={context.onHashtagsChange}
 					disableUnderline
