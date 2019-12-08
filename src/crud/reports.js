@@ -3,6 +3,7 @@ import { listReports } from '../custom_graphql/queries'
 import { createReport, createReportHashtags } from '../graphql/mutations'
 import { createUserHashtag, getHashtagIdByName } from './hashtags'
 import { fetchRecentReports } from '../graphql/queries'
+import intersection from '../utils/intersection'
 
 const createUserReport = async ({
 	hashtags,
@@ -58,12 +59,13 @@ const getUserReports = async () => {
 	const reports = items.map(report => ({
 		...report,
 		hashtags: report.hashtags.items.map(({hashtag}) => hashtag.name),
+		isDisplayable: true
 	}))
 	return reports
 }
 
 const getRecentUserReports = async (oldReports, hashtags) => {
-	const oldReportPostIds = oldReports.map(report => report.postId)
+	const oldReportPostIds = oldReports.filter(({isDisplayable})=> isDisplayable).map(report => report.postId)
 	let nonfilteredReports = await hashtags.map(async hashtag => {
 		const {
 			data: { fetchRecentReports: reports },
@@ -78,13 +80,23 @@ const getRecentUserReports = async (oldReports, hashtags) => {
 		.filter(report => !oldReportPostIds.includes(report.postId))
 }
 
-const updateUserReports = async (oldReports, hashtags) => {
-	const reports = await getRecentUserReports(oldReports, hashtags)
-	await reports.forEach(async report => {
-		await createUserReport(report)
+const updateUserReports = async (oldReports, hashtags,sessionHashtags) => {
+	const hashtagNames = hashtags.filter(({isSearchable, isInSettings}) => (isSearchable && isInSettings)).map(({name}) => name)
+	const reports = await getRecentUserReports(oldReports, [...hashtagNames, ...sessionHashtags])
+	let newReports = await reports.map(async (report) => {
+		if(intersection(report.hashtags, sessionHashtags).length > 0){
+			report.isDisplayable = true
+			return report
+		}else {
+			await createUserReport(report)
+			report.isDisplayable = true
+			return report
+		}
+				
 	})
-	return reports
-}
+	newReports = await Promise.all(reports)
+
+return newReports}
 
 export {
 	createUserReport,

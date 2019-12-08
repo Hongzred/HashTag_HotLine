@@ -20,7 +20,6 @@ const getUserSettings = async () => {
 		}),
 	)
 	const settings = items[0] // Since each user have only one settings we get the first element in items
-
 	return settings // If empty dont transform
 }
 
@@ -30,6 +29,7 @@ const createUserSettings = async settings => {
 
 	// let settings = await getUserSettings()
 	let data = settings
+
 	if (!data) {
 		const {
 			data: {
@@ -41,7 +41,12 @@ const createUserSettings = async settings => {
 		data = userSettings
 	}
 	return {
-		hashtags: data.hashtags.items.map(({ name }) => name),
+		hashtags: data.hashtags.items.map(({ id, name, setting}) => ({
+			id,
+			name, 
+			isInSettings: true,
+			isSearchable: true,
+		})),
 		botMessage: data.botMessage,
 		settingsId: data.id,
 	}
@@ -56,7 +61,7 @@ const updateUserMessage = async (settingsId, botMessage) => {
 			graphqlOperation(updateSetting, {
 				input: {
 					id: settingsId,
-					data,
+					botMessage:data,
 				},
 			}),
 		)
@@ -65,28 +70,34 @@ const updateUserMessage = async (settingsId, botMessage) => {
 	return undefined
 }
 
-const updateUserSettings = async ({ botMessage, hashtags, settingsId }) => {
+const updateUserSettings = async ({ botMessage, hashtags, settingsId }, handleDelete, handleAdd) => {
 	let oldHashtags = await getUserHashtags() // We destructure to get hashtag setting
+	const hashtagNames = hashtags.map(({name}) => name)
 	oldHashtags = oldHashtags
 		.filter(({ isInSettings }) => isInSettings)
-		.map(({ hashtag }) => hashtag) // oldHashtags represents the hashtag (names) that we have in the DB
-	const arrayDifferences = symmetricDifference(hashtags, oldHashtags) // We get the differences between the user changes & oldHashtags
+		.map(({ name }) => name) // oldHashtags represents the hashtag (names) that we have in the DB
+	const arrayDifferences = symmetricDifference(hashtagNames, oldHashtags) // We get the differences between the user changes & oldHashtags
 	arrayDifferences.forEach(async hashtag => {
 		// If the difference between them is in the user input we need to add it to the DB, otherwise delete it
 		const hashtagId = await getHashtagIdByName(hashtag)
 
-		if (hashtags.includes(hashtag)) {
+		if (hashtagNames.includes(hashtag)) {
 			if (hashtagId) {
 				await updateUserHashtag(hashtagId, {
 					hashtagSettingId: settingsId,
+					
 				})
+				handleAdd(hashtag)
 			} else {
 				await createUserHashtag(hashtag, settingsId)
 			}
+			
+
 		} else {
 			await updateUserHashtag(hashtagId, {
 				hashtagSettingId: null,
 			})
+			handleDelete(hashtag)
 		}
 	})
 	await updateUserMessage(settingsId, botMessage)
