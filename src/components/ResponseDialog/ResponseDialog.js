@@ -88,13 +88,10 @@ export default function ResponseDialog(props) {
 				</AppBar>
 
 				<Container maxWidth="lg" className={classes.container}>
-					<Grid container spacing={3}>
+					<Grid spacing={3} center>
 						{/* Tweet */}
-						<Grid item xs={12} md={4} lg={4}>
-							<Paper
-								className={fixedHeightPaper}
-								style={{ overflow: 'auto' }}
-							>
+						<Grid item xs={12} md={4} lg={4} center>
+							<Paper className={fixedHeightPaper}>
 								<ButtonlessTweet
 									key={props.key}
 									full_name={props.full_name}
@@ -106,19 +103,15 @@ export default function ResponseDialog(props) {
 						</Grid>
 
 						{/* TextBox */}
-						<Grid item xs={12} md={8} lg={8}>
-							<Paper className={fixedHeightPaper}>
-								<TextField
-									multiline
-									margin="normal"
-									style={{ margin: 30 }}
-									rows={10}
-									rowsMax={10}
-									variant="outlined"
-									label="Your Response"
-								/>
-							</Paper>
-						</Grid>
+						<TextField
+							multiline
+							fullWidth
+							margin="normal"
+							rows={10}
+							rowsMax={10}
+							variant="outlined"
+							label="Your Response"
+						/>
 					</Grid>
 				</Container>
 			</Dialog>
