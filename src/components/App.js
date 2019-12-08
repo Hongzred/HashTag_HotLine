@@ -18,9 +18,7 @@ import awsconfig from '../aws-exports'
 import { UserProvider } from '../context/UserContext'
 import { LayoutProvider } from '../context/LayoutContext'
 
-
 Amplify.configure(awsconfig)
-
 
 const routes = [
 	{
@@ -35,7 +33,7 @@ const routes = [
 	},
 	{
 		path: '/feed',
-		title: 'Feed',
+		title: 'Documentation',
 		page: Feed,
 	},
 	{
@@ -52,30 +50,29 @@ const App = () => {
 		label: title,
 	}))
 	return (
-<LayoutProvider>
-		<UserProvider>
-			<Router>
-				<Switch>
-					{routes.map(({ path, page, title }) => (
-						<Route
-							key={shortid.generate()}
-							exact
-							path={path}
-							component={() => (
-								<Layout
-									page={page}
-									title={title}
-									navigation={navigation}
-								/>
-							)}
-						/>
-					))}
-					<Route component={Error} />
-				</Switch>
-			</Router>
-		</UserProvider>
-</LayoutProvider>
-
+		<LayoutProvider>
+			<UserProvider>
+				<Router>
+					<Switch>
+						{routes.map(({ path, page, title }) => (
+							<Route
+								key={shortid.generate()}
+								exact
+								path={path}
+								component={() => (
+									<Layout
+										page={page}
+										title={title}
+										navigation={navigation}
+									/>
+								)}
+							/>
+						))}
+						<Route component={Error} />
+					</Switch>
+				</Router>
+			</UserProvider>
+		</LayoutProvider>
 	)
 }
 
