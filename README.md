@@ -7,9 +7,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Installation
 
 After cloning this repository, reach out to one of the project maintainers, who should provide you with the following necessary configuration and keyfiles. All files, except the IAM credentials file,  should be copied into the directories in which they belong. The contents of the IAM credentials file will just be copy-pasted during the amplify setup process. Here are the files you should receive:
-	- an `aws-exports` file, which belongs in `/src/aws-exports`
-	- a `.env` file that belongs in the root folder.
-	- a credentials file with an IAM username, access key, secret key id for setting up amplify.
+- an `aws-exports` file, which belongs in `/src/aws-exports`
+- a `.env` file that belongs in the root folder of this project.
+- a credentials file with an IAM username, access key, secret key id which you will copy and paste into the  terminal in the amplify setup section.
 
 To install the project for yourself, you'll need a node development server. Install node with one of the installers listed [here](https://nodejs.org/en/download/). After that, you'll need to install and configure the [AWS Amplify Framework](https://aws.amazon.com/amplify/framework/).
 
