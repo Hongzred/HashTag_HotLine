@@ -3,7 +3,7 @@ import Divider from '@material-ui/core/Divider'
 import MainConsole from '../../components/MainConsole/MainConsole'
 import Map from '../../components/Map/Map'
 import MapControls from '../../components/MapControls/MapControls'
-import TagCloud from '../../components/TagCloud/TagCloud'
+import Tag from '../../components/Tag/Tag'
 import SessionTagCloud from '../../components/TagCloud/SessionTagCloud'
 
 // import fakeReports from '../../utils/fakeMapReports'
@@ -24,9 +24,9 @@ export default function Dashboard() {
 					/>
 					<MapControls />
 					<>
-						<SessionTagCloud />
-						<Divider />
-						<TagCloud />
+						{/* <SessionTagCloud />
+						<Divider />*/}
+						<Tag label="mta_hth" onDisable={context.onHashtagDisable} onEnable={context.onHashtagEnable}/> 
 					</>
 				</MainConsole>
 			)}
