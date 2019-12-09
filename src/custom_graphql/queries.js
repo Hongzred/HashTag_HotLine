@@ -36,6 +36,8 @@ export const listReports = `query ListReports {
       status
       userId
       username
+      userScreenName
+      userProfilePic
     }
   }    
 

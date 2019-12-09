@@ -4,10 +4,10 @@ const fetchTweets = async hashtag => {
 	if (hashtag) {
 		let json
 		try {
-			let { data } = await T.get('search/tweets', {
+			const { data } = await T.get('search/tweets', {
 				q: `#${hashtag}`,
 				result_type: 'recent',
-				count:100
+				count: 100,
 			})
 			json = data.statuses.map(jsonObject => {
 				try {
@@ -21,6 +21,8 @@ const fetchTweets = async hashtag => {
 
 						userId: jsonObject.user.id_str,
 						username: jsonObject.user.name,
+						userScreenName: jsonObject.user.screen_name,
+						userProfilePic: jsonObject.user.profile_image_url,
 						location: {
 							longitude:
 								jsonObject.place.bounding_box
@@ -37,12 +39,10 @@ const fetchTweets = async hashtag => {
 			})
 		} catch (err) {
 			json = []
-		} finally {
-			return json
 		}
-	} else {
-		return []
+		return json
 	}
+	return []
 }
 
 

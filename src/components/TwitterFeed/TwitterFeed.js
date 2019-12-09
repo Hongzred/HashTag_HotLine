@@ -42,14 +42,14 @@ export default function TwitterFeed() {
 	const list = (
 		<UserStateContext.Consumer>
 			{context =>
-				context.reports.map((tweet, index) => (
+				context.reports.map(({postId, username,userScreenName, userProfilePic, post}) => (
 					<>
 						<Tweet
-							key={tweet.id}
-							full_name={tweet.username}
-							twitter_handle="@Placholder"
-							profile_pic={imageArr[index % 7]}
-							tweet_body={tweet.post}
+							key={postId}
+							full_name={username}
+							twitter_handle={`@${userScreenName}`}
+							profile_pic={userProfilePic}
+							tweet_body={post}
 						/>
 					</>
 				))

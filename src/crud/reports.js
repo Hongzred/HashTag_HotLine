@@ -2,7 +2,8 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { listReports } from '../custom_graphql/queries'
 import { createReport, createReportHashtags } from '../graphql/mutations'
 import { createUserHashtag, getHashtagIdByName } from './hashtags'
-import { fetchRecentReports } from '../graphql/queries'
+import { getUserSettings} from './settings'
+import { fetchRecentReports, replyToUser } from '../graphql/queries'
 import intersection from '../utils/intersection'
 
 const createUserReport = async ({
@@ -13,6 +14,8 @@ const createUserReport = async ({
 	postId,
 	userId,
 	username,
+	userScreenName,
+	userProfilePic
 }) => {
 	const {
 		data: {
@@ -27,6 +30,8 @@ const createUserReport = async ({
 				postId,
 				userId,
 				username,
+				userScreenName,
+				userProfilePic,
 				status: 'PENDING',
 				spam: false,
 			},
@@ -89,6 +94,11 @@ const updateUserReports = async (oldReports, hashtags,sessionHashtags) => {
 			return report
 		}else {
 			await createUserReport(report)
+			const {botMessage} = await getUserSettings()
+			await replyToReport(
+				report.userScreenName,
+				report.postId,
+				botMessage)
 			report.isDisplayable = true
 			return report
 		}
@@ -98,9 +108,14 @@ const updateUserReports = async (oldReports, hashtags,sessionHashtags) => {
 
 return newReports}
 
+const replyToReport = async ( userScreenName, postId, message) => {
+	await API.graphql(graphqlOperation(replyToUser, { userScreenName, tweetId:postId, tweet:message }))
+}
+
 export {
 	createUserReport,
 	getUserReports,
 	getRecentUserReports,
 	updateUserReports,
+	replyToReport
 }

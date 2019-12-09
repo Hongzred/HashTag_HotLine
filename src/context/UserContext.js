@@ -233,7 +233,7 @@ class UserProvider extends Component {
 				value={{
 					state: this.state,
 					settings: this.state.settings, 
-					reports: this.state.reports, 
+					reports: this.state.reports.filter(({isDisplayable}) => (isDisplayable)), 
 					onMessageChange: this.onMessageChange,
 					onHashtagsChange: this.onHashtagsChange,
 					onSave: this.onSave,

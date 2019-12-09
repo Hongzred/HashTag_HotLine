@@ -77,6 +77,8 @@ export const onCreateReport = `subscription OnCreateReport($owner: String!) {
     post
     userId
     username
+    userScreenName
+    userProfilePic
     date
     location {
       longitude
@@ -102,6 +104,8 @@ export const onUpdateReport = `subscription OnUpdateReport($owner: String!) {
     post
     userId
     username
+    userScreenName
+    userProfilePic
     date
     location {
       longitude
@@ -127,6 +131,8 @@ export const onDeleteReport = `subscription OnDeleteReport($owner: String!) {
     post
     userId
     username
+    userScreenName
+    userProfilePic
     date
     location {
       longitude
@@ -154,6 +160,8 @@ export const onCreateReportHashtags = `subscription OnCreateReportHashtags($owne
       post
       userId
       username
+      userScreenName
+      userProfilePic
       date
       location {
         longitude
@@ -192,6 +200,8 @@ export const onUpdateReportHashtags = `subscription OnUpdateReportHashtags($owne
       post
       userId
       username
+      userScreenName
+      userProfilePic
       date
       location {
         longitude
@@ -230,6 +240,8 @@ export const onDeleteReportHashtags = `subscription OnDeleteReportHashtags($owne
       post
       userId
       username
+      userScreenName
+      userProfilePic
       date
       location {
         longitude

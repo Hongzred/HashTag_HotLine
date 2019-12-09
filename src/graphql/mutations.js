@@ -77,6 +77,8 @@ export const createReport = `mutation CreateReport($input: CreateReportInput!) {
     post
     userId
     username
+    userScreenName
+    userProfilePic
     date
     location {
       longitude
@@ -102,6 +104,8 @@ export const updateReport = `mutation UpdateReport($input: UpdateReportInput!) {
     post
     userId
     username
+    userScreenName
+    userProfilePic
     date
     location {
       longitude
@@ -127,6 +131,8 @@ export const deleteReport = `mutation DeleteReport($input: DeleteReportInput!) {
     post
     userId
     username
+    userScreenName
+    userProfilePic
     date
     location {
       longitude
@@ -154,6 +160,8 @@ export const createReportHashtags = `mutation CreateReportHashtags($input: Creat
       post
       userId
       username
+      userScreenName
+      userProfilePic
       date
       location {
         longitude
@@ -192,6 +200,8 @@ export const updateReportHashtags = `mutation UpdateReportHashtags($input: Updat
       post
       userId
       username
+      userScreenName
+      userProfilePic
       date
       location {
         longitude
@@ -230,6 +240,8 @@ export const deleteReportHashtags = `mutation DeleteReportHashtags($input: Delet
       post
       userId
       username
+      userScreenName
+      userProfilePic
       date
       location {
         longitude

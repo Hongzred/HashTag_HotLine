@@ -21,6 +21,8 @@ const fetchTweets = async hashtag => {
 
 						userId: jsonObject.user.id_str,
 						username: jsonObject.user.name,
+						userScreenName: jsonObject.user.screen_name,
+						userProfilePic: jsonObject.user.profile_image_url,
 						location: {
 							longitude:
 								jsonObject.place.bounding_box
