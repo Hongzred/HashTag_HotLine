@@ -9,6 +9,8 @@ export const fetchRecentReports = `query FetchRecentReports($hashtag: String) {
     hashtags
     userId
     username
+    userScreenName
+    userProfilePic
     location {
       longitude
       latitude
@@ -73,6 +75,8 @@ export const getReport = `query GetReport($id: ID!) {
     post
     userId
     username
+    userScreenName
+    userProfilePic
     date
     location {
       longitude
@@ -103,6 +107,8 @@ export const listReports = `query ListReports(
       post
       userId
       username
+      userScreenName
+      userProfilePic
       date
       location {
         longitude

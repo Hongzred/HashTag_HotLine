@@ -15,18 +15,11 @@ type ReportConnection {
     hashtags: [String]
     userId:  String
     username:  String
+    userScreenName:  String
+    userProfilePic:  String
     location: Location
 }
 
-type ReportConnection {
-    postDate: String
-    postId: String
-    post: String
-    hashtags: [String]
-    userId:  String
-    username:  String
-    location: Location
-}
 type Location {
     longitude: Float!
     latitude: Float!
@@ -50,7 +43,9 @@ type Report @model @auth(rules: [{ allow: owner }]) {
     postId: String
     post: String
     userId: String
-    username: String
+    username: String    
+    userScreenName:  String
+    userProfilePic:  String
     date: String
     location: Location 
     hashtags: [ReportHashtags] @connection(name: "ReportHashtags") # API only allow added this to ReportHashtags due to M:N relationship
