@@ -241,7 +241,7 @@ class UserProvider extends Component {
 					sessionHashtags:this.state.session,
 					onSessionHashtagsChange: this.onSessionHashtagsChange,
 					
-					defaultHashtags: this.state.settings.hashtags.map(({id, name}) => ({id, name})), // You can use settings direct if needed as there are more fields
+					defaultHashtags: this.state.settings.hashtags.map(({id, name, isSearchable}) => ({id, name, isSearchable})), // You can use settings direct if needed as there are more fields
 					onHashtagDisable: this.onTagDisable, // You need to pass a hashtag name
 					onHashtagEnable: this.onTagEnable // You need to pass a hashtag name
 
