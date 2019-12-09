@@ -31,6 +31,16 @@ function setColor(isSearchable){
 	return '#b3b3b3'
 }
 
+
+
+function toggleChip(defaultHashtag,onHashtagDisable,onHashtagEnable){
+	if (defaultHashtag.isSearchable === true) {
+		return onHashtagDisable
+	}
+
+	return onHashtagEnable
+}
+
 // this arrow function returns ANOTHER arrow function
 	// so the handler has to be passed an argument
 	// handleDelete(chip) gets you a function to delete the chip
@@ -39,7 +49,6 @@ function setColor(isSearchable){
 
 	// not using the disabled prop because that makes it impossible to click the tag
 	// to reactivate it.
-
 // const handleDelete = chipToDelete => () => {
 // 	setChipData(chips =>
 // 		chips.map(chip => {
@@ -77,7 +86,7 @@ export default function ChipsArray() {
 								className={classes.chip}
 								color={setColor(defaultHashtag.isSearchable)}
 								deleteIcon={setDeleteIcon(defaultHashtag.isSearchable)}
-								onDelete={()=>{}}
+								onDelete={toggleChip(defaultHashtag,onHashtagDisable,onHashtagEnable)(defaultHashtag.name)}
 							/>
 						)
 					})}
