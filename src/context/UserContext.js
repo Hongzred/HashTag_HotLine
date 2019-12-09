@@ -75,7 +75,7 @@ class UserProvider extends Component {
 
 	pollTwitter = async () => {
 		const id = setInterval(async () => {
-			const reports = this.state.reports
+			const {reports} = this.state
 			const settingsHashtags = this.state.settings.hashtags
 			const sessionHashtags = this.state.session
 			const newReports = await updateUserReports(
@@ -83,7 +83,7 @@ class UserProvider extends Component {
 				settingsHashtags,
 				sessionHashtags
 			)
-			//const reports = await getUserReports()
+			// const reports = await getUserReports()
 			console.log('Current Reports State w/ isDisplayable field', reports)
 			console.log('New Reports from Twitter based on displayable hashtags', newReports)
 			console.log('Displayable Reports', reports.filter(({isDisplayable}) => (isDisplayable)))
@@ -209,7 +209,7 @@ class UserProvider extends Component {
 	}
 
 	onSessionHashtagsChange = (e)=>{
-		const hashtags = this.state.settings.hashtags
+		const {hashtags} = this.state.settings
 		const settingsHashtags = hashtags.filter(({isSearchable, isInSettings}) => (isSearchable && isInSettings)).map(({name}) => name)
 		const filteredHashtags = e.filter((hashtag)=> !settingsHashtags.includes(hashtag))
 		const arrayDifferences = symmetricDifference(filteredHashtags, this.state.session) // We get the differences between the user changes & oldHashtags
@@ -237,13 +237,13 @@ class UserProvider extends Component {
 					onMessageChange: this.onMessageChange,
 					onHashtagsChange: this.onHashtagsChange,
 					onSave: this.onSave,
-					//For David
+					// For David
 					sessionHashtags:this.state.session,
 					onSessionHashtagsChange: this.onSessionHashtagsChange,
 					
-					defaultHashtags: this.state.settings.hashtags.map(({id, name}) => ({id, name})), //You can use settings direct if needed as there are more fields
-					onHashtagDisable: this.onTagDisable, //You need to pass a hashtag name
-					onHashtagEnable: this.onTagEnable //You need to pass a hashtag name
+					defaultHashtags: this.state.settings.hashtags.map(({id, name}) => ({id, name})), // You can use settings direct if needed as there are more fields
+					onHashtagDisable: this.onTagDisable, // You need to pass a hashtag name
+					onHashtagEnable: this.onTagEnable // You need to pass a hashtag name
 
 
 				}}

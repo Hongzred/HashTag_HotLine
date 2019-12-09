@@ -24,9 +24,9 @@ export default function Dashboard() {
 					/>
 					<MapControls />
 					<>
-						{/* <SessionTagCloud />
+						<SessionTagCloud />
 						<Divider />
-						<TagCloud /> */}
+						<TagCloud />
 					</>
 				</MainConsole>
 			)}

@@ -8,12 +8,12 @@ import { UserStateContext } from '../../context/UserContext'
 export default function SessionTagCloud() {
 	return (
 		<UserStateContext.Consumer>
-			{context => (
+			{({sessionHashtags,onSessionHashtagsChange}) => (
 				<ChipInput
-					defaultValue={context.state.settings.hashtags}
+					defaultValue={sessionHashtags.map(({name}) => name)}
+					onChange={onSessionHashtagsChange}
 					label="Hashtags and Filters"
 					placeholder="Type temporary filters here."
-					onChange={context.onHashtagsChange}
 					disableUnderline
 				/>
 			)}
