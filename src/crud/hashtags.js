@@ -29,7 +29,7 @@ const getUserHashtags = async () => {
 		},
 	} = await API.graphql(graphqlOperation(listHashtags))
 	return items.map((hashtagInfo) => {
-		const name = hashtagInfo.name
+		const {name} = hashtagInfo
 		const isInSettings = !!hashtagInfo.setting
 		const isSearchable =  true
         const {id} = hashtagInfo

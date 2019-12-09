@@ -92,7 +92,7 @@ const updateUserReports = async (oldReports, hashtags,sessionHashtags) => {
 		if(intersection(report.hashtags, sessionHashtags).length > 0){
 			report.isDisplayable = true
 			return report
-		}else {
+		}
 			await createUserReport(report)
 			const {botMessage} = await getUserSettings()
 			await replyToReport(
@@ -101,7 +101,7 @@ const updateUserReports = async (oldReports, hashtags,sessionHashtags) => {
 				botMessage)
 			report.isDisplayable = true
 			return report
-		}
+		
 				
 	})
 	newReports = await Promise.all(reports)
