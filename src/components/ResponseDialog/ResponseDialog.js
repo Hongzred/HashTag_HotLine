@@ -35,6 +35,11 @@ export default function ResponseDialog(props) {
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
 
 	const [open, setOpen] = React.useState(false)
+	// 0 means no selection
+	// 1 means first button
+	// 2 means second button
+	// 3 means 3rd button
+	// const [buttonChoice, setbuttonChoice] = React.useState(0)
 
 	const handleClickOpen = () => {
 		setOpen(true)
