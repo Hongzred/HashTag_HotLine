@@ -1,6 +1,6 @@
 import { API, graphqlOperation } from 'aws-amplify'
 import { listReports } from '../custom_graphql/queries'
-import { createReport, createReportHashtags } from '../graphql/mutations'
+import { createReport, createReportHashtags, updateReport } from '../graphql/mutations'
 import { createUserHashtag, getHashtagIdByName } from './hashtags'
 import { getUserSettings} from './settings'
 import { fetchRecentReports, replyToUser } from '../graphql/queries'
@@ -112,10 +112,22 @@ const replyToReport = async ( userScreenName, postId, message) => {
 	await API.graphql(graphqlOperation(replyToUser, { userScreenName, tweetId:postId, tweet:message }))
 }
 
+const markAsSpam = async (reportId) => {
+	if (reportId) {		
+		await API.graphql(
+			graphqlOperation(updateReport, {
+				input: { id: reportId, spam:true },
+			}), 
+		)	
+	}
+}
+
+
 export {
 	createUserReport,
 	getUserReports,
 	getRecentUserReports,
 	updateUserReports,
-	replyToReport
+	replyToReport,
+	markAsSpam
 }

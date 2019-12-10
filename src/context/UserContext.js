@@ -10,7 +10,7 @@ import {
 import symmetricDifference from '../utils/symmetricDifference'
 
 
-import { updateUserReports, getUserReports } from '../crud/reports'
+import { updateUserReports, getUserReports, markAsSpam } from '../crud/reports'
 
 const UserStateContext = React.createContext()
 
@@ -53,6 +53,12 @@ class UserProvider extends Component {
 					this.onSessionHashtagsChange([])
 					console.log('This similates removing session test_hth tag')
 					console.log('Session Hashtags',this.state.session)
+					break;
+				case 'KeyT':
+					this.onSpamClick("1049f565-3241-4d75-af57-03136d63c391")
+					console.log('New Displayable Reports', this.state.reports.filter(({spam, isDisplayable}) => (!spam && isDisplayable)))
+
+					console.log('This similates spam report for T4')
 					break;
 			
 				default:
@@ -127,6 +133,19 @@ class UserProvider extends Component {
 		this.setState(prevState => ({
 			settings: { ...prevState.settings, hashtags }
 		}))
+	}
+	
+	onSpamClick = async (reportId) => {	
+		const {reports} = this.state			
+		await markAsSpam(reportId)
+		const updatedReports = reports.map(report => {
+			if(report.id === reportId){
+				return {...report, spam:true}
+			} return report
+		})
+		this.setState({
+			reports: updatedReports
+		})				
 	}
 
 	onSave = async e => {
@@ -240,7 +259,7 @@ class UserProvider extends Component {
 					// For David
 					sessionHashtags:this.state.session,
 					onSessionHashtagsChange: this.onSessionHashtagsChange,
-					
+					onSpamClick: this.onSpamClick,
 					defaultHashtags: this.state.settings.hashtags.map(({id, name, isSearchable}) => ({id, name, isSearchable})), // You can use settings direct if needed as there are more fields
 					onHashtagDisable: this.onTagDisable, // You need to pass a hashtag name
 					onHashtagEnable: this.onTagEnable // You need to pass a hashtag name
