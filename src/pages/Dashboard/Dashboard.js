@@ -25,16 +25,9 @@ export default function Dashboard() {
 					/>
 					<MapControls />
 					<>
-						{/* 
 						<SessionTagCloud />
 						<Divider /> 
-												<Tag label="mta_hth" onDisable={context.onHashtagDisable} onEnable={context.onHashtagEnable}/> 
-
-					    */}
-					   <TagCloud />
-
-
-						
+						<TagCloud />						
 					</>
 				</MainConsole>
 			)}

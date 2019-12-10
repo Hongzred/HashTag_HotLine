@@ -35,17 +35,31 @@ export default function ResponseDialog(props) {
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
 
 	const [open, setOpen] = React.useState(false)
-	// 0 means no selection
-	// 1 means first button
-	// 2 means second button
-	// 3 means 3rd button
-	// const [buttonChoice, setbuttonChoice] = React.useState(0)
+	const [componentChoice, setcomponentChoice] = React.useState()
 
-	const handleClickOpen = () => {
+	const handleClickOpen = (button) => {
+		if (button==='Resolved') {
+			setcomponentChoice(<h1>Resolved Bot Text</h1>)
+		}
+		else if (button==='Custom') {
+			setcomponentChoice(<TextField
+								multiline
+								fullWidth
+								margin="normal"
+								rows={10}
+								rowsMax={10}
+								variant="outlined"
+								label="Your Response"
+							/>)
+	    } else if (button==='Spam'){
+	    	setcomponentChoice(<h1>Mark as spam?</h1>)
+
+	    }		
 		setOpen(true)
 	}
 
 	const handleClose = () => {
+		setcomponentChoice('')
 		setOpen(false)
 	}
 
@@ -56,15 +70,28 @@ export default function ResponseDialog(props) {
 				width="auto"
 				aria-label="full width outlined button group"
 			>
-				<Button>Resolved</Button>
 				<Button
 					variant="outlined"
 					color="primary"
-					onClick={handleClickOpen}
+					onClick={ e => handleClickOpen('Resolved')}
+				>
+					Resolved
+				</Button>
+				<Button
+					variant="outlined"
+					color="primary"
+					onClick={e => handleClickOpen('Custom')}
 				>
 					Custom
 				</Button>
-				<Button>Spam</Button>
+				<Button
+					variant="outlined"
+					color="primary"
+					onClick={e => handleClickOpen('Spam')}
+				>
+					Spam
+				</Button>
+
 			</ButtonGroup>
 
 			<Dialog
@@ -106,17 +133,8 @@ export default function ResponseDialog(props) {
 								/>
 							</Paper>
 						</Grid>
+						{componentChoice}
 
-						{/* TextBox */}
-						<TextField
-							multiline
-							fullWidth
-							margin="normal"
-							rows={10}
-							rowsMax={10}
-							variant="outlined"
-							label="Your Response"
-						/>
 					</Grid>
 				</Container>
 			</Dialog>
