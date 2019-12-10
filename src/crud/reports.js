@@ -122,6 +122,16 @@ const markAsSpam = async (reportId) => {
 	}
 }
 
+const markAsResolved = async (reportId) => {
+	if (reportId) {		
+		await API.graphql(
+			graphqlOperation(updateReport, {
+				input: { id: reportId, status:"RESOLVED" },
+			}), 
+		)	
+	}
+}
+
 
 export {
 	createUserReport,
@@ -129,5 +139,6 @@ export {
 	getRecentUserReports,
 	updateUserReports,
 	replyToReport,
-	markAsSpam
+	markAsSpam,
+	markAsResolved,
 }

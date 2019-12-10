@@ -10,7 +10,7 @@ import {
 import symmetricDifference from '../utils/symmetricDifference'
 
 
-import { updateUserReports, getUserReports, markAsSpam } from '../crud/reports'
+import { updateUserReports, getUserReports, markAsSpam,markAsResolved } from '../crud/reports'
 
 const UserStateContext = React.createContext()
 
@@ -60,7 +60,12 @@ class UserProvider extends Component {
 
 					console.log('This similates spam report for T4')
 					break;
-			
+				case 'KeyY':
+					this.onResolved("1049f565-3241-4d75-af57-03136d63c391")
+					console.log('New Displayable Reports', this.state.reports.filter(({status,spam, isDisplayable}) => ((status !== "RESOLVED") && !spam && isDisplayable)))
+
+					console.log('This similates spam report for T4')
+					break;
 				default:
 					break;
 			}
@@ -141,6 +146,19 @@ class UserProvider extends Component {
 		const updatedReports = reports.map(report => {
 			if(report.id === reportId){
 				return {...report, spam:true}
+			} return report
+		})
+		this.setState({
+			reports: updatedReports
+		})				
+	}
+
+	onResolved = async (reportId) => {	
+		const {reports} = this.state			
+		await markAsResolved(reportId)
+		const updatedReports = reports.map(report => {
+			if(report.id === reportId){
+				return {...report, status:"RESOLVED"}
 			} return report
 		})
 		this.setState({
@@ -251,8 +269,8 @@ class UserProvider extends Component {
 			<UserStateContext.Provider
 				value={{
 					state: this.state,
-					settings: this.state.settings, 
-					reports: this.state.reports.filter(({isDisplayable}) => (isDisplayable)), 
+					settings: this.state.settings,
+					reports: this.state.reports.filter(({status,spam, isDisplayable}) => ((status !== "RESOLVED") && !spam && isDisplayable)), 
 					onMessageChange: this.onMessageChange,
 					onHashtagsChange: this.onHashtagsChange,
 					onSave: this.onSave,
@@ -260,6 +278,7 @@ class UserProvider extends Component {
 					sessionHashtags:this.state.session,
 					onSessionHashtagsChange: this.onSessionHashtagsChange,
 					onSpamClick: this.onSpamClick,
+					onResolved: this.onResolved,
 					defaultHashtags: this.state.settings.hashtags.map(({id, name, isSearchable}) => ({id, name, isSearchable})), // You can use settings direct if needed as there are more fields
 					onHashtagDisable: this.onTagDisable, // You need to pass a hashtag name
 					onHashtagEnable: this.onTagEnable // You need to pass a hashtag name
