@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import Chip from '@material-ui/core/Chip'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 
 
 export default class Tag extends Component {
+
 	state = {
 		isDisable: false,
-		label: this.props.label
 	}
 
 	toggleIcon = () => {
@@ -34,9 +33,12 @@ export default class Tag extends Component {
 	render(){
 		return (
 			<Chip
+				key={this.props.id}				
 				label={this.props.label}
 				onDelete={this.toggleHandler}
-				deleteIcon={this.state.isDisable ? <HighlightOffIcon /> : <AddCircleIcon />}
+				deleteIcon={this.state.isDisable ? <AddCircleIcon /> : <HighlightOffIcon />}
+				color={this.state.isDisable ? 'b3b3b3' : 'primary'}
+				className={this.props.className}
 			/>
 		)
 	}

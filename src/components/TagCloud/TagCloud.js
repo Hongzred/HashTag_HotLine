@@ -4,6 +4,7 @@ import Chip from '@material-ui/core/Chip'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 import { UserStateContext } from '../../context/UserContext'
+import Tag from '../Tag/Tag'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -71,7 +72,7 @@ function toggleChip(defaultHashtag,onHashtagDisable,onHashtagEnable){
 // 	)
 // }
 
-export default function ChipsArray() {
+export default function TagCloud(){
 	const classes = useStyles()
 	return (
 		<UserStateContext.Consumer>
@@ -80,13 +81,12 @@ export default function ChipsArray() {
 				<div className={classes.root}>
 					{defaultHashtags.map(defaultHashtag => {
 						return (
-							<Chip
+							<Tag
 								key={defaultHashtag.id}
 								label={defaultHashtag.name}
+								onDisable={onHashtagDisable}
+								onEnable={onHashtagEnable}
 								className={classes.chip}
-								color={setColor(defaultHashtag.isSearchable)}
-								deleteIcon={setDeleteIcon(defaultHashtag.isSearchable)}
-								onDelete={toggleChip(defaultHashtag,onHashtagDisable,onHashtagEnable)(defaultHashtag.name)}
 							/>
 						)
 					})}

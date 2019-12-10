@@ -5,6 +5,7 @@ import Map from '../../components/Map/Map'
 import MapControls from '../../components/MapControls/MapControls'
 import Tag from '../../components/Tag/Tag'
 import SessionTagCloud from '../../components/TagCloud/SessionTagCloud'
+import TagCloud from '../../components/TagCloud/TagCloud'
 
 // import fakeReports from '../../utils/fakeMapReports'
 import { UserStateContext } from '../../context/UserContext'
@@ -24,9 +25,16 @@ export default function Dashboard() {
 					/>
 					<MapControls />
 					<>
-						{/* <SessionTagCloud />
-						<Divider />*/}
-						<Tag label="mta_hth" onDisable={context.onHashtagDisable} onEnable={context.onHashtagEnable}/> 
+						{/* 
+						<SessionTagCloud />
+						<Divider /> 
+												<Tag label="mta_hth" onDisable={context.onHashtagDisable} onEnable={context.onHashtagEnable}/> 
+
+					    */}
+					   <TagCloud />
+
+
+						
 					</>
 				</MainConsole>
 			)}
