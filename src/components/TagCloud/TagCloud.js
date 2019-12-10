@@ -29,7 +29,7 @@ function setColor(isSearchable){
 	if(isSearchable === true){
 		return 'primary'
 	}
-	return '#b3b3b3'
+	return 'default'
 }
 
 

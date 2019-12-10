@@ -29,6 +29,8 @@ export default function Tweet(props) {
 					<ResponseDialog
 						key={props.key}
 						full_name={props.full_name}
+						reportId={props.reportId}
+						onSpamClick={props.onSpamClick}
 						twitter_handle={props.twitter_handle}
 						profile_pic={props.profile_pic}
 						tweet_body={props.tweet_body}

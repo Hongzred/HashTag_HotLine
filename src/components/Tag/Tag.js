@@ -10,17 +10,9 @@ export default class Tag extends Component {
 		isDisable: false,
 	}
 
-	toggleIcon = () => {
-		const {isDisable} = this.state
-		if (isDisable) {
-			return <HighlightOffIcon />
-		}
-		return <AddCircleIcon />
-	}
-
 	toggleHandler = () => {
 		const {isDisable} = this.state
-		if (isDisable) {
+		if (!isDisable) {
 			this.props.onDisable(this.props.label)
 		}else {
 			this.props.onEnable(this.props.label)
@@ -37,7 +29,7 @@ export default class Tag extends Component {
 				label={this.props.label}
 				onDelete={this.toggleHandler}
 				deleteIcon={this.state.isDisable ? <AddCircleIcon /> : <HighlightOffIcon />}
-				color={this.state.isDisable ? 'b3b3b3' : 'primary'}
+				color={this.state.isDisable ? 'default' : 'primary'}
 				className={this.props.className}
 			/>
 		)
