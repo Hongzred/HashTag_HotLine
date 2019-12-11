@@ -28,7 +28,10 @@ export default function Tweet(props) {
 				<Grid item width="auto">
 					<ResponseDialog
 						key={props.key}
+						postId={props.postId}
+
 						full_name={props.full_name}
+						onResolved={props.onResolved}
 						reportId={props.reportId}
 						onSpamClick={props.onSpamClick}
 						twitter_handle={props.twitter_handle}

@@ -11,11 +11,16 @@ export default function TwitterFeed() {
 					<>
 						<Tweet
 							key={postId}
+
 							full_name={username}
+
 						onSpamClick={context.onSpamClick}
 						reportId={id}
+						onResolved={context.onResolved}
+						postId={postId}
 
-							twitter_handle={`@${userScreenName}`}
+
+							twitter_handle={userScreenName}
 							profile_pic={userProfilePic}
 							tweet_body={post}
 						/>
