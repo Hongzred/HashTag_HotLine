@@ -32,7 +32,7 @@ class UserProvider extends Component {
 
 	pollID = null
 
-	interval = 15000 || process.env.REACT_APP_INTERVAL
+	interval = process.env.REACT_APP_INTERVAL
 
 	async componentDidMount() {
 		await this.initializeSettings()
