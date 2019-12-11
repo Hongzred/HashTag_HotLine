@@ -1,5 +1,5 @@
   "husky": {
     "hooks": {
-      "pre-commit": "yarn precommit"
+      "pre-commit": "yarn -—no-verify precommit"
     }
   }

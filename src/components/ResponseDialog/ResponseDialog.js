@@ -52,7 +52,7 @@ export default function ResponseDialog(props) {
 								label="Your Response"
 							/>)
 	    } else if (button==='Spam'){
-			//setcomponentChoice(<h1>Mark as spam?</h1>)
+			// setcomponentChoice(<h1>Mark as spam?</h1>)
 			props.onSpamClick(props.reportId)
 			
 			return setOpen(false)
