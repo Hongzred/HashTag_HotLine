@@ -4,6 +4,7 @@ import Slider from '@material-ui/core/Slider'
 // import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
 import Typography from '@material-ui/core/Typography'
 import TwitterFeed from '../TwitterFeed/TwitterFeed'
+import { UserStateContext } from '../../context/UserContext'
 
 export default function MapControls() {
 	const distanceMarks = [
@@ -30,7 +31,8 @@ export default function MapControls() {
 	}
 
 	return (
-		<>
+		<UserStateContext.Consumer>
+		{context => <div>
 			<Typography id="distance-slider" gutterBottom>
 				Distance
 			</Typography>
@@ -49,6 +51,7 @@ export default function MapControls() {
 			</Typography>
 			<Slider
 				defaultValue={7}
+				// onChange={context.onDayRangeChanged}
 				valueLabelFormat={timeValueLabelFormat}
 				getAriaValueText={valuetext}
 				aria-labelledby="time-slider"
@@ -58,6 +61,8 @@ export default function MapControls() {
 				max={365}
 			/>
 			<TwitterFeed />
-		</>
+		</div>}
+			
+		</UserStateContext.Consumer>
 	)
 }

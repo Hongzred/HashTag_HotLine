@@ -44,6 +44,8 @@ class UserProvider extends Component {
 		clearInterval(this.pollID)
 	}
 	
+	
+
 
 	testHandlerByBoardKeys = async () => {
 		document.addEventListener('keydown', async event => {
@@ -326,6 +328,14 @@ class UserProvider extends Component {
 		})
 	}
 
+	filterReportByTime(dayRanges) {
+		const dayRange = 1;
+		const todayDate = new Date();
+		const dateNumb = todayDate.getDate();
+		const filteredReport = this.state.reports.filter((report) => {return Math.abs(report.postDate.split(' ')[2] - dateNumb <= dayRange)})
+		this.setState(filteredReport);
+	}
+
 	render() {
 		return (
 			<UserStateContext.Provider
@@ -343,6 +353,7 @@ class UserProvider extends Component {
 					sessionHashtags: this.state.session,
 					onSessionHashtagsChange: this.onSessionHashtagsChange,
 					onSpamClick: this.onSpamClick,
+					onDayRangeChanged: this.filterReportByTime,
 					onResolved: this.onResolved,
 					defaultHashtags: this.state.settings.hashtags.map(
 						({ id, name, isSearchable }) => ({
