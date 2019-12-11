@@ -83,7 +83,7 @@ export default function ResponseDialog(props) {
 								rowsMax={10}
 								variant="outlined"
 								label="Your Response"
-								onChange={setTextInput}
+								onChange={e => setTextInput(e.target.value)}
 							/>)
 	    } else if (button==='Spam'){
 			// setComponentChoice(<h1>Mark as spam?</h1>)
