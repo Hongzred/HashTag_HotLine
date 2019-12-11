@@ -14,9 +14,9 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import clsx from 'clsx'
 import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
 import ButtonlessTweet from '../TwitterFeed/ButtonlessTweet'
 import { UserStateContext } from '../../context/UserContext'
-import Box from '@material-ui/core/Box'
 import {replyToReport} from '../../crud/reports'
 
 const useStyles = makeStyles(theme => ({
