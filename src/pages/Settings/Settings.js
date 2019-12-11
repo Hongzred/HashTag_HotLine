@@ -33,6 +33,17 @@ const Settings = () => {
 								onChange={context.onMessageChange}
 								value={context.state.settings.botMessage}
 							/>
+							</FormControl>
+							<FormControl margin="normal" fullWidth>
+							<InputLabel htmlFor="resolvedMessage">
+								Resolved Message
+							</InputLabel>
+							<Input
+								id="resolvedMessage"
+								type="text"
+								onChange={context.onResolvedMessageChange}
+								value={context.state.settings.resolvedMessage}
+							/>
 						</FormControl>
 						<Button
 							variant="contained"

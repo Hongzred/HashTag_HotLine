@@ -67,6 +67,7 @@ type ReportHashtags @model(queries: null) @auth(rules: [{ allow: owner }]) {
 type Setting @model @auth(rules: [{ allow: owner }]) {
     id: ID!
     botMessage: String
+    resolvedMessage: String
     hashtags: [Hashtag] @connection(name: "SettingHashtags")
 }
 

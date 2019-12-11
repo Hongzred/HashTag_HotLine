@@ -48,6 +48,7 @@ const createUserSettings = async settings => {
 			isSearchable: true,
 		})),
 		botMessage: data.botMessage,
+		resolvedMessage: data.resolvedMessage,
 		settingsId: data.id,
 	}
 }
@@ -70,7 +71,25 @@ const updateUserMessage = async (settingsId, botMessage) => {
 	return undefined
 }
 
-const updateUserSettings = async ({ botMessage, hashtags, settingsId }, handleDelete, handleAdd) => {
+const updateUserResolvedMessage = async (settingsId, resolvedMessage) => {
+	// We update a botMessage with it settingsId.
+	let data = resolvedMessage
+	if (settingsId) {
+		if (!data) data = null
+		await API.graphql(
+			graphqlOperation(updateSetting, {
+				input: {
+					id: settingsId,
+					resolvedMessage:data,
+				},
+			}),
+		)
+		return data
+	}
+	return undefined
+}
+
+const updateUserSettings = async ({ botMessage, resolvedMessage, hashtags, settingsId }, handleDelete, handleAdd) => {
 	let oldHashtags = await getUserHashtags() // We destructure to get hashtag setting
 	const hashtagNames = hashtags.map(({name}) => name)
 	oldHashtags = oldHashtags
@@ -101,11 +120,13 @@ const updateUserSettings = async ({ botMessage, hashtags, settingsId }, handleDe
 		}
 	})
 	await updateUserMessage(settingsId, botMessage)
+	await updateUserResolvedMessage(settingsId, resolvedMessage)
 }
 
 export {
 	getUserSettings,
 	updateUserSettings,
 	updateUserMessage,
+	updateUserResolvedMessage,
 	createUserSettings,
 }

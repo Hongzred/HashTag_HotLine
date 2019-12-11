@@ -33,7 +33,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />
 })
 
-function resolvedBotMessage(props){
+function resolvedMessage(props){
 
 	return(
 		<UserStateContext.Consumer>
@@ -48,7 +48,7 @@ function resolvedBotMessage(props){
 								full_name="Automated Response"
 								twitter_handle="@coned"
 								profile_pic="https://i.imgur.com/CgFCxPt.jpg"
-								tweet_body={context.state.settings.botMessage}
+								tweet_body={context.settings.resolvedMessage}
 							/>
 						</Paper>
 					</Grid>
@@ -71,8 +71,9 @@ export default function ResponseDialog(props) {
 
 
 	const handleClickOpen = (button) => {
+		setButtonChoice(button)
 		if (button==='Resolved') {
-			setComponentChoice(resolvedBotMessage())
+			setComponentChoice(resolvedMessage())
 		}
 		else if (button==='Custom') {
 			setComponentChoice(<TextField
@@ -98,22 +99,23 @@ export default function ResponseDialog(props) {
 		setOpen(false)
 	}
 
-	const handleSend = (button, props, state) => {
+	const handleSend = (button, defaultMessage, input) => {
 
 		if (button==='Resolved') {
-			props.state.onResolved()
+			props.onResolved(props.reportId)
+			replyToReport(props.twitter_handle, props.postId, defaultMessage)
 		}
 		else if (button==='Custom') {
-			replyToReport(props.twitter_handle, props.key, props.tweet_body)
+			replyToReport(props.twitter_handle, props.postId, input)
 
 	    }	
-		setComponentChoice('')
+		setButtonChoice('')
 		setOpen(false)
 	}
 
 	return (
 		<UserStateContext.Consumer>
-			{state => (
+			{context => (
 
 			<div>
 				<ButtonGroup
@@ -164,7 +166,7 @@ export default function ResponseDialog(props) {
 							<Typography variant="h6" className={classes.title}>
 								Response
 							</Typography>
-							<Button autoFocus color="inherit" onClick={e => handleSend(buttonChoice, props, state)}>
+							<Button autoFocus color="inherit" onClick={e => handleSend(buttonChoice, context.settings.resolvedMessage,textInput)}>
 								Send
 							</Button>
 						</Toolbar>
