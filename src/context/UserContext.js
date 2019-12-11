@@ -22,6 +22,7 @@ class UserProvider extends Component {
 	state = {
 		settings: {
 			botMessage: '',
+			resolvedMessage: '',
 			hashtags: [],
 			settingsId: null,
 		},
@@ -36,7 +37,7 @@ class UserProvider extends Component {
 	async componentDidMount() {
 		await this.initializeSettings()
 		await this.initializeReports()
-		this.testHandlerByBoardKeys()
+		//this.testHandlerByBoardKeys()
 		this.pollID = await this.pollTwitter()
 	}
 
@@ -47,84 +48,84 @@ class UserProvider extends Component {
 	
 
 
-	testHandlerByBoardKeys = async () => {
-		document.addEventListener('keydown', async event => {
-			switch (event.code) {
-				case 'KeyQ':
-					console.log('This similates disabling mta_hth tag')
-					this.onTagDisable('mta_hth')
-					console.log(
-						'All Settings Hashtags',
-						this.state.settings.hashtags.map(({ name }) => name),
-					)
-					console.log(
-						'All  enabled settings Hashtags',
-						this.state.settings.hashtags
-							.filter(
-								({ isSearchable, isInSettings }) =>
-									isSearchable && isInSettings,
-							)
-							.map(({ name }) => name),
-					)
-					break
-				case 'KeyW':
-					console.log('This similates enabling mta_hth tag')
-					this.onTagEnable('mta_hth')
-					console.log(
-						'All Settings Hashtags',
-						this.state.settings.hashtags.map(({ id, name }) => ({
-							id,
-							name,
-						})),
-					)
-					console.log(
-						'All  enabled settings Hashtags',
-						this.state.settings.hashtags
-							.filter(
-								({ isSearchable, isInSettings }) =>
-									isSearchable && isInSettings,
-							)
-							.map(({ name }) => name),
-					)
-					break
-				case 'KeyE':
-					this.onSessionHashtagsChange(['test_hth'])
-					console.log('This similates adding session test_hth tag')
-					console.log('Session Hashtags', this.state.session)
-					break
-				case 'KeyR':
-					this.onSessionHashtagsChange([])
-					console.log('This similates removing session test_hth tag')
-					console.log('Session Hashtags', this.state.session)
-					break
-				case 'KeyT':
-					this.onSpamClick('1049f565-3241-4d75-af57-03136d63c391')
-					console.log(
-						'New Displayable Reports',
-						this.state.reports.filter(
-							({ spam, isDisplayable }) => !spam && isDisplayable,
-						),
-					)
+	// testHandlerByBoardKeys = async () => {
+	// 	document.addEventListener('keydown', async event => {
+	// 		switch (event.code) {
+	// 			case 'KeyQ':
+	// 				console.log('This similates disabling mta_hth tag')
+	// 				this.onTagDisable('mta_hth')
+	// 				console.log(
+	// 					'All Settings Hashtags',
+	// 					this.state.settings.hashtags.map(({ name }) => name),
+	// 				)
+	// 				console.log(
+	// 					'All  enabled settings Hashtags',
+	// 					this.state.settings.hashtags
+	// 						.filter(
+	// 							({ isSearchable, isInSettings }) =>
+	// 								isSearchable && isInSettings,
+	// 						)
+	// 						.map(({ name }) => name),
+	// 				)
+	// 				break
+	// 			case 'KeyW':
+	// 				console.log('This similates enabling mta_hth tag')
+	// 				this.onTagEnable('mta_hth')
+	// 				console.log(
+	// 					'All Settings Hashtags',
+	// 					this.state.settings.hashtags.map(({ id, name }) => ({
+	// 						id,
+	// 						name,
+	// 					})),
+	// 				)
+	// 				console.log(
+	// 					'All  enabled settings Hashtags',
+	// 					this.state.settings.hashtags
+	// 						.filter(
+	// 							({ isSearchable, isInSettings }) =>
+	// 								isSearchable && isInSettings,
+	// 						)
+	// 						.map(({ name }) => name),
+	// 				)
+	// 				break
+	// 			case 'KeyE':
+	// 				this.onSessionHashtagsChange(['test_hth'])
+	// 				console.log('This similates adding session test_hth tag')
+	// 				console.log('Session Hashtags', this.state.session)
+	// 				break
+	// 			case 'KeyR':
+	// 				this.onSessionHashtagsChange([])
+	// 				console.log('This similates removing session test_hth tag')
+	// 				console.log('Session Hashtags', this.state.session)
+	// 				break
+	// 			case 'KeyT':
+	// 				this.onSpamClick('1049f565-3241-4d75-af57-03136d63c391')
+	// 				console.log(
+	// 					'New Displayable Reports',
+	// 					this.state.reports.filter(
+	// 						({ spam, isDisplayable }) => !spam && isDisplayable,
+	// 					),
+	// 				)
 
-					console.log('This similates spam report for T4')
-					break
-				case 'KeyY':
-					this.onResolved('1049f565-3241-4d75-af57-03136d63c391')
-					console.log(
-						'New Displayable Reports',
-						this.state.reports.filter(
-							({ status, spam, isDisplayable }) =>
-								status !== 'RESOLVED' && !spam && isDisplayable,
-						),
-					)
+	// 				console.log('This similates spam report for T4')
+	// 				break
+	// 			case 'KeyY':
+	// 				this.onResolved('1049f565-3241-4d75-af57-03136d63c391')
+	// 				console.log(
+	// 					'New Displayable Reports',
+	// 					this.state.reports.filter(
+	// 						({ status, spam, isDisplayable }) =>
+	// 							status !== 'RESOLVED' && !spam && isDisplayable,
+	// 					),
+	// 				)
 
-					console.log('This similates spam report for T4')
-					break
-				default:
-					break
-			}
-		})
-	}
+	// 				console.log('This similates spam report for T4')
+	// 				break
+	// 			default:
+	// 				break
+	// 		}
+	// 	})
+	// }
 
 
 	pollTwitter = async () => {
@@ -172,6 +173,14 @@ class UserProvider extends Component {
 
 		this.setState(prevState => ({
 			settings: { ...prevState.settings, botMessage: input },
+		}))
+	}
+
+	onResolvedMessageChange = e => {
+		const input = e.target.value
+
+		this.setState(prevState => ({
+			settings: { ...prevState.settings, resolvedMessage: input },
 		}))
 	}
 
@@ -347,6 +356,7 @@ class UserProvider extends Component {
 							status !== 'RESOLVED' && !spam && isDisplayable,
 					),
 					onMessageChange: this.onMessageChange,
+					onResolvedMessageChange: this.onResolvedMessageChange,
 					onHashtagsChange: this.onHashtagsChange,
 					onSave: this.onSave,
 					// For David

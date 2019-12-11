@@ -8,6 +8,7 @@ export const createHashtag = `mutation CreateHashtag($input: CreateHashtagInput!
     setting {
       id
       botMessage
+      resolvedMessage
       hashtags {
         nextToken
       }
@@ -31,6 +32,7 @@ export const updateHashtag = `mutation UpdateHashtag($input: UpdateHashtagInput!
     setting {
       id
       botMessage
+      resolvedMessage
       hashtags {
         nextToken
       }
@@ -54,6 +56,7 @@ export const deleteHashtag = `mutation DeleteHashtag($input: DeleteHashtagInput!
     setting {
       id
       botMessage
+      resolvedMessage
       hashtags {
         nextToken
       }
@@ -180,6 +183,7 @@ export const createReportHashtags = `mutation CreateReportHashtags($input: Creat
       setting {
         id
         botMessage
+        resolvedMessage
         owner
       }
       reports {
@@ -220,6 +224,7 @@ export const updateReportHashtags = `mutation UpdateReportHashtags($input: Updat
       setting {
         id
         botMessage
+        resolvedMessage
         owner
       }
       reports {
@@ -260,6 +265,7 @@ export const deleteReportHashtags = `mutation DeleteReportHashtags($input: Delet
       setting {
         id
         botMessage
+        resolvedMessage
         owner
       }
       reports {
@@ -275,6 +281,7 @@ export const createSetting = `mutation CreateSetting($input: CreateSettingInput!
   createSetting(input: $input) {
     id
     botMessage
+    resolvedMessage
     hashtags {
       items {
         id
@@ -291,6 +298,7 @@ export const updateSetting = `mutation UpdateSetting($input: UpdateSettingInput!
   updateSetting(input: $input) {
     id
     botMessage
+    resolvedMessage
     hashtags {
       items {
         id
@@ -307,6 +315,7 @@ export const deleteSetting = `mutation DeleteSetting($input: DeleteSettingInput!
   deleteSetting(input: $input) {
     id
     botMessage
+    resolvedMessage
     hashtags {
       items {
         id

@@ -3,6 +3,7 @@ export const listSettings = `query listSettings {
       items {
         id
         botMessage
+        resolvedMessage
         hashtags {
           items {
             id
