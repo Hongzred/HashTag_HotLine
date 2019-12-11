@@ -15,6 +15,7 @@ import Paper from '@material-ui/core/Paper'
 import clsx from 'clsx'
 import Container from '@material-ui/core/Container'
 import ButtonlessTweet from '../TwitterFeed/ButtonlessTweet'
+import { UserStateContext } from '../../context/UserContext'
 
 const useStyles = makeStyles(theme => ({
 	appBar: {
@@ -30,6 +31,35 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />
 })
 
+function resolvedBotMessage(){
+
+	// const classes = useStyles()
+	// const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
+
+	return(
+		<UserStateContext.Consumer>
+			{context => (
+				<>
+				<Grid item xs={12} md={4} lg={4} center>
+					<Typography variant="h2">
+						Would you like to send this automated response?
+					</Typography>
+					<Paper >
+						<ButtonlessTweet
+							full_name={'Automated Response'}
+							twitter_handle={'@coned'}
+							profile_pic={'https://images.app.goo.gl/M8FfbwD1aEfE8v9a7'}
+							tweet_body={context.state.settings.botMessage}
+						/>
+					</Paper>
+				</Grid>
+				</>
+			)}
+		</UserStateContext.Consumer>	
+	)
+
+}
+
 export default function ResponseDialog(props) {
 	const classes = useStyles()
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
@@ -39,7 +69,7 @@ export default function ResponseDialog(props) {
 
 	const handleClickOpen = (button) => {
 		if (button==='Resolved') {
-			setcomponentChoice(<h1>Resolved Bot Text</h1>)
+			setcomponentChoice(resolvedBotMessage())
 		}
 		else if (button==='Custom') {
 			setcomponentChoice(<TextField
@@ -67,80 +97,85 @@ export default function ResponseDialog(props) {
 	}
 
 	return (
-		<div>
-			<ButtonGroup
-				size="small"
-				width="auto"
-				aria-label="full width outlined button group"
-			>
-				<Button
-					variant="outlined"
-					color="primary"
-					onClick={ e => handleClickOpen('Resolved')}
-				>
-					Resolved
-				</Button>
-				<Button
-					variant="outlined"
-					color="primary"
-					onClick={e => handleClickOpen('Custom')}
-				>
-					Custom
-				</Button>
-				<Button
-					variant="outlined"
-					color="primary"
-					onClick={e => handleClickOpen('Spam')}
-				>
-					Spam
-				</Button>
+		<UserStateContext.Consumer>
+			{({sessionHashtags,onSessionHashtagsChange}) => (
 
-			</ButtonGroup>
+			<div>
+				<ButtonGroup
+					size="small"
+					width="auto"
+					aria-label="full width outlined button group"
+				>
+					<Button
+						variant="outlined"
+						color="primary"
+						onClick={ e => handleClickOpen('Resolved')}
+					>
+						Resolved
+					</Button>
+					<Button
+						variant="outlined"
+						color="primary"
+						onClick={e => handleClickOpen('Custom')}
+					>
+						Custom
+					</Button>
+					<Button
+						variant="outlined"
+						color="primary"
+						onClick={e => handleClickOpen('Spam')}
+					>
+						Spam
+					</Button>
 
-			<Dialog
-				fullScreen
-				open={open}
-				onClose={handleClose}
-				TransitionComponent={Transition}
-			>
-				<AppBar className={classes.appBar}>
-					<Toolbar>
-						<IconButton
-							edge="start"
-							color="inherit"
-							onClick={handleClose}
-							aria-label="close"
-						>
-							<CloseIcon />
-						</IconButton>
-						<Typography variant="h6" className={classes.title}>
-							Response
-						</Typography>
-						<Button autoFocus color="inherit" onClick={handleClose}>
-							Send
-						</Button>
-					</Toolbar>
-				</AppBar>
+				</ButtonGroup>
 
-				<Container maxWidth="lg" className={classes.container}>
-					<Grid spacing={3} center>
-						{/* Tweet */}
-						<Grid item xs={12} md={4} lg={4} center>
-							<Paper className={fixedHeightPaper}>
-								<ButtonlessTweet
-									key={props.key}
-									full_name={props.full_name}
-									twitter_handle={props.twitter_handle}
-									profile_pic={props.profile_pic}
-									tweet_body={props.tweet_body}
-								/>
-							</Paper>
+				<Dialog
+					fullScreen
+					open={open}
+					onClose={handleClose}
+					TransitionComponent={Transition}
+				>
+					<AppBar className={classes.appBar}>
+						<Toolbar>
+							<IconButton
+								edge="start"
+								color="inherit"
+								onClick={handleClose}
+								aria-label="close"
+							>
+								<CloseIcon />
+							</IconButton>
+							<Typography variant="h6" className={classes.title}>
+								Response
+							</Typography>
+							<Button autoFocus color="inherit" onClick={handleClose}>
+								Send
+							</Button>
+						</Toolbar>
+					</AppBar>
+
+					<Container maxWidth="lg" className={classes.container}>
+						<Grid spacing={3} center>
+							{/* Tweet */}
+							<Grid item xs={12} md={4} lg={4} center>
+								<Paper className={fixedHeightPaper}>
+									<ButtonlessTweet
+										key={props.key}
+										full_name={props.full_name}
+										twitter_handle={props.twitter_handle}
+										profile_pic={props.profile_pic}
+										tweet_body={props.tweet_body}
+									/>
+								</Paper>
+							</Grid>
+							{componentChoice}
+
 						</Grid>
-						{componentChoice}
-
-					</Grid>
-				</Container>
-			</Dialog>
-		</div>
+					</Container>
+				</Dialog>
+			</div>
+			)}
+		</UserStateContext.Consumer>	
 	)
 }

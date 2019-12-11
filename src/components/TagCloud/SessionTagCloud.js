@@ -10,7 +10,7 @@ export default function SessionTagCloud() {
 		<UserStateContext.Consumer>
 			{({sessionHashtags,onSessionHashtagsChange}) => (
 				<ChipInput
-					defaultValue={sessionHashtags.map(({name}) => name)}
+					defaultValue={sessionHashtags.map(sessionHashtag => sessionHashtag.name)}
 					onChange={onSessionHashtagsChange}
 					label="Hashtags and Filters"
 					placeholder="Type temporary filters here."
