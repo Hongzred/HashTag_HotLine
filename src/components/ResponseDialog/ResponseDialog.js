@@ -16,6 +16,8 @@ import clsx from 'clsx'
 import Container from '@material-ui/core/Container'
 import ButtonlessTweet from '../TwitterFeed/ButtonlessTweet'
 import { UserStateContext } from '../../context/UserContext'
+import Box from '@material-ui/core/Box'
+import {replyToReport} from '../../crud/reports'
 
 const useStyles = makeStyles(theme => ({
 	appBar: {
@@ -31,48 +33,49 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />
 })
 
-function resolvedBotMessage(){
-
-	// const classes = useStyles()
-	// const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
+function resolvedBotMessage(props){
 
 	return(
 		<UserStateContext.Consumer>
 			{context => (
-				<>
-				<Grid item xs={12} md={4} lg={4} center>
+				<Box p={10} mx="auto" >
 					<Typography variant="h2">
 						Would you like to send this automated response?
 					</Typography>
-					<Paper >
-						<ButtonlessTweet
-							full_name={'Automated Response'}
-							twitter_handle={'@coned'}
-							profile_pic={'https://images.app.goo.gl/M8FfbwD1aEfE8v9a7'}
-							tweet_body={context.state.settings.botMessage}
-						/>
-					</Paper>
-				</Grid>
-				</>
+					<Grid item xs={12} md={4} lg={4}>
+						<Paper >
+							<ButtonlessTweet
+								full_name="Automated Response"
+								twitter_handle="@coned"
+								profile_pic="https://i.imgur.com/CgFCxPt.jpg"
+								tweet_body={context.state.settings.botMessage}
+							/>
+						</Paper>
+					</Grid>
+				</Box>
 			)}
 		</UserStateContext.Consumer>	
 	)
 
 }
 
+
 export default function ResponseDialog(props) {
 	const classes = useStyles()
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
 
 	const [open, setOpen] = React.useState(false)
-	const [componentChoice, setcomponentChoice] = React.useState()
+	const [buttonChoice, setButtonChoice] = React.useState()
+	const [componentChoice, setComponentChoice] = React.useState()
+	const [textInput, setTextInput] = React.useState('')
+
 
 	const handleClickOpen = (button) => {
 		if (button==='Resolved') {
-			setcomponentChoice(resolvedBotMessage())
+			setComponentChoice(resolvedBotMessage())
 		}
 		else if (button==='Custom') {
-			setcomponentChoice(<TextField
+			setComponentChoice(<TextField
 								multiline
 								fullWidth
 								margin="normal"
@@ -80,25 +83,38 @@ export default function ResponseDialog(props) {
 								rowsMax={10}
 								variant="outlined"
 								label="Your Response"
+								onChange={setTextInput}
 							/>)
 	    } else if (button==='Spam'){
-			//setcomponentChoice(<h1>Mark as spam?</h1>)
+			// setComponentChoice(<h1>Mark as spam?</h1>)
 			props.onSpamClick(props.reportId)
-			
 			return setOpen(false)
 
 	    }		
 		setOpen(true)
 	}
 
-	const handleClose = () => {
-		setcomponentChoice('')
+	const handleClose = (componentChoice) => {
+		setComponentChoice('')
+		setOpen(false)
+	}
+
+	const handleSend = (button, props, state) => {
+
+		if (button==='Resolved') {
+			props.state.onResolved()
+		}
+		else if (button==='Custom') {
+			replyToReport(props.twitter_handle, props.key, props.tweet_body)
+
+	    }	
+		setComponentChoice('')
 		setOpen(false)
 	}
 
 	return (
 		<UserStateContext.Consumer>
-			{({sessionHashtags,onSessionHashtagsChange}) => (
+			{state => (
 
 			<div>
 				<ButtonGroup
@@ -149,14 +165,18 @@ export default function ResponseDialog(props) {
 							<Typography variant="h6" className={classes.title}>
 								Response
 							</Typography>
-							<Button autoFocus color="inherit" onClick={handleClose}>
+							<Button autoFocus color="inherit" onClick={e => handleSend(buttonChoice, props, state)}>
 								Send
 							</Button>
 						</Toolbar>
 					</AppBar>
 
 					<Container maxWidth="lg" className={classes.container}>
-						<Grid spacing={3} center>
+						<Grid 
+						spacing={3} 
+						direction="column"
+					    alignItems="center"
+						center>
 							{/* Tweet */}
 							<Grid item xs={12} md={4} lg={4} center>
 								<Paper className={fixedHeightPaper}>
