@@ -20,8 +20,19 @@ const useStyles = makeStyles({
 	},
 	image__tweet: {
 		width: '120px',
-		heigh: '200px',
+		height: '200px',
 	},
+	image__hashtag: {
+		width: '200px',
+		height: '120px'
+	},
+	bold: {
+		fontWeight: 'bold'
+	},
+	image__response: {
+		width: '270px',
+		height: '170px'
+	}
 })
 export default function GettingStarted() {
 	const classes = useStyles()
@@ -61,8 +72,16 @@ export default function GettingStarted() {
 						<Button>Pending</Button>
 						<Button>Custom</Button>
 					</ButtonGroup>
+					<ul>
+						<li><span className={classes.bold}>customize your messages and click send</span></li>
+						<img className={classes.image__response} src="https://i.imgur.com/Al40ny8.png" alt="resonse" />
+					</ul>
 					<li>
-						you can also filter the results by distances and time!
+						you can also filter the results
+						<ul>
+							<li><span className={classes.bold}>filter by hashtags:</span> select or enter the hashtag on the top</li>
+							<img className={classes.image__hashtag} src='https://i.imgur.com/NdHTi1M.png' alt="filter-hashtag" />
+						</ul>
 					</li>
 				</ol>
 			</Typography>
