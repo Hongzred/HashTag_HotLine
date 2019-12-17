@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Document/Document.js</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -51,8 +53,8 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Title</p>
-                        <h1>Home</h1>
+                        <p>Source</p>
+                        <h1>Document/Document.js</h1>
                     </header>
                     
                     
@@ -60,25 +62,49 @@
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import PropTypes from 'prop-types'
 
+/**
+ * Some documented component
+ * 
+ * @component
+ * @example
+ * const size = 12
+ * const text = 'I am documented!'
+ * return (
+ *   &lt;Documented size={size} text={text} />
+ * )
+ */
+const Documented = (props) => {
+  const { text, size } = props
+  return (
+    &lt;p style={{ fontSize: size, padding: 10, border: '1px solid #ccc'}}>{text}&lt;/p>
+  )
+}
 
-    <h3> </h3>
+Documented.propTypes = {
+  /**
+   * Text is a text :)
+   */
+  text: PropTypes.string.isRequired,
+  /**
+   * Font size
+   */
+  size: PropTypes.number,
+}
 
+Documented.defaultProps = {
+  // eslint-disable-next-line react/default-props-match-prop-types
+  text: 'Hello World',
+  size: 12,
+}
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default Documented</code></pre>
+        </article>
+    </section>
 
 
 

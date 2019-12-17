@@ -34,6 +34,17 @@ const useStyles = makeStyles({
 		height: '170px'
 	}
 })
+
+/**
+ * Getting Started Component
+ * 
+ * this contains all user needs to know in order to use the app
+ * @component
+ * @example
+ * return (
+ * <GettingStarted/ >) 
+ */
+
 export default function GettingStarted() {
 	const classes = useStyles()
 

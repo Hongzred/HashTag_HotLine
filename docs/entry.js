@@ -22,5 +22,8 @@
 
     import './styles/iframe.css';
 
-  import Component0 from '../src/components/App.js';
-reactComponents['App'] = Component0;
+  import Component0 from '../src/components/Document/Document.js';
+reactComponents['Documented'] = Component0;
+
+import Component1 from '../src/components/GettingStarted/GettingStarted.js';
+reactComponents['GettingStarted'] = Component1;
