@@ -6,14 +6,14 @@ import GettingStarted from '../components/GettingStarted/GettingStarted'
 
 afterEach(cleanup)
 
-describe('AppDescription Component renders sucessfully', () => {
-    it('render AppDescription', () => {
+describe('GettingStarted Component renders sucessfully', () => {
+    it('render GettingStarted', () => {
         const { getByTestId } = render(<GettingStarted />);
         const gettingstarted = getByTestId('gettingstarted');
         expect(gettingstarted).toBeInTheDocument();
     })
 
-    it('render menu', () => {
+    it('render content', () => {
         const { getByText } = render(<GettingStarted />);
         const getStarted = getByText('Getting Started');
         expect(getStarted).toBeInTheDocument();

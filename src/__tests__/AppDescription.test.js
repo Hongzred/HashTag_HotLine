@@ -13,7 +13,7 @@ describe('AppDescription Component renders sucessfully', () => {
         expect(appdescription).toBeInTheDocument();
     })
 
-    it('render menu', () => {
+    it('render content', () => {
         const { getByText } = render(<AppDescription />);
         const summary = getByText('Summary');
         const getStarted = getByText('Getting Started');
