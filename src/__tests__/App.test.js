@@ -4,7 +4,7 @@ const person = {
 	email: 'test22',
 	password: 'password123',
 }
-const appUrlBase = 'http://localhost:3000'
+const appUrlBase = 'https://master.d2nb81n0vt6kb5.amplifyapp.com'
 const routes = {
 	public: {
 		login: appUrlBase,
@@ -23,7 +23,7 @@ beforeAll(async () => {
 	// launch browser
 	browser = await puppeteer.launch({
 		headless: false, // headless mode set to false so browser opens up with visual feedback
-		slowMo: 30, // how slow actions should be
+		slowMo: 50, // how slow actions should be
 	})
 	// creates a new page in the opened browser
 	page = await browser.newPage()
@@ -31,7 +31,7 @@ beforeAll(async () => {
 
 describe('Login', () => {
 	test('users can login', async () => {
-		await page.goto('https://master.d2nb81n0vt6kb5.amplifyapp.com/')
+		await page.goto('https://master.d2nb81n0vt6kb5.amplifyapp.com')
 		await page.waitForSelector('.Form__formSection___1PPvW')
 
 		await page.click('input[name=username]')
@@ -39,7 +39,14 @@ describe('Login', () => {
 		await page.click('input[name=password]')
 		await page.type('input[name=password]', person.password)
 		await page.click('button[type=submit]')
-	}, 160000)
+
+		await page.waitForSelector('.overlays')
+		// await page.goto('routes.private.documentation');
+		// await page.waitForSelector('.makeStyles-image__tweet-507');
+		// await page.goto(routes.private.analytics);
+		// await page.goto(routes.private.settings);
+		await setTimeout(() => {}, 10000)
+	}, 16000)
 })
 
 // This function occurs after the result of each tests, it closes the browser
