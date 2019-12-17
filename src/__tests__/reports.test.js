@@ -40,6 +40,7 @@ describe('getUserReports function', () => {
 				date: 'Wed Dec 04 14:12:00 +0000 2019',
 				hashtags: ['accident_hth_test'],
 				id: '1e5de4aa-ab71-4a99-81bc-08f58ef3586f',
+				"isDisplayable": true,
 				location: {
 					latitude: 40.656079999999996,
 					longitude: -73.915304,
@@ -79,6 +80,7 @@ describe('getUserReports function', () => {
 				date: 'Wed Dec 04 14:31:58 +0000 2019',
 				hashtags: ['accident_hth_test'],
 				id: 'e227c0a4-8bf1-4c91-8438-b51518ad886b',
+				"isDisplayable": true,
 				location: {
 					latitude: 40.74195143555109,
 					longitude: -73.98936868406889,
@@ -131,14 +133,31 @@ describe('getRecentUserReports function', () => {
         Promise.resolve(twitterReports),
     )
         const oldReports = [{
-            date: 'Wed Dec 04 14:12:00 +0000 2019',
-            hashtags: ['accident_hth_test'],
+			
+				"hashtags": [
+				  "accident_hth_test",
+				],
+				"location":  {
+		         "latitude": 40.656079999999996,
+		         "longitude": -73.915304,
+		       },
+		       "post": "#accident_hth_test Bus accident.",
+		       "postDate": "Wed Dec 04 14:12:00 +0000 2019",
+		       "postId": "1202229065081610242",
+		       "userId": "1187559230414434304",
+		       "username": "HashTagHotline",
+		     },
+		     {
+		       "hashtags":[
+		         "accident_hth_test",
+		       ],
+		       "location":  {
+				  "latitude": 40.74195143555109,
+				  "longitude": -73.98936868406889,
+				},
+				"post": "#accident_hth_test Tree fall..",
+				"postDate": "Wed Dec 04 14:31:58 +0000 2019",
             id: '1e5de4aa-ab71-4a99-81bc-08f58ef3586f',
-            location: {
-                latitude: 40.656079999999996,
-                longitude: -73.915304,
-            },
-            post: '#accident_hth_test Bus accident.',
             postId: '1202229065081610242',
             spam: false,
             status: 'PENDING',
