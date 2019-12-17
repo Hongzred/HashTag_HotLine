@@ -10,7 +10,7 @@ function handleClick(event) {
 
 export default function SimpleBreadcrumbs() {
 	return (
-		<Breadcrumbs aria-label="breadcrumb">
+		<Breadcrumbs aria-label="breadcrumb" data-testid="appdescription">
 			<Typography
 				color="inherit"
 				href="/gettingStarted"
