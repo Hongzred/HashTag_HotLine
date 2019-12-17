@@ -43,6 +43,7 @@ const routes = [
 	},
 ]
 
+
 const App = () => {
 	const navigation = routes.map(({ path, title }) => ({
 		id: shortid.generate(),

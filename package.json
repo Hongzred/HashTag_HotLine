@@ -38,7 +38,8 @@
     "test:staged": "cross-env CI=true react-scripts test --env=jsdom --findRelatedTests",
     "precommit": "lint-staged",
     "format": "prettier --write \"src/**/*.+(js|md|ts|css|sass|less|graphql|yml|yaml|scss|json|vue)\"",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "docs": "jsdoc -c ./jsdoc.json"
   },
   "browserslist": {
     "production": [
