@@ -41,7 +41,7 @@ export default function GettingStarted() {
 		<div className={classes.root}>
 			<h1>Getting Started</h1>
 			<Divider />
-			<Typography variant="body1" gutterBottom>
+			<Typography variant="body1" gutterBottom data-testid="gettingstarted">
 				<ol>
 					<li>Create an account using your email</li>
 					<li>
