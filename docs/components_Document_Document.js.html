@@ -5,7 +5,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: MainConsole/MainConsole.js</title>
+    <title>JSDoc: components/Document/Document.js</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -46,7 +46,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Map.html">Map</a></li></ul><h3>Components</h3><ul><li><a href="AppDescription.html">AppDescription</a></li><li><a href="Documented.html">Documented</a></li><li><a href="GettingStarted.html">GettingStarted</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Map.html">Map</a></li><li><a href="UserProvider.html">UserProvider</a></li></ul><h3>Components</h3><ul><li><a href="AppDescription.html">AppDescription</a></li><li><a href="DayTweetChart.html">DayTweetChart</a></li><li><a href="Documented.html">Documented</a></li><li><a href="GettingStarted.html">GettingStarted</a></li><li><a href="TweetChart.html">TweetChart</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Source</p>
-                        <h1>MainConsole/MainConsole.js</h1>
+                        <h1>components/Document/Document.js</h1>
                     </header>
                     
                     
@@ -64,92 +64,45 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// React Includes
-import React from 'react'
-
-// Material UI Includes
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
-
-import clsx from 'clsx'
-import useStyles from './styles'
-
-// Other Includes
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import PropTypes from 'prop-types'
 
 /**
- * global layout, boxes
+ * Some documented component
+ * 
+ * @component
+ * @example
+ * const size = 12
+ * const text = 'I am documented!'
+ * return (
+ *   &lt;Documented size={size} text={text} />
+ * )
  */
-
-export default function MainConsole(props) {
-	const classes = useStyles()
-	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
-
-	if (props.horizontal_controls === 'bottom') {
-		return (
-			&lt;Container maxWidth="lg" className={classes.container}>
-				&lt;Grid container spacing={3}>
-					{/* Primary Information Paper (Maps, Graphs, etc.) */}
-					&lt;Grid item xs={12} md={8} lg={9}>
-						&lt;Paper className={fixedHeightPaper}>
-							{/* &lt;TweetChart chartType={props.chartType}/> */}
-							{props.children[0]}
-							{/**/}
-						&lt;/Paper>
-					&lt;/Grid>
-
-					{/* Secondary Information (Twitter Feed, Controls) */}
-					&lt;Grid item xs={12} md={4} lg={3}>
-						&lt;Paper className={fixedHeightPaper}>
-							{props.children[1]}
-						&lt;/Paper>
-					&lt;/Grid>
-
-					{/* Footer Controls */}
-					&lt;Grid item xs={12}>
-						&lt;Paper className={classes.paper}>
-							{props.children[2]}
-						&lt;/Paper>
-					&lt;/Grid>
-				&lt;/Grid>
-			&lt;/Container>
-		)
-	}
-	if (props.horizontal_controls === 'top') {
-		return (
-			&lt;Container maxWidth="lg" className={classes.container}>
-				&lt;Grid container spacing={3}>
-					{/* Header Controls */}
-					&lt;Grid item xs={12}>
-						&lt;Paper className={classes.paper}>
-							{props.children[2]}
-						&lt;/Paper>
-					&lt;/Grid>
-
-					{/* Primary Information Paper (Maps, Graphs, etc.) */}
-					&lt;Grid item xs={12} md={8} lg={8}>
-						&lt;Paper className={fixedHeightPaper}>
-							{/* &lt;TweetChart chartType={props.chartType}/> */}
-							{props.children[0]}
-							{/**/}
-						&lt;/Paper>
-					&lt;/Grid>
-
-					{/* Secondary Information (Twitter Feed, Controls) */}
-					&lt;Grid item xs={12} md={4} lg={4}>
-						&lt;Paper
-							className={fixedHeightPaper}
-							style={{ overflow: 'auto' }}
-						>
-							{props.children[1]}
-						&lt;/Paper>
-					&lt;/Grid>
-				&lt;/Grid>
-			&lt;/Container>
-		)
-	}
+const Documented = (props) => {
+  const { text, size } = props
+  return (
+    &lt;p style={{ fontSize: size, padding: 10, border: '1px solid #ccc'}}>{text}&lt;/p>
+  )
 }
-</code></pre>
+
+Documented.propTypes = {
+  /**
+   * Text is a text :)
+   */
+  text: PropTypes.string.isRequired,
+  /**
+   * Font size
+   */
+  size: PropTypes.number,
+}
+
+Documented.defaultProps = {
+  // eslint-disable-next-line react/default-props-match-prop-types
+  text: 'Hello World',
+  size: 12,
+}
+
+export default Documented</code></pre>
         </article>
     </section>
 
@@ -164,7 +117,7 @@ export default function MainConsole(props) {
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Thu Dec 19 2019 22:27:09 GMT-0500 (Eastern Standard Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Thu Dec 19 2019 22:39:47 GMT-0500 (Eastern Standard Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>

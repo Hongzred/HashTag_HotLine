@@ -44,7 +44,18 @@ class PointLabel extends PureComponent {
 	}
 }
 // DayTweetChart component
-export default function DayTweetChart() {
+
+/**
+ * DayTweetChart Component
+ * 
+ * 	-this contains the chart for tweets in a day
+ * @component
+ * @example
+ * 	return (
+ * 	<DayTweetChart />) 
+ */
+
+const DayTweetChart = () => {
 	// Generate Tweet Data
 	const data = []
 	let hour = ''
@@ -102,3 +113,5 @@ export default function DayTweetChart() {
 		</>
 	)
 }
+
+export default DayTweetChart;

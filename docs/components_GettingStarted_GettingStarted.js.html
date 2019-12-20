@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: components/GettingStarted/GettingStarted.js</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -51,8 +53,8 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Title</p>
-                        <h1>Home</h1>
+                        <p>Source</p>
+                        <h1>components/GettingStarted/GettingStarted.js</h1>
                     </header>
                     
                     
@@ -60,25 +62,113 @@
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import { makeStyles } from '@material-ui/core/styles'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import Button from '@material-ui/core/Button'
 
+const useStyles = makeStyles({
+	root: {
+		width: '100%',
+		maxWidth: 500,
+		overflow: 'auto',
+	},
+	li: {
+		margin: '10px 0',
+	},
+	image: {
+		width: '120px',
+		height: '120px',
+	},
+	image__tweet: {
+		width: '120px',
+		height: '200px',
+	},
+	image__hashtag: {
+		width: '200px',
+		height: '120px'
+	},
+	bold: {
+		fontWeight: 'bold'
+	},
+	image__response: {
+		width: '270px',
+		height: '170px'
+	}
+})
 
-    <h3> </h3>
+/**
+ * GettingStarted Component
+ * 
+ * 	-this contains all user needs to know in order to use the app
+ * @component
+ * @example
+ * 	return (
+ * 	&lt;GettingStarted />) 
+ */
 
+const GettingStarted = () => {
+	const classes = useStyles()
 
+	return (
+		&lt;div className={classes.root}>
+			&lt;h1>Getting Started&lt;/h1>
+			&lt;Divider />
+			&lt;Typography variant="body1" gutterBottom data-testid="gettingstarted">
+				&lt;ol>
+					&lt;li>Create an account using your email&lt;/li>
+					&lt;li>
+						Go to your setting and set up your hashtags
+						&lt;ul>
+							&lt;li>enter the hashtags you want to search&lt;/li>
+							&lt;li>customize the bot message&lt;/li>
+							&lt;img
+								className={classes.image}
+								src="https://i.imgur.com/IHfmcN5.png"
+								alt="setting"
+							/>
+						&lt;/ul>
+					&lt;/li>
+					&lt;li>View the results in the overview page&lt;/li>
+					&lt;img
+						className={classes.image__tweet}
+						src="https://i.imgur.com/4WFAj0Z.png"
+						alt="tweet"
+					/>
+					&lt;li>Reply the tweet with actions&lt;/li>
+					&lt;ButtonGroup
+						size="small"
+						width="auto"
+						aria-label="full width outlined button group"
+					>
+						&lt;Button>Resolved&lt;/Button>
+						&lt;Button>Pending&lt;/Button>
+						&lt;Button>Custom&lt;/Button>
+					&lt;/ButtonGroup>
+					&lt;ul>
+						&lt;li>&lt;span className={classes.bold}>customize your messages and click send&lt;/span>&lt;/li>
+						&lt;img className={classes.image__response} src="https://i.imgur.com/Al40ny8.png" alt="resonse" />
+					&lt;/ul>
+					&lt;li>
+						you can also filter the results
+						&lt;ul>
+							&lt;li>&lt;span className={classes.bold}>filter by hashtags:&lt;/span> select or enter the hashtag on the top&lt;/li>
+							&lt;img className={classes.image__hashtag} src='https://i.imgur.com/NdHTi1M.png' alt="filter-hashtag" />
+						&lt;/ul>
+					&lt;/li>
+				&lt;/ol>
+			&lt;/Typography>
+		&lt;/div>
+	)
+}
 
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default GettingStarted;</code></pre>
+        </article>
+    </section>
 
 
 

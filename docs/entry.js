@@ -25,8 +25,14 @@
   import Component0 from '../src/components/AppDescription/AppDescription.js';
 reactComponents['AppDescription'] = Component0;
 
-import Component1 from '../src/components/Document/Document.js';
-reactComponents['Documented'] = Component1;
+import Component1 from '../src/components/TweetCharts/DayTweetChart.js';
+reactComponents['DayTweetChart'] = Component1;
 
-import Component2 from '../src/components/GettingStarted/GettingStarted.js';
-reactComponents['GettingStarted'] = Component2;
+import Component2 from '../src/components/Document/Document.js';
+reactComponents['Documented'] = Component2;
+
+import Component3 from '../src/components/GettingStarted/GettingStarted.js';
+reactComponents['GettingStarted'] = Component3;
+
+import Component4 from '../src/components/TweetCharts/TweetChart.js';
+reactComponents['TweetChart'] = Component4;

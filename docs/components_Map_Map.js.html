@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: components/Map/Map.js</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -51,8 +53,8 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Title</p>
-                        <h1>Home</h1>
+                        <p>Source</p>
+                        <h1>components/Map/Map.js</h1>
                     </header>
                     
                     
@@ -60,25 +62,116 @@
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import ReactMapGL, { Marker } from 'react-map-gl'
+import Pin from '../Pin/Pin'
+import MapPopup from '../MapPopup/MapPopup'
 
+/**
+ * GettingStarted Component
+ * 
+ * 	-this contains all user needs to know in order to use the app
+ * @param
+ * @param {number} width
+ * @param {number} height
+ * @param {number} latitude 
+ * @param {number} longitude 
+ * @param {number} zoom
+ * @param {object} issues Ex: [{location: { latitude: 40.73061, longitude: -73.935242 },description: 'description1',id: '123',},{location: { latitude: 40.74161, longitude: -73.946242 },description: 'description2',id: '321',},]
+ */
+class Map extends React.Component {
+	state = {
+		viewport: {
+			width: this.props.width,
+			height: this.props.height,
+			latitude: this.props.latitude,
+			longitude: this.props.longitude,
+			zoom: this.props.zoom,
+		},
+		popupInfo: null,
+	}
 
-    <h3> </h3>
+	popupCloseHandler = () => {
+		this.setState({ popupInfo: null })
+	}
 
+	pinClickHandler(data) {
+		this.setState(prevState => {
+			return prevState.popupInfo
+				? { popupInfo: null }
+				: { popupInfo: data }
+		})
+	}
 
+	createMarkers(issues) {
+		if (issues) {
+			const markers = issues.map(
+				({
+					location: { longitude, latitude },
+					post: description,
+					id: _id,
+				}) => (
+					&lt;Marker
+						key={_id}
+						latitude={latitude}
+						longitude={longitude}
+						offsetLeft={-10}
+						offsetTop={-25}
+					>
+						&lt;Pin
+							key={_id}
+							pinClickHandler={this.pinClickHandler.bind(this, {
+								latitude,
+								longitude,
+								description,
+							})}
+						/>
+					&lt;/Marker>
+				),
+			)
+			return markers
+		}
+		return null
+	}
 
+	showPopUp() {
+		const { popupInfo } = this.state
+		return (
+			popupInfo &amp;&amp; (
+				&lt;MapPopup
+					longitude={popupInfo.longitude}
+					latitude={popupInfo.latitude}
+					description={popupInfo.description}
+					popupCloseHandler={this.popupCloseHandler}
+				/>
+			)
+		)
+	}
 
+	render() {
+		return (
+			&lt;ReactMapGL
+				mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+				mapStyle={
+					'mapbox://styles/hashtaghotline/ck267dj38ia161cowt67mt6lb' ||
+					'mapbox://styles/hashtaghotline/ck2672kf95t691cpknmnqqn2h'
+				}
+				{...this.state.viewport}
+				onViewportChange={viewport => this.setState({ viewport })}
+			>
+				{this.createMarkers(this.props.issues)}
+				{this.showPopUp()}
+			&lt;/ReactMapGL>
+		)
+	}
+}
 
-
-
-
-
-
-    
-
-
-
-
-
+export default Map
+</code></pre>
+        </article>
+    </section>
 
 
 
