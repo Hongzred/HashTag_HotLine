@@ -1,12 +1,21 @@
 import React from 'react'
-
 import Slider from '@material-ui/core/Slider'
 // import VirtualizedList from '../TwitterFeed/TwitterFeed.js'
 import Typography from '@material-ui/core/Typography'
 import TwitterFeed from '../TwitterFeed/TwitterFeed'
 import { UserStateContext } from '../../context/UserContext'
 
-export default function MapControls() {
+/**
+ * MapControls Component
+ * 
+ * 	-this contains filtering sliders, functions needs to be implemented
+ * @component
+ * @example
+ * return (
+ * 	<MapControls />) 
+ */
+
+const MapControls = () => {
 	const distanceMarks = [
 		{ value: 5, label: '5mi' },
 		{ value: 25, label: '20mi' },
@@ -31,8 +40,7 @@ export default function MapControls() {
 	}
 
 	return (
-		<UserStateContext.Consumer>
-		{context => <div>
+		 <div>
 			<Typography id="distance-slider" gutterBottom>
 				Distance
 			</Typography>
@@ -61,8 +69,10 @@ export default function MapControls() {
 				max={365}
 			/>
 			<TwitterFeed />
-		</div>}
+		</div>
 			
-		</UserStateContext.Consumer>
+		
 	)
 }
+
+export default MapControls;

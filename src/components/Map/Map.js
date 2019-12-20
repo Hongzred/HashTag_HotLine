@@ -3,6 +3,18 @@ import ReactMapGL, { Marker } from 'react-map-gl'
 import Pin from '../Pin/Pin'
 import MapPopup from '../MapPopup/MapPopup'
 
+/**
+ * GettingStarted Component
+ * 
+ * 	-this contains all user needs to know in order to use the app
+ * @param
+ * @param {number} width
+ * @param {number} height
+ * @param {number} latitude 
+ * @param {number} longitude 
+ * @param {number} zoom
+ * @param {object} issues Ex: [{location: { latitude: 40.73061, longitude: -73.935242 },description: 'description1',id: '123',},{location: { latitude: 40.74161, longitude: -73.946242 },description: 'description2',id: '321',},]
+ */
 class Map extends React.Component {
 	state = {
 		viewport: {

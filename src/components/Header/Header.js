@@ -27,7 +27,17 @@ import {
 
 // aws
 
-export default function Header() {
+/**
+ * Header Component
+ * 
+ * 	-this is our header
+ * @component
+ * @example
+ * return (
+ * 	<Header />) 
+ */
+
+const Header = () => {
 	const classes = useStyles()
 
 	// global
@@ -118,3 +128,5 @@ export default function Header() {
 		</AppBar>
 	)
 }
+
+export default Header;

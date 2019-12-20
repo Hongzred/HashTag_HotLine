@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: Documented</title>
+    <title>JSDoc: MainConsole/MainConsole.js</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -51,218 +53,105 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Components</p>
-                        <h1>Documented</h1>
+                        <p>Source</p>
+                        <h1>MainConsole/MainConsole.js</h1>
                     </header>
                     
                     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-            &ltDocumented <i>text</i> <i>size</i> /&gt
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class='vertical-section'>
-                <h3 class="title"><span>Constructor</span></h3>
-                <div class="members">
-                    <div class="member">
-
-
-    
-    <h4 class="name" id="Documented">
-        <a class="href-link" href="#Documented">#</a>
-        
-        <span class="code-name">
-            
-                &ltDocumented <i>text</i> <i>size</i> /&gt
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Some documented component</p>
-    </div>
-    
-
-
-
-
-
-
-
-    
-        <h5>PropTypes:</h5>
-        
-
-<table class="params">
-  <thead>
-  <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Required</th>
-      <th>Description</th>
-      <th class="last">Default</th>
-  </tr>
-  </thead>
-
-  <tbody>
-  
-        <tr class="deep-level-0">
-          <td class="name"><code>text</code></td>
-          <td>
-            string
-          </td>
-          <td>No</td>
-          <td>Text is a text :)</td>
-          <td>'Hello World'</td>
-        </tr>
-        
-  
-        <tr class="deep-level-0">
-          <td class="name"><code>size</code></td>
-          <td>
-            number
-          </td>
-          <td>No</td>
-          <td>Font size</td>
-          <td>12</td>
-        </tr>
-        
-  
-  </tbody>
-</table>
-    
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="Document_Document.js.html" class="button">View Source</a>
-            <span>
-                <a href="Document_Document.js.html">Document/Document.js</a>, <a href="Document_Document.js.html#line15">line 15</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    
-        
-
-<div id='2m3pyvwp05wk4dkuyf8'></div>
-
-<script>
-  ReactDOM.render(ReactWrapper({
-    example: "const size = 12\nconst text = 'I am documented!'\nreturn (\n  <Documented size={size} text={text} />\n)",
-    uniqId: "2m3pyvwp05wk4dkuyf8",
-  }), document.getElementById('2m3pyvwp05wk4dkuyf8'));
-</script>
-    
-
-
-</div>
-                </div>
-            </div>
-        
-    
-    </div>
-    
-        
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// React Includes
+import React from 'react'
+
+// Material UI Includes
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+
+import clsx from 'clsx'
+import useStyles from './styles'
+
+// Other Includes
+
+/**
+ * global layout, boxes
+ */
+
+export default function MainConsole(props) {
+	const classes = useStyles()
+	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
+
+	if (props.horizontal_controls === 'bottom') {
+		return (
+			&lt;Container maxWidth="lg" className={classes.container}>
+				&lt;Grid container spacing={3}>
+					{/* Primary Information Paper (Maps, Graphs, etc.) */}
+					&lt;Grid item xs={12} md={8} lg={9}>
+						&lt;Paper className={fixedHeightPaper}>
+							{/* &lt;TweetChart chartType={props.chartType}/> */}
+							{props.children[0]}
+							{/**/}
+						&lt;/Paper>
+					&lt;/Grid>
+
+					{/* Secondary Information (Twitter Feed, Controls) */}
+					&lt;Grid item xs={12} md={4} lg={3}>
+						&lt;Paper className={fixedHeightPaper}>
+							{props.children[1]}
+						&lt;/Paper>
+					&lt;/Grid>
+
+					{/* Footer Controls */}
+					&lt;Grid item xs={12}>
+						&lt;Paper className={classes.paper}>
+							{props.children[2]}
+						&lt;/Paper>
+					&lt;/Grid>
+				&lt;/Grid>
+			&lt;/Container>
+		)
+	}
+	if (props.horizontal_controls === 'top') {
+		return (
+			&lt;Container maxWidth="lg" className={classes.container}>
+				&lt;Grid container spacing={3}>
+					{/* Header Controls */}
+					&lt;Grid item xs={12}>
+						&lt;Paper className={classes.paper}>
+							{props.children[2]}
+						&lt;/Paper>
+					&lt;/Grid>
+
+					{/* Primary Information Paper (Maps, Graphs, etc.) */}
+					&lt;Grid item xs={12} md={8} lg={8}>
+						&lt;Paper className={fixedHeightPaper}>
+							{/* &lt;TweetChart chartType={props.chartType}/> */}
+							{props.children[0]}
+							{/**/}
+						&lt;/Paper>
+					&lt;/Grid>
+
+					{/* Secondary Information (Twitter Feed, Controls) */}
+					&lt;Grid item xs={12} md={4} lg={4}>
+						&lt;Paper
+							className={fixedHeightPaper}
+							style={{ overflow: 'auto' }}
+						>
+							{props.children[1]}
+						&lt;/Paper>
+					&lt;/Grid>
+				&lt;/Grid>
+			&lt;/Container>
+		)
+	}
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

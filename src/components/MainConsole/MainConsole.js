@@ -11,6 +11,10 @@ import useStyles from './styles'
 
 // Other Includes
 
+/**
+ * global layout, boxes
+ */
+
 export default function MainConsole(props) {
 	const classes = useStyles()
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)

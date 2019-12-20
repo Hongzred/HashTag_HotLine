@@ -8,6 +8,10 @@ import AssignmentIcon from '@material-ui/icons/Assignment'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { Link } from 'react-router-dom'
 
+/**
+ * items on the left side nav
+ */
+
 export const mainListItems = (
 	<div>
 		<ListItem button component={Link} to="/map">
