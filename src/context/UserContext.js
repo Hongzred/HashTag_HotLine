@@ -20,11 +20,11 @@ const UserStateContext = React.createContext()
 
 /**
  * UserContext Component
- * 
+ *
  * 	-this is state management component
  * @summary this contains all the state and methods to change the state,
  * @extends Component
- *  
+ *
  */
 class UserProvider extends Component {
 	state = {
@@ -52,9 +52,6 @@ class UserProvider extends Component {
 	componentWillUnmount() {
 		clearInterval(this.pollID)
 	}
-	
-	
-
 
 	// testHandlerByBoardKeys = async () => {
 	// 	document.addEventListener('keydown', async event => {
@@ -135,6 +132,13 @@ class UserProvider extends Component {
 	// 	})
 	// }
 
+	/**
+	 * pollTwitter
+	 * @method
+	 * @summary poll twits from twitter every 5 seconds
+	 * @async
+	 * @return {string} id - twit
+	 */
 
 	pollTwitter = async () => {
 		const id = setInterval(async () => {
@@ -161,6 +165,15 @@ class UserProvider extends Component {
 		return id
 	}
 
+	/**
+	 * initializeSettings
+	 * @method
+	 * @summary pull default settings from database
+	 * @async
+	 * 
+	 * @return {undefined} void
+	 */
+
 	initializeSettings = async () => {
 		const settings = await createUserSettings(await getUserSettings())
 		console.log('Hashtag State', settings)
@@ -169,12 +182,30 @@ class UserProvider extends Component {
 		})
 	}
 
+	/**
+	 * initializeReports
+	 * @method
+	 * @summary pull reports from database when open the app
+	 * @async
+	 * 
+	 * @return {undefined} void
+	 */
+
 	initializeReports = async () => {
 		const reports = await getUserReports()
 		this.setState({
 			reports,
 		})
 	}
+
+	/**
+	 * onMessageChange
+	 * @method
+	 * @summary update botMsg when user makes a change
+	 * @async
+	 * 
+	 * @return {undefined} void
+	 */
 
 	onMessageChange = e => {
 		const input = e.target.value
@@ -184,6 +215,15 @@ class UserProvider extends Component {
 		}))
 	}
 
+	/**
+	 * onResolvedMessageChange
+	 * @method
+	 * @summary update resolvedMsg in the database
+	 * @async
+	 * 
+	 * @return {undefined} void
+	 */
+
 	onResolvedMessageChange = e => {
 		const input = e.target.value
 
@@ -191,6 +231,15 @@ class UserProvider extends Component {
 			settings: { ...prevState.settings, resolvedMessage: input },
 		}))
 	}
+
+	/**
+	 * onHashtagsChange
+	 * @method
+	 * @summary update hashtags in the setting
+	 * @async
+	 * 
+	 * @return {undefined} void
+	 */
 
 	onHashtagsChange = e => {
 		const hashtags = e.map(hashtagName => {
@@ -206,6 +255,15 @@ class UserProvider extends Component {
 		}))
 	}
 
+	/**
+	 * onSpamClick
+	 * @method
+	 * @summary mark a report as spam
+	 * @async
+	 * 
+	 * @return {undefined} void
+	 */
+
 	onSpamClick = async reportId => {
 		const { reports } = this.state
 		await markAsSpam(reportId)
@@ -219,6 +277,15 @@ class UserProvider extends Component {
 			reports: updatedReports,
 		})
 	}
+
+	/**
+	 * onResolved
+	 * @method
+	 * @summary mark a report as resolved
+	 * @async
+	 * 
+	 * @return {undefined} void
+	 */
 
 	onResolved = async reportId => {
 		const { reports } = this.state
@@ -234,6 +301,15 @@ class UserProvider extends Component {
 		})
 	}
 
+	/**
+	 * onSave
+	 * @method
+	 * @summary save modified settings and update database
+	 * @async
+	 * 
+	 * @return {undefined} void
+	 */
+
 	onSave = async e => {
 		e.preventDefault()
 		await updateUserSettings(
@@ -242,6 +318,14 @@ class UserProvider extends Component {
 			this.onTagAdd,
 		)
 	}
+
+	/**
+	 * onTagDisable
+	 * @method
+	 * @summary disable a tag
+	 * 
+	 * @return {undefined} void
+	 */
 
 	onTagDisable = hashtagName => {
 		const {
@@ -266,6 +350,14 @@ class UserProvider extends Component {
 		}))
 	}
 
+	/**
+	 * onTagDelete
+	 * @method
+	 * @summary delete a tag and update database
+	 * 
+	 * @return {undefined} void
+	 */
+
 	onTagDelete = hashtagName => {
 		const { reports } = this.state
 		const updatedReports = reports.map(report => {
@@ -279,6 +371,14 @@ class UserProvider extends Component {
 		}))
 	}
 
+	/**
+	 * onTagAdd
+	 * @method
+	 * @summary add a tag and update database
+	 * 
+	 * @return {undefined} void
+	 */
+
 	onTagAdd = hashtagName => {
 		const { reports } = this.state
 		const updatedReports = reports.map(report => {
@@ -291,6 +391,14 @@ class UserProvider extends Component {
 			reports: updatedReports,
 		}))
 	}
+
+	/**
+	 * onTagEnable
+	 * @method
+	 * @summary enable a tag
+	 * 
+	 * @return {undefined} void
+	 */
 
 	onTagEnable = hashtagName => {
 		const {
@@ -314,6 +422,14 @@ class UserProvider extends Component {
 			reports: updatedReports,
 		}))
 	}
+
+	/**
+	 * onSessionHashtagsChange
+	 * @method
+	 * @summary show results for added hashtag immediately
+	 * 
+	 * @return {undefined} void
+	 */
 
 	onSessionHashtagsChange = e => {
 		const { hashtags } = this.state.settings
@@ -345,12 +461,25 @@ class UserProvider extends Component {
 		})
 	}
 
+	/**
+	 * filterReportByTime
+	 * @method
+	 * @summary filter reports by hashtag
+	 * @async
+	 * 
+	 * @return {undefined} void
+	 */
+
 	filterReportByTime(dayRanges) {
-		const dayRange = 1;
-		const todayDate = new Date();
-		const dateNumb = todayDate.getDate();
-		const filteredReport = this.state.reports.filter((report) => {return Math.abs(report.postDate.split(' ')[2] - dateNumb <= dayRange)})
-		this.setState(filteredReport);
+		const dayRange = 1
+		const todayDate = new Date()
+		const dateNumb = todayDate.getDate()
+		const filteredReport = this.state.reports.filter(report => {
+			return Math.abs(
+				report.postDate.split(' ')[2] - dateNumb <= dayRange,
+			)
+		})
+		this.setState(filteredReport)
 	}
 
 	render() {
