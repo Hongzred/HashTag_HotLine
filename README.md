@@ -1,6 +1,6 @@
 # HashTag_HotLine
  A general-purpose public reporting platform
-
+ functions/components documentation can be found [here](https://hongzred.github.io/HashTag_HotLine/docs/index.html)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
