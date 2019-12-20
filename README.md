@@ -1,9 +1,26 @@
-# HashTag_HotLine
- A general-purpose public reporting platform
+# <center>HashTag HotLine</center>
+
+## Table of Contents  
+[Introduction](#headers) 
+[Usage & Core Features](#core)
+[Installation](#install) 
+
+<a name="introduction"/>
+## Introduction
+
+HashTag Hotline is an online, location-based communications application for NGO's in the [Global South](https://en.wikipedia.org/wiki/Global_South).  The idea is simple: during emergencies,  disaster victims [already turn to Twitter](https://blog.twitter.com/en_in/a/2016/twitter-for-crisis-and-disaster-relief-in.html) to report emergencies during hurricanes, earthquakes, and other natural disasters. Hastag Hotline is a purpose-built  twitter client for NGO's  that helps them easily locate problems using location data, and  keep constant communication with victims over twitter.
+
+![[speed output image]](images/ezgif-1-22fae63c1f7c.gif)
+
+<a name="core"/>
+## Usage & Core Features
+
+The project is hosted [here](https://master.d2nb81n0vt6kb5.amplifyapp.com/). We present a brief overview of our core features in this readme; for additional information, refer to the [user documentation](https://master.d2nb81n0vt6kb5.amplifyapp.com/feed) within the application itself.
+
+### Map, Feed, Filter
 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+<a name="install"/>
 ## Installation
 
 After cloning this repository, reach out to one of the project maintainers, who should provide you with the following necessary configuration and keyfiles. All files, except the IAM credentials file,  should be copied into the directories in which they belong. The contents of the IAM credentials file will just be copy-pasted during the amplify setup process. Here are the files you should receive:
