@@ -8,7 +8,17 @@ function handleClick(event) {
 	// console.log('You clicked a breadcrumb.');
 }
 
-export default function SimpleBreadcrumbs() {
+/**
+ * Documentation menu Component
+ *
+ * 	-this contains table of content and contact us
+ * @component Menu
+ * @example
+ * return (
+ * <AppDescription/ >)
+ */
+
+const AppDescription = () => {
 	return (
 		<Breadcrumbs aria-label="breadcrumb" data-testid="appdescription">
 			<Typography
@@ -27,3 +37,5 @@ export default function SimpleBreadcrumbs() {
 		</Breadcrumbs>
 	)
 }
+
+export default AppDescription;

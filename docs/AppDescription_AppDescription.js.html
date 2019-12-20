@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: AppDescription/AppDescription.js</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -51,8 +53,8 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Title</p>
-                        <h1>Home</h1>
+                        <p>Source</p>
+                        <h1>AppDescription/AppDescription.js</h1>
                     </header>
                     
                     
@@ -60,25 +62,51 @@
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import Typography from '@material-ui/core/Typography'
+import Breadcrumbs from '@material-ui/core/Breadcrumbs'
+import Link from '@material-ui/core/Link'
 
+function handleClick(event) {
+	event.preventDefault()
+	// console.log('You clicked a breadcrumb.');
+}
 
-    <h3> </h3>
+/**
+ * Documentation menu Component
+ *
+ * 	-this contains table of content and contact us
+ * @component Menu
+ * @example
+ * return (
+ * &lt;AppDescription/ >)
+ */
 
+const AppDescription = () => {
+	return (
+		&lt;Breadcrumbs aria-label="breadcrumb" data-testid="appdescription">
+			&lt;Typography
+				color="inherit"
+				href="/gettingStarted"
+				onClick={handleClick}
+			>
+				Getting Started
+			&lt;/Typography>
+			&lt;Typography color="inherit" href="/summary/" onClick={handleClick}>
+				Summary
+			&lt;/Typography>
+			&lt;Link color="textPrimary" href="mailto:hashTagHotLine@gmail.com">
+				Contact Us
+			&lt;/Link>
+		&lt;/Breadcrumbs>
+	)
+}
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default AppDescription;</code></pre>
+        </article>
+    </section>
 
 
 

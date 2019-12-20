@@ -3,6 +3,16 @@ import { FormControl, InputLabel, Input, Button } from '@material-ui/core'
 import ChipInput from 'material-ui-chip-input'
 import { UserStateContext } from '../../context/UserContext'
 
+/**
+ * Component for settings.
+ * 
+ * this allows user to modify the default settings
+ * @component
+ * @example
+ * return (
+ *   <Settings  />
+ * )
+ */
 const Settings = () => {
 	return (
 		<UserStateContext.Consumer>

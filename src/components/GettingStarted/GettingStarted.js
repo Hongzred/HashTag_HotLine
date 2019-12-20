@@ -36,16 +36,16 @@ const useStyles = makeStyles({
 })
 
 /**
- * Getting Started Component
+ * GettingStarted Component
  * 
- * this contains all user needs to know in order to use the app
+ * 	-this contains all user needs to know in order to use the app
  * @component
  * @example
- * return (
- * <GettingStarted/ >) 
+ * 	return (
+ * 	<GettingStarted />) 
  */
 
-export default function GettingStarted() {
+const GettingStarted = () => {
 	const classes = useStyles()
 
 	return (
@@ -99,3 +99,5 @@ export default function GettingStarted() {
 		</div>
 	)
 }
+
+export default GettingStarted;
