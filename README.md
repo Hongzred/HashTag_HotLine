@@ -17,7 +17,7 @@ HashTag Hotline is an online, location-based twitter communications application 
 ## A Tour of Core Features
 <a name="core"/>
 
-The project is hosted [here](https://master.d2nb81n0vt6kb5.amplifyapp.com/). We present a brief overview of our core features in this readme; for additional information, refer to the [user documentation](https://master.d2nb81n0vt6kb5.amplifyapp.com/feed) within the application itself.
+The project is hosted [here](https://master.d2nb81n0vt6kb5.amplifyapp.com). We present a brief overview of our core features in this readme; for additional information, refer to the [here](https://hongzred.github.io/HashTag_HotLine/docs/index.html) for developer documentation.
 
 ### Filter
 
