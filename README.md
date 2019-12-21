@@ -33,7 +33,7 @@ Afterwards the tweets will be updated in the feed component as seen here (notice
 
 ![[video-to-gif output image]](README_images/ezgif-1-12eed0724411.gif)
 
-**NOTE:** If you would like to test this part of the application by tweeting from your own twitter account, turn on location services on your device and make sure the location is within the specified map area (in this case the 5 Borroughs of NYC.)
+**NOTE:** If you would like to test this part of the application by tweeting from your own twitter account, turn on location services on your device and make sure the location is within the specified map area (in this case the 5 Borroughs of NYC.) Also, to see the responses from hashtag hotline, you must follow @hashtag_hotline, otherwise all responses will be hidden from view. The reason for this is that, early on in our project, we sent too many tweets at once using the channel to which our API keys are associated and so @hastag_hotline was flagged as a spammer bot by twitter.  
 
 Notice the 3 buttons on the bottom of each tweet that read, "Resolved, Custom, Spam." These buttons allow dashboard users to issue automated and custom responses to disaster victims that can help keep victims constantly informed. 
 
