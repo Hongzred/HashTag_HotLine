@@ -82,7 +82,7 @@ const Header = () => {
 					)}
 				</IconButton>
 				<Typography variant="h4" className={classes.logotype}>
-					Company Name
+					Hashtag Hotline
 				</Typography>
 				<div className={classes.grow} />
 				<IconButton
@@ -110,7 +110,7 @@ const Header = () => {
 				>
 					<div className={classes.profileMenuUser}>
 						<Typography variant="h4" weight="medium">
-							Company Name
+							Hashtag Hotline
 						</Typography>
 					</div>
 
