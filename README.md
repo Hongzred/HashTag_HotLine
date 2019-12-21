@@ -9,7 +9,7 @@
 ## Introduction
 <a name="introduction"/>
 
-HashTag Hotline is an online, location-based communications application for NGO's in the [Global South](https://en.wikipedia.org/wiki/Global_South).  The idea is simple: during emergencies,  disaster victims [already turn to Twitter](https://blog.twitter.com/en_in/a/2016/twitter-for-crisis-and-disaster-relief-in.html) to report emergencies during hurricanes, earthquakes, and other natural disasters. Hastag Hotline is a purpose-built  twitter client for NGO's  that helps them easily locate problems using location data, and  keep constant communication with victims over twitter.
+HashTag Hotline is an online, location-based twitter communications application for NGO's in the [Global South](https://en.wikipedia.org/wiki/Global_South).  The idea is simple: during emergencies,  disaster victims [already turn to Twitter](https://blog.twitter.com/en_in/a/2016/twitter-for-crisis-and-disaster-relief-in.html) to report emergencies during hurricanes, earthquakes, and other natural disasters. Hastag Hotline is a purpose-built  twitter client for NGO's  that helps them easily locate problems using location data, and  keep constant communication with victims over twitter.
 
 ![[speed output image]](README_images/ezgif-1-22fae63c1f7c.gif)
 
@@ -29,15 +29,15 @@ Filtering is accomplished by the tag cloud component at the top of the dashboard
 
 ### Feed
 
-Afterwards the tweets will bu updated in the feed component as seen here:
+Afterwards the tweets will be updated in the feed component as seen here (notice how they all have tags #NDMA and #flood):
 
 ![[video-to-gif output image]](README_images/ezgif-1-12eed0724411.gif)
 
-**NOTE:** If you would like to test this part of the application by tweeting from your own twitter account, ensure that location services is turned on on your device and that a location within the specified map area is attached to your tweet (in this case the 5 Borroughs of NYC.)
+**NOTE:** If you would like to test this part of the application by tweeting from your own twitter account, turn on location services on your device and make sure the location is within the specified map area (in this case the 5 Borroughs of NYC.)
 
 Notice the 3 buttons on the bottom of each tweet that read, "Resolved, Custom, Spam." These buttons allow dashboard users to issue automated and custom responses to disaster victims that can help keep victims constantly informed. 
 
-Before moving on to the functionality of these buttons, it's worthwhile to discuss how the pre-set responses that these buttons send are specified in the settings page. 
+Before moving on to the functionality of these buttons, it's worthwhile to discuss how the the settings page allows us to pre-set responses sent by these buttons. 
 
 #### Settings
 
@@ -51,7 +51,7 @@ In the settings page, we have a "Hashtag" entry where the permanent "hotline has
 
 #### Feed Buttons & Bot Responses
 
-Feed buttons (shown below) allow dashboard users  to answer the concerns of disaster victims in real time and ensure constant communication. In this section, we go over their functionality one  by one. Additionally, we discuss the Bot Response, which is a *completely* automated twitter response that requires no effort on the part of the dashboard user.
+Feed buttons (shown below) allow dashboard users  to answer the concerns of disaster victims in real time and ensure constant communication. In this section, we go over their functionality one  by one. Additionally, we discuss the Bot Response, which is a *completely* automated twitter response that requires no input on the part of the dashboard user.
 
 ![image-20191220190237716](README_images/image-20191220190237716.png)
 
@@ -69,7 +69,7 @@ Then,  in accordance with the Bot Response set in the settings page, the twitter
 
 ##### Resolved Button
 
-Now we move to the **Resolved Button**, which is meant to inform the disaster victim when help will be coming. After clicking the Resolved button, the dashboard user is prompted with a message (shown in the gif below) asking whether the Resolved Message should be be sent to the twitter user.
+Now we move to the **Resolved Button**, which is meant to inform the disaster victim when help will be coming. After clicking the Resolved button, the dashboard user is prompted with a message (shown in the gif below) confirming whether the Resolved Message should be be sent to the twitter user.
 
 ![[crop output image]](README_images/ezgif-1-b1bc7f9afb18.gif)
  If the dashboard user clicks send, then the twitter user will see a response to their tweet on their device:
@@ -77,7 +77,7 @@ Now we move to the **Resolved Button**, which is meant to inform the disaster vi
 
 
 ##### Custom Response Button
-Next, **Custom Responses** allow the dashboard user to interact with twitter users perhaps to get more information, or to cater to the needs of a specific scenario faced by a particular user. In the example below, a disaster victim on twitter sends a tweet (with location data attached) but doesn't know the area, and is trapped inside a building. The dashboard user responds asking for more information about the layout of the building and if there might be an entrance rescue workers can break into.
+Next, **Custom Responses** allow the dashboard user to interact with twitter users. Perhaps dashboard users need to get more information, or cater to the needs of a specific scenario faced by a particular user. In the example below, a disaster victim on twitter sends a tweet (with location data attached) but the twitter user is unfamiliar with their surroundings, and is trapped inside a building. The dashboard user responds asking for more information about the layout of the building and if there might be an entrance rescue workers can break into.
 
 ![[video-to-gif output image]](README_images/ezgif-1-33608c78c50c.gif)
 
@@ -89,7 +89,10 @@ The twitter user, in turn, would see the following response:
 
 Finally, the spam button simply marks a specific tweet as spam so that it will not appear in the feed or be saved to DynamoDB.
 
+###  Map
+The map reads from the same global state as the twitter feed, and so all tweets that appear on the filter are also present on the map. This can help disaster workers pinpoint multiple calls for help within the same geographical area. 
 
+![image-20191221002258455](README_images/image-20191221002258455.png)
 
 
 
