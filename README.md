@@ -1,6 +1,6 @@
 # HashTag HotLine
 
-## Table of Contents  
+## Project Documentation Contents  
 - [Introduction](#headers) 
 - [A Tour of Core Features](#core)
 - [Installation](#install) 
