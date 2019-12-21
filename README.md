@@ -128,4 +128,7 @@ To install the project for yourself, you'll need a node development server. Inst
 ### Start the server
 After Amplify has been set up, you can finally start the development server. Before beginning, however, make sure that you have the latest chagnes from the github repo by running `git pull`. Also, make sure your node packages are up-to-date by running `npm install` in the root of the project directory. Finally, you can run `npm start` and the application should be accessible in the browser at url `localhost://3000.
 
+### Tests
+![image-20191221002258455dd](https://i.imgur.com/eG0A3XD.png)
 
+including unit tests, integration tests and e2e test
