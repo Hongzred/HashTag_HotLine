@@ -72,7 +72,9 @@ Then,  in accordance with the Bot Response set in the settings page, the twitter
 Now we move to the **Resolved Button**, which is meant to inform the disaster victim when help will be coming. After clicking the Resolved button, the dashboard user is prompted with a message (shown in the gif below) confirming whether the Resolved Message should be be sent to the twitter user.
 
 ![[crop output image]](README_images/ezgif-1-b1bc7f9afb18.gif)
+
  If the dashboard user clicks send, then the twitter user will see a response to their tweet on their device:
+ 
 ![image-20191220190800471](README_images/image-20191220190800471.png)
 
 
