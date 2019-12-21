@@ -75,7 +75,7 @@ describe('Fetch twitters by hashtag', () => {
 
 		const jsonData = await fetchTweets('testing_hth')
 		expect(jsonData.length).toBe(1)
-		expect(Object.keys(jsonData[0]).length).toBe(7)
+		expect(Object.keys(jsonData[0]).length).toBe(9)
 		expect(jsonData[0]).toMatchObject(expectedData[0])
 		expect(Twit.prototype.get).toHaveBeenCalledTimes(1)
 		expect(Twit.prototype.get).toHaveBeenCalledWith('search/tweets', {

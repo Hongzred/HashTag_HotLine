@@ -1,0 +1,210 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: components/TweetCharts/DayTweetChart.js</title>
+
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./build/entry.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                     
+                        <h1 class="navbar-item">My React components</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Map.html">Map</a></li><li><a href="UserProvider.html">UserProvider</a></li></ul><h3>Components</h3><ul><li><a href="AppDescription.html">AppDescription</a></li><li><a href="DayTweetChart.html">DayTweetChart</a></li><li><a href="Documented.html">Documented</a></li><li><a href="GettingStarted.html">GettingStarted</a></li><li><a href="TweetChart.html">TweetChart</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Source</p>
+                        <h1>components/TweetCharts/DayTweetChart.js</h1>
+                    </header>
+                    
+                    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { PureComponent } from 'react'
+import {
+	LineChart,
+	Line,
+	XAxis,
+	YAxis,
+	Label,
+	ResponsiveContainer,
+	CartesianGrid,
+	Tooltip,
+} from 'recharts'
+import PropTypes from 'prop-types'
+import Typography from '@material-ui/core/Typography'
+
+// Title Heading for Chart
+function Title(props) {
+	return (
+		&lt;Typography component="h2" variant="h6" color="primary" gutterBottom>
+			{props.children}
+		&lt;/Typography>
+	)
+}
+
+Title.propTypes = {
+	children: PropTypes.node,
+}
+
+// Custom Label that appears on points
+class PointLabel extends PureComponent {
+	render() {
+		const { x, y, stroke, value } = this.props
+		return (
+			&lt;text
+				x={x}
+				y={y}
+				dy={-4}
+				fill={stroke}
+				fontSize={12}
+				textAnchor="middle"
+			>
+				{value}
+			&lt;/text>
+		)
+	}
+}
+// DayTweetChart component
+
+/**
+ * DayTweetChart Component
+ * 
+ * 	-this contains the chart for tweets in a day
+ * @component
+ * @example
+ * 	return (
+ * 	&lt;DayTweetChart />) 
+ */
+
+const DayTweetChart = () => {
+	// Generate Tweet Data
+	const data = []
+	let hour = ''
+	let tweets = 0
+	for (let i = 0; i &lt; 24; i += 3) {
+		tweets = Math.floor(Math.random() * 4)
+		if (i &lt; 10) {
+			hour = `0${i.toString()}:00`
+		} else {
+			hour = `${i.toString()}:00`
+		}
+
+		data.push({ time: hour, tweets })
+	}
+	data.push(['24:00', undefined])
+
+	return (
+		&lt;>
+			{/* need React.Fragments because two components are returned here: 
+		the title and responsive container that contains DayTweetChart */}
+			&lt;Title>Tweets over Time&lt;/Title>
+			&lt;ResponsiveContainer>
+				&lt;LineChart
+					data={data}
+					margin={{
+						top: 16,
+						right: 16,
+						bottom: 0,
+						left: 24,
+					}}
+				>
+					&lt;CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+					&lt;XAxis dataKey="time" />
+					&lt;YAxis allowDecimals={false}>
+						&lt;Label
+							angle={270}
+							position="left"
+							style={{
+								textAnchor: 'top',
+							}}
+						>
+							Tweets
+						&lt;/Label>
+					&lt;/YAxis>
+					&lt;Tooltip />
+					&lt;Line
+						type="monotone"
+						dataKey="tweets"
+						stroke="#556CD6"
+						strokeWidth={3}
+						label={&lt;PointLabel />}
+					/>
+				&lt;/LineChart>
+			&lt;/ResponsiveContainer>
+		&lt;/>
+	)
+}
+
+export default DayTweetChart;</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Thu Dec 19 2019 22:56:56 GMT-0500 (Eastern Standard Time)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+        </p>
+    </div>
+</footer>
+
+
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

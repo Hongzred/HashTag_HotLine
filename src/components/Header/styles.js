@@ -1,5 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles'
 
+/**
+ * global style
+ */
+
 export default makeStyles(theme => ({
 	logotype: {
 		fontWeight: 500,

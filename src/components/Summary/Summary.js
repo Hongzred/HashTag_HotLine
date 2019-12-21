@@ -17,13 +17,13 @@ export default function Summary() {
 	const classes = useStyles()
 
 	return (
-		<div className={classes.root}>
+		<div className={classes.root} data-testid="summary">
 			{/* <Typography variant="h2" gutterBottom className="bold">
 				Summary
 			</Typography> */}
 			<h1>Summary</h1>
 			<Divider />
-			<Typography variant="body1" gutterBottom>
+			<Typography variant="body1" gutterBottom >
 				- Hashtag hotline is a dashboard application with a live feed
 				and map to show where the public is reporting problems.
 			</Typography>

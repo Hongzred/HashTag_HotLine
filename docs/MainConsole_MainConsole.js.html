@@ -1,0 +1,179 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: MainConsole/MainConsole.js</title>
+
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./build/entry.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                     
+                        <h1 class="navbar-item">My React components</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Map.html">Map</a></li></ul><h3>Components</h3><ul><li><a href="AppDescription.html">AppDescription</a></li><li><a href="Documented.html">Documented</a></li><li><a href="GettingStarted.html">GettingStarted</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Source</p>
+                        <h1>MainConsole/MainConsole.js</h1>
+                    </header>
+                    
+                    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// React Includes
+import React from 'react'
+
+// Material UI Includes
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+
+import clsx from 'clsx'
+import useStyles from './styles'
+
+// Other Includes
+
+/**
+ * global layout, boxes
+ */
+
+export default function MainConsole(props) {
+	const classes = useStyles()
+	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
+
+	if (props.horizontal_controls === 'bottom') {
+		return (
+			&lt;Container maxWidth="lg" className={classes.container}>
+				&lt;Grid container spacing={3}>
+					{/* Primary Information Paper (Maps, Graphs, etc.) */}
+					&lt;Grid item xs={12} md={8} lg={9}>
+						&lt;Paper className={fixedHeightPaper}>
+							{/* &lt;TweetChart chartType={props.chartType}/> */}
+							{props.children[0]}
+							{/**/}
+						&lt;/Paper>
+					&lt;/Grid>
+
+					{/* Secondary Information (Twitter Feed, Controls) */}
+					&lt;Grid item xs={12} md={4} lg={3}>
+						&lt;Paper className={fixedHeightPaper}>
+							{props.children[1]}
+						&lt;/Paper>
+					&lt;/Grid>
+
+					{/* Footer Controls */}
+					&lt;Grid item xs={12}>
+						&lt;Paper className={classes.paper}>
+							{props.children[2]}
+						&lt;/Paper>
+					&lt;/Grid>
+				&lt;/Grid>
+			&lt;/Container>
+		)
+	}
+	if (props.horizontal_controls === 'top') {
+		return (
+			&lt;Container maxWidth="lg" className={classes.container}>
+				&lt;Grid container spacing={3}>
+					{/* Header Controls */}
+					&lt;Grid item xs={12}>
+						&lt;Paper className={classes.paper}>
+							{props.children[2]}
+						&lt;/Paper>
+					&lt;/Grid>
+
+					{/* Primary Information Paper (Maps, Graphs, etc.) */}
+					&lt;Grid item xs={12} md={8} lg={8}>
+						&lt;Paper className={fixedHeightPaper}>
+							{/* &lt;TweetChart chartType={props.chartType}/> */}
+							{props.children[0]}
+							{/**/}
+						&lt;/Paper>
+					&lt;/Grid>
+
+					{/* Secondary Information (Twitter Feed, Controls) */}
+					&lt;Grid item xs={12} md={4} lg={4}>
+						&lt;Paper
+							className={fixedHeightPaper}
+							style={{ overflow: 'auto' }}
+						>
+							{props.children[1]}
+						&lt;/Paper>
+					&lt;/Grid>
+				&lt;/Grid>
+			&lt;/Container>
+		)
+	}
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Thu Dec 19 2019 22:27:09 GMT-0500 (Eastern Standard Time)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+        </p>
+    </div>
+</footer>
+
+
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

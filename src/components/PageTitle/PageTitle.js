@@ -6,7 +6,18 @@ import useStyles from './styles'
 // components
 import { Typography } from '../Wrappers/Wrappers'
 
-export default function PageTitle({title}) {
+/**
+ * Page Title component
+ * 
+ * @component
+ * @example
+ * const title = "exampleTitle"
+ * return (
+ *   <PageTitle title={title} />
+ * )
+ */
+
+const PageTitle = ({title}) => {
 	const classes = useStyles()
 
 	return (
@@ -17,3 +28,5 @@ export default function PageTitle({title}) {
 		</div>
 	)
 }
+
+export default PageTitle;

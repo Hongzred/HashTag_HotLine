@@ -58,16 +58,19 @@ describe('getUserHashtags function', () => {
 		expect(API.graphql).toHaveBeenCalledTimes(1)
 		expect(hashtags).toEqual([{  
             "id": "cb6302da-d528-491f-852c-6e082f528e9b",
-            "hashtag": "mta_hth_test",
             isInSettings: false,
+            "isSearchable": true,
+            "name": "mta_hth_test"
         },{
             "id": "8b673219-9e47-44f0-9e6b-9d857096785a",
-            "hashtag": "accident_hth_test",
-            isInSettings: true
+            isInSettings: true,
+            "isSearchable": true,
+            "name": "accident_hth_test"
         }, {
             "id": "4170a407-7a03-4029-899d-f40d948e3905",
-            "hashtag": "mta_hth",
-            "isInSettings": true
+            "isInSettings": true,
+            "isSearchable": true,
+            "name": "mta_hth"
         }])
 	})
 })

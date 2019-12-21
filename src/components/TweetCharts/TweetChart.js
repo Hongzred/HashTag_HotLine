@@ -5,7 +5,18 @@ import MonthTweetChart from './MonthTweetChart'
 import YearTweetChart from './YearTweetChart'
 
 // TweetChart component
-export default function TweetChart(props) {
+
+/**
+ * TweetChart Component
+ * 
+ * 	-this contains the chart for tweets
+ * @component
+ * @example
+ * 	return (
+	* 	<TweetChart />) 
+	*/
+
+const TweetChart = (props) => {
 	const { chartType } = props
 	if (chartType === 'Day') {
 		return <DayTweetChart />
@@ -19,4 +30,7 @@ export default function TweetChart(props) {
 	if (chartType === 'Year') {
 		return <YearTweetChart />
 	}
+	return <DayTweetChart/ >
 }
+
+export default TweetChart;

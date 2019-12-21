@@ -1,0 +1,199 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: components/Map/Map.js</title>
+
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./build/entry.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                     
+                        <h1 class="navbar-item">My React components</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Map.html">Map</a></li><li><a href="UserProvider.html">UserProvider</a></li></ul><h3>Components</h3><ul><li><a href="AppDescription.html">AppDescription</a></li><li><a href="DayTweetChart.html">DayTweetChart</a></li><li><a href="Documented.html">Documented</a></li><li><a href="GettingStarted.html">GettingStarted</a></li><li><a href="TweetChart.html">TweetChart</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Source</p>
+                        <h1>components/Map/Map.js</h1>
+                    </header>
+                    
+                    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import ReactMapGL, { Marker } from 'react-map-gl'
+import Pin from '../Pin/Pin'
+import MapPopup from '../MapPopup/MapPopup'
+
+/**
+ * GettingStarted Component
+ * 
+ * 	-this contains all user needs to know in order to use the app
+ * @param
+ * @param {number} width
+ * @param {number} height
+ * @param {number} latitude 
+ * @param {number} longitude 
+ * @param {number} zoom
+ * @param {object} issues Ex: [{location: { latitude: 40.73061, longitude: -73.935242 },description: 'description1',id: '123',},{location: { latitude: 40.74161, longitude: -73.946242 },description: 'description2',id: '321',},]
+ */
+class Map extends React.Component {
+	state = {
+		viewport: {
+			width: this.props.width,
+			height: this.props.height,
+			latitude: this.props.latitude,
+			longitude: this.props.longitude,
+			zoom: this.props.zoom,
+		},
+		popupInfo: null,
+	}
+
+	popupCloseHandler = () => {
+		this.setState({ popupInfo: null })
+	}
+
+	pinClickHandler(data) {
+		this.setState(prevState => {
+			return prevState.popupInfo
+				? { popupInfo: null }
+				: { popupInfo: data }
+		})
+	}
+
+	createMarkers(issues) {
+		if (issues) {
+			const markers = issues.map(
+				({
+					location: { longitude, latitude },
+					post: description,
+					id: _id,
+				}) => (
+					&lt;Marker
+						key={_id}
+						latitude={latitude}
+						longitude={longitude}
+						offsetLeft={-10}
+						offsetTop={-25}
+					>
+						&lt;Pin
+							key={_id}
+							pinClickHandler={this.pinClickHandler.bind(this, {
+								latitude,
+								longitude,
+								description,
+							})}
+						/>
+					&lt;/Marker>
+				),
+			)
+			return markers
+		}
+		return null
+	}
+
+	showPopUp() {
+		const { popupInfo } = this.state
+		return (
+			popupInfo &amp;&amp; (
+				&lt;MapPopup
+					longitude={popupInfo.longitude}
+					latitude={popupInfo.latitude}
+					description={popupInfo.description}
+					popupCloseHandler={this.popupCloseHandler}
+				/>
+			)
+		)
+	}
+
+	render() {
+		return (
+			&lt;ReactMapGL
+				mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+				mapStyle={
+					'mapbox://styles/hashtaghotline/ck267dj38ia161cowt67mt6lb' ||
+					'mapbox://styles/hashtaghotline/ck2672kf95t691cpknmnqqn2h'
+				}
+				{...this.state.viewport}
+				onViewportChange={viewport => this.setState({ viewport })}
+			>
+				{this.createMarkers(this.props.issues)}
+				{this.showPopUp()}
+			&lt;/ReactMapGL>
+		)
+	}
+}
+
+export default Map
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Thu Dec 19 2019 22:56:56 GMT-0500 (Eastern Standard Time)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+        </p>
+    </div>
+</footer>
+
+
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

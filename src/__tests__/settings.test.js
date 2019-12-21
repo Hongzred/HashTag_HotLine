@@ -46,7 +46,24 @@ describe('createUserSettings function', () => {
 		const settings = await createUserSettings(dbSettings.data.listSettings.items[0])
 		expect(API.graphql).toHaveBeenCalledTimes(0)
         expect(settings).toEqual({
-            hashtags: ["mta_hth_test","accident_hth_test","mta_hth"],
+            hashtags: [{
+                "id": "cb6302da-d528-491f-852c-6e082f528e9b",
+                "isInSettings": true,
+                "isSearchable": true,
+                "name": "mta_hth_test",
+              },
+              {
+                "id": "8b673219-9e47-44f0-9e6b-9d857096785a",
+                "isInSettings": true,
+                "isSearchable": true,
+                "name": "accident_hth_test",
+              },
+              {
+                "id": "4170a407-7a03-4029-899d-f40d948e3905",
+                "isInSettings": true,
+                "isSearchable": true,
+                "name": "mta_hth",
+             }],
             botMessage: "We are looking into this issue",
             settingsId: "749b2b0c-6f78-4592-b427-e222e1e9855c",
         })
@@ -64,9 +81,27 @@ describe('createUserSettings function', () => {
     		const settings = await createUserSettings(undefined)
 		expect(API.graphql).toHaveBeenCalledTimes(1)
         expect(settings).toEqual({
-            hashtags: ["mta_hth_test","accident_hth_test","mta_hth"],
+            hashtags: [{
+                       "id": "cb6302da-d528-491f-852c-6e082f528e9b",
+                       "isInSettings": true,
+                       "isSearchable": true,
+                       "name": "mta_hth_test",
+                     },
+                     {
+                       "id": "8b673219-9e47-44f0-9e6b-9d857096785a",
+                       "isInSettings": true,
+                       "isSearchable": true,
+                       "name": "accident_hth_test",
+                     },
+                     {
+                       "id": "4170a407-7a03-4029-899d-f40d948e3905",
+                       "isInSettings": true,
+                       "isSearchable": true,
+                       "name": "mta_hth",
+                    }],
             botMessage: "We are looking into this issue",
             settingsId: "749b2b0c-6f78-4592-b427-e222e1e9855c",
+            "resolvedMessage": undefined,
         })
 	})   
     

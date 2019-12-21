@@ -8,6 +8,7 @@ export const onCreateHashtag = `subscription OnCreateHashtag($owner: String!) {
     setting {
       id
       botMessage
+      resolvedMessage
       hashtags {
         nextToken
       }
@@ -31,6 +32,7 @@ export const onUpdateHashtag = `subscription OnUpdateHashtag($owner: String!) {
     setting {
       id
       botMessage
+      resolvedMessage
       hashtags {
         nextToken
       }
@@ -54,6 +56,7 @@ export const onDeleteHashtag = `subscription OnDeleteHashtag($owner: String!) {
     setting {
       id
       botMessage
+      resolvedMessage
       hashtags {
         nextToken
       }
@@ -180,6 +183,7 @@ export const onCreateReportHashtags = `subscription OnCreateReportHashtags($owne
       setting {
         id
         botMessage
+        resolvedMessage
         owner
       }
       reports {
@@ -220,6 +224,7 @@ export const onUpdateReportHashtags = `subscription OnUpdateReportHashtags($owne
       setting {
         id
         botMessage
+        resolvedMessage
         owner
       }
       reports {
@@ -260,6 +265,7 @@ export const onDeleteReportHashtags = `subscription OnDeleteReportHashtags($owne
       setting {
         id
         botMessage
+        resolvedMessage
         owner
       }
       reports {
@@ -275,6 +281,7 @@ export const onCreateSetting = `subscription OnCreateSetting($owner: String!) {
   onCreateSetting(owner: $owner) {
     id
     botMessage
+    resolvedMessage
     hashtags {
       items {
         id
@@ -291,6 +298,7 @@ export const onUpdateSetting = `subscription OnUpdateSetting($owner: String!) {
   onUpdateSetting(owner: $owner) {
     id
     botMessage
+    resolvedMessage
     hashtags {
       items {
         id
@@ -307,6 +315,7 @@ export const onDeleteSetting = `subscription OnDeleteSetting($owner: String!) {
   onDeleteSetting(owner: $owner) {
     id
     botMessage
+    resolvedMessage
     hashtags {
       items {
         id

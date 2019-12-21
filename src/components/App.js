@@ -42,6 +42,15 @@ const routes = [
 		page: Settings,
 	},
 ]
+/**
+ * App Component
+ * 
+ * 	-this contains route and global layout
+ * @summary this is our app component,
+ * @summary contains route and global layout
+ * 
+ *  
+ */
 
 const App = () => {
 	const navigation = routes.map(({ path, title }) => ({

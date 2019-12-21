@@ -97,8 +97,6 @@ The map reads from the same global state as the twitter feed, and so all tweets 
 ![image-20191221002258455](README_images/image-20191221002258455.png)
 
 
-
-
 ## Installation
 <a name="install"/>
 

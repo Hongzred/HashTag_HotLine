@@ -34,14 +34,25 @@ const useStyles = makeStyles({
 		height: '170px'
 	}
 })
-export default function GettingStarted() {
+
+/**
+ * GettingStarted Component
+ * 
+ * 	-this contains all user needs to know in order to use the app
+ * @component
+ * @example
+ * 	return (
+ * 	<GettingStarted />) 
+ */
+
+const GettingStarted = () => {
 	const classes = useStyles()
 
 	return (
 		<div className={classes.root}>
 			<h1>Getting Started</h1>
 			<Divider />
-			<Typography variant="body1" gutterBottom>
+			<Typography variant="body1" gutterBottom data-testid="gettingstarted">
 				<ol>
 					<li>Create an account using your email</li>
 					<li>
@@ -88,3 +99,5 @@ export default function GettingStarted() {
 		</div>
 	)
 }
+
+export default GettingStarted;

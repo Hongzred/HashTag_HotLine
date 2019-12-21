@@ -29,6 +29,7 @@ export const getHashtag = `query GetHashtag($id: ID!) {
     setting {
       id
       botMessage
+      resolvedMessage
       hashtags {
         nextToken
       }
@@ -57,6 +58,7 @@ export const listHashtags = `query ListHashtags(
       setting {
         id
         botMessage
+        resolvedMessage
         owner
       }
       reports {
@@ -129,6 +131,7 @@ export const getSetting = `query GetSetting($id: ID!) {
   getSetting(id: $id) {
     id
     botMessage
+    resolvedMessage
     hashtags {
       items {
         id
@@ -150,6 +153,7 @@ export const listSettings = `query ListSettings(
     items {
       id
       botMessage
+      resolvedMessage
       hashtags {
         nextToken
       }

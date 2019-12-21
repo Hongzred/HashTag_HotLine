@@ -1,9 +1,25 @@
 import React from 'react'
 import { Link, Typography } from '@material-ui/core'
 
-export default function Copyright() {
+/**
+ * Copyright Component
+ *
+ * this contains copyrights (project name & date)
+ * 
+ * @component copyright
+ * @example
+ * return (
+ * <Copyright/ >)
+ */
+
+const Copyright = () => {
 	return (
-		<Typography variant="body2" color="textSecondary" align="center"  data-testid="copyright">
+		<Typography
+			variant="body2"
+			color="textSecondary"
+			align="center"
+			data-testid="copyright"
+		>
 			{'Copyright © '}
 			<Link color="inherit" href="/">
 				Hashtag Hotline
@@ -13,3 +29,5 @@ export default function Copyright() {
 		</Typography>
 	)
 }
+
+export default Copyright;

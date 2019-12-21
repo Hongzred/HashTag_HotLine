@@ -27,7 +27,17 @@ import {
 
 // aws
 
-export default function Header() {
+/**
+ * Header Component
+ * 
+ * 	-this is our header
+ * @component
+ * @example
+ * return (
+ * 	<Header />) 
+ */
+
+const Header = () => {
 	const classes = useStyles()
 
 	// global
@@ -72,7 +82,7 @@ export default function Header() {
 					)}
 				</IconButton>
 				<Typography variant="h4" className={classes.logotype}>
-					Company Name
+					Hashtag Hotline
 				</Typography>
 				<div className={classes.grow} />
 				<IconButton
@@ -100,7 +110,7 @@ export default function Header() {
 				>
 					<div className={classes.profileMenuUser}>
 						<Typography variant="h4" weight="medium">
-							Company Name
+							Hashtag Hotline
 						</Typography>
 					</div>
 
@@ -118,3 +128,5 @@ export default function Header() {
 		</AppBar>
 	)
 }
+
+export default Header;
