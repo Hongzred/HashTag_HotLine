@@ -4,12 +4,13 @@
 - [Introduction](#headers) 
 - [A Tour of Core Features](#core)
 - [Installation](#install) 
-
+- [Contributing to this Project](#contrib)
+- [Tools and Libraries Used](#tools)
 
 ## Introduction
 <a name="introduction"/>
 
-HashTag Hotline is an online, location-based twitter communications application for NGO's in the [Global South](https://en.wikipedia.org/wiki/Global_South).  The idea is simple: during emergencies,  disaster victims [already turn to Twitter](https://blog.twitter.com/en_in/a/2016/twitter-for-crisis-and-disaster-relief-in.html) to report emergencies during hurricanes, earthquakes, and other natural disasters. Hastag Hotline is a purpose-built  twitter client for NGO's  that helps them easily locate problems using location data, and  keep constant communication with victims over twitter.
+HashTag Hotline is an online, location-based twitter communications application for NGO's in the [Global South](https://en.wikipedia.org/wiki/Global_South).  The idea is simple: during disasters,  disaster victims [already turn to Twitter](https://blog.twitter.com/en_in/a/2016/twitter-for-crisis-and-disaster-relief-in.html) to report emergencies during hurricanes, earthquakes, and other natural disasters. Hastag Hotline is a purpose-built  twitter client for NGO's  that helps them easily locate problems using location data, and  keep constant communication with victims over twitter.
 
 ![[speed output image]](README_images/ezgif-1-22fae63c1f7c.gif)
 
@@ -17,11 +18,11 @@ HashTag Hotline is an online, location-based twitter communications application 
 ## A Tour of Core Features
 <a name="core"/>
 
-The project is hosted [here](https://master.d2nb81n0vt6kb5.amplifyapp.com). We present a brief overview of our core features in this readme; for additional information, refer to the [here](https://hongzred.github.io/HashTag_HotLine/docs/index.html) for developer documentation.
+The project is hosted [here](https://master.d2nb81n0vt6kb5.amplifyapp.com). We present a brief overview of our core features in this readme; for additional information, click [here](https://hongzred.github.io/HashTag_HotLine/docs/index.html) for developer documentation.
 
 ### Filter
 
-Upon login, the user, who is principally a call center worker/ respondent, will be greeted with a dashboard containing a Map, a Feed and a Filter. 
+Upon login, the dashboard user, who is principally a call center worker/ respondent, will be greeted with a dashboard containing a Map, a Feed and a Filter. These components allow the dashboard user to narrow their focus to addressing tweets that contain a particular hashtag, or tweets localized to a particular geographic area. For example, you might want to filter tweets concerning flooding in one area, but electrical fires in another area.
 
 Filtering is accomplished by the tag cloud component at the top of the dashboard. The blue tags on the bottom of the component are persistent tags that represent the "Hotline" hashtag a twitter user might respond to in the case of an emergency. The blue tags are persistent from login session to login session.  Meanwhile, the gray hashtags on the top row allow the dashboard user to filter through relevant tweets. Suppose National Disaster Management Authority (NDMA India) wants to examine tweets addressed to their hotline, but contain the keyword "flood". They simply add a tag to filter in the top row.
 
@@ -59,11 +60,11 @@ Feed buttons (shown below) allow dashboard users  to answer the concerns of disa
 
 Suppose we receive the following tweet in our feed on our Hashtag Hotline Dashboard:
 
-![image-20191220185250357](README_images/image-20191220185250357.png)
+![image-20191221152754739](README_images/image-20191221152754739.png)
 
-Then,  in accordance with the Bot Response set in the settings page, the twitter user will see the following response on their device:
+Then, in accordance with the Bot Response set in the settings page, the twitter user will see the following response on their device:
 
-![image-20191220232456316](README_images/image-20191220232456316.png)
+![image-20191221152916292](README_images/image-20191221152916292.png)
 
 
 
@@ -74,7 +75,7 @@ Now we move to the **Resolved Button**, which is meant to inform the disaster vi
 ![[crop output image]](README_images/ezgif-1-b1bc7f9afb18.gif)
 
  If the dashboard user clicks send, then the twitter user will see a response to their tweet on their device:
- 
+
 ![image-20191220190800471](README_images/image-20191220190800471.png)
 
 
@@ -95,7 +96,6 @@ Finally, the spam button simply marks a specific tweet as spam so that it will n
 The map reads from the same global state as the twitter feed, and so all tweets that appear on the filter are also present on the map. This can help disaster workers pinpoint multiple calls for help within the same geographical area. 
 
 ![image-20191221002258455](README_images/image-20191221002258455.png)
-
 
 ## Installation
 <a name="install"/>
@@ -132,3 +132,23 @@ After Amplify has been set up, you can finally start the development server. Bef
 ![image-20191221002258455dd](https://i.imgur.com/eG0A3XD.png)
 
 including unit tests, integration tests and e2e test
+
+## Contributing to this Project
+
+<a name="contrib"/>
+
+Before contributing, you should be aware of Hashtag Hotline's technology stack and platform architecture. As is shown in the diagram below, we have a React front-end that communicates to DynamoDB Database through CRUD operations (which are graphQL utility functions defined in the files in `/src/crud`.)  All tweets that match the filters specified by the dashboard user are stored in the database, because records must be kept during emergency scenarios about who's calls for help were answered and who's weren't directly addressed (and why.) The lambda functions, which are defined in `/amplify/backend/function` are written locally and then pushed to aws lambda using amplify. It's these lambda functions that interact with the twitter api to fetch and respond to tweets.
+
+![img](README_images/w7_1.JPG)
+
+If you see a feature that you would like to implement, fork this repository and make a detailed pull request. See Marc Diethelm's guide on [How to make a clean pull request](https://github.com/MarcDiethelm/contributing/blob/master/README.md) before making your first PR.
+
+## Tools and Libraries Used
+<a name="tools"/>
+
+- [React](https://reactjs.org/docs/getting-started.html) (Including [React Context](https://reactjs.org/docs/context.html#___gatsby))
+- [Material UI](https://material-ui.com/getting-started/installation/)
+- [GraphQL](https://graphql.org/)
+- [Amplify](https://aws-amplify.github.io/docs/cli-toolchain/quickstart),  [S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html) , [DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html), [Lambda](https://docs.aws.amazon.com/lambda/latest/dg/getting-started.html)
+- [Husky](https://github.com/typicode/husky#readme)
+- [JSDoc](https://github.com/jsdoc/jsdoc#readme)
