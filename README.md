@@ -3,7 +3,7 @@
 <a name="toc"/>
 
 ## Project Documentation Contents  
-- [Introduction](#introduction) 
+- [About This Project](#introduction) 
 - [A Tour of Core Features](#core)
 - [Installation](#install) 
 - [Contributing to this Project](#contrib)
@@ -11,7 +11,7 @@
 
 <a name="introduction"/>
 
-## Introduction[↰](#toc)
+## About This Project[↰](#toc)
 
 
 HashTag Hotline is an online, location-based twitter communications application for NGO's in the [Global South](https://en.wikipedia.org/wiki/Global_South).  The idea is simple: during disasters,  disaster victims [already turn to Twitter](https://blog.twitter.com/en_in/a/2016/twitter-for-crisis-and-disaster-relief-in.html) to report emergencies during hurricanes, earthquakes, and other natural disasters. Hastag Hotline is a purpose-built  twitter client for NGO's  that helps them easily locate problems using location data, and  keep constant communication with victims over twitter.
