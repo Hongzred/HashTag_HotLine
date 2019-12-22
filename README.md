@@ -1,22 +1,27 @@
 # HashTag HotLine
 
+<a name="toc"/>
+
 ## Project Documentation Contents  
-- [Introduction](#headers) 
+- [Introduction](#introduction) 
 - [A Tour of Core Features](#core)
 - [Installation](#install) 
 - [Contributing to this Project](#contrib)
 - [Tools and Libraries Used](#tools)
 
-## Introduction
 <a name="introduction"/>
+
+## Introduction[↰](#toc)
+
 
 HashTag Hotline is an online, location-based twitter communications application for NGO's in the [Global South](https://en.wikipedia.org/wiki/Global_South).  The idea is simple: during disasters,  disaster victims [already turn to Twitter](https://blog.twitter.com/en_in/a/2016/twitter-for-crisis-and-disaster-relief-in.html) to report emergencies during hurricanes, earthquakes, and other natural disasters. Hastag Hotline is a purpose-built  twitter client for NGO's  that helps them easily locate problems using location data, and  keep constant communication with victims over twitter.
 
 ![[speed output image]](README_images/ezgif-1-22fae63c1f7c.gif)
 
-
-## A Tour of Core Features
 <a name="core"/>
+
+## A Tour of Core Features[↰](#toc)
+
 
 The project is hosted [here](https://master.d2nb81n0vt6kb5.amplifyapp.com). We present a brief overview of our core features in this readme; for additional information, click [here](https://hongzred.github.io/HashTag_HotLine/docs/index.html) for developer documentation.
 
@@ -97,8 +102,10 @@ The map reads from the same global state as the twitter feed, and so all tweets 
 
 ![image-20191221002258455](README_images/image-20191221002258455.png)
 
-## Installation
 <a name="install"/>
+
+## Installation[↰](#toc)
+
 
 After cloning this repository, reach out to one of the project maintainers, who should provide you with the following necessary configuration and keyfiles. All files, except the IAM credentials file,  should be copied into the directories in which they belong. The contents of the IAM credentials file will just be copy-pasted during the amplify setup process. Here are the files you should receive:
 - an `aws-exports` file, which belongs in `/src/aws-exports`
@@ -133,9 +140,9 @@ After Amplify has been set up, you can finally start the development server. Bef
 
 including unit tests, integration tests and e2e test
 
-## Contributing to this Project
-
 <a name="contrib"/>
+
+## Contributing to this Project[↰](#toc)
 
 Before contributing, you should be aware of Hashtag Hotline's technology stack and platform architecture. As is shown in the diagram below, we have a React front-end that communicates to DynamoDB Database through CRUD operations (which are graphQL utility functions defined in the files in `/src/crud`.)  All tweets that match the filters specified by the dashboard user are stored in the database, because records must be kept during emergency scenarios about who's calls for help were answered and who's weren't directly addressed (and why.) The lambda functions, which are defined in `/amplify/backend/function` are written locally and then pushed to aws lambda using amplify. It's these lambda functions that interact with the twitter api to fetch and respond to tweets.
 
@@ -143,8 +150,9 @@ Before contributing, you should be aware of Hashtag Hotline's technology stack a
 
 If you see a feature that you would like to implement, fork this repository and make a detailed pull request. See Marc Diethelm's guide on [How to make a clean pull request](https://github.com/MarcDiethelm/contributing/blob/master/README.md) before making your first PR.
 
-## Tools and Libraries Used
 <a name="tools"/>
+
+## Tools and Libraries Used[↰](#toc)
 
 - [React](https://reactjs.org/docs/getting-started.html) (Including [React Context](https://reactjs.org/docs/context.html#___gatsby))
 - [Material UI](https://material-ui.com/getting-started/installation/)
